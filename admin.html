@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Tik Tak Trading & Contracting</title>
+    <title>Admin Dashboard - TIC TAC Trading & Contracting</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,7 +16,6 @@
             --border: #e5e7eb;
             --radius: 14px;
         }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg-gradient);
@@ -25,7 +24,6 @@
             padding: 30px 15px;
             min-height: 100vh;
         }
-
         .container {
             max-width: 1200px;
             background: var(--card-bg);
@@ -35,15 +33,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
-
-        h2 {
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 24px;
-        }
-
-        /* أدوات الفرز والتصفية */
+        h2 { color: var(--primary); text-align: center; margin-bottom: 25px; font-size: 24px; }
         .filters {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -54,117 +44,27 @@
             border-radius: 10px;
             border: 1px solid var(--border);
         }
-
-        .filter-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
+        .filter-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; }
         .filter-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: #fff;
-            font-size: 14px;
-            font-family: inherit;
-            color: var(--text-main);
-            outline: none;
-            transition: border-color 0.2s;
+            width: 100%; padding: 10px; border: 1px solid var(--border);
+            border-radius: 8px; background: #fff; font-size: 14px; outline: none;
         }
-
-        .filter-group select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        /* جدول البيانات */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            white-space: nowrap;
-        }
-
-        th, td {
-            border: 1px solid var(--border);
-            padding: 12px 15px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        th {
-            background-color: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fcfcfc;
-        }
-
-        tr:hover {
-            background-color: #f1f5f9;
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        /* أزرار الإدارة */
-        .actions-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .btn-reset {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-
-        .btn-reset:hover {
-            background: #dc2626;
-        }
-
-        .back-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; white-space: nowrap; }
+        th, td { border: 1px solid var(--border); padding: 12px 15px; text-align: left; font-size: 14px; }
+        th { background-color: var(--primary); color: white; font-weight: 600; }
+        tr:nth-child(even) { background-color: #fcfcfc; }
+        tr:hover { background-color: #f1f5f9; }
+        .no-data { text-align: center; padding: 30px; color: var(--text-muted); font-style: italic; }
+        .actions-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; flex-wrap: wrap; gap: 15px; }
+        .btn-reset { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; }
+        .btn-reset:hover { background: #dc2626; }
+        .back-link { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h2>Tik Tak Dashboard - Applications Management</h2>
-    
-    <!-- أدوات الفرز -->
+    <h2>TIC TAC Dashboard - Applications Management</h2>
     <div class="filters">
         <div class="filter-group">
             <label>Filter by Nationality:</label>
@@ -188,8 +88,6 @@
             </select>
         </div>
     </div>
-
-    <!-- جدول عرض الطلبات -->
     <div class="table-responsive">
         <table>
             <thead>
@@ -204,37 +102,28 @@
                     <th>Submission Date</th>
                 </tr>
             </thead>
-            <tbody id="tableBody">
-                <!-- البيانات تُعبأ تلقائياً هنا -->
-            </tbody>
+            <tbody id="tableBody"></tbody>
         </table>
     </div>
-
-    <!-- أزرار أسفل اللوحة -->
     <div class="actions-bar">
         <a href="index.html" class="back-link">← Back to Application Form</a>
         <button class="btn-reset" onclick="clearData()">Clear All Data</button>
     </div>
 </div>
-
 <script>
     let allApplications = [];
-
     function loadData() {
-        allApplications = JSON.parse(localStorage.getItem('tikTakApplications')) || [];
+        allApplications = JSON.parse(localStorage.getItem('TICTACApplications')) || [];
         populateFilters();
         displayData(allApplications);
     }
-
     function displayData(data) {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-
         if (data.length === 0) {
             tbody.innerHTML = `<tr><td colspan="8" class="no-data">No applications recorded yet.</td></tr>`;
             return;
         }
-
         data.forEach(app => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -250,58 +139,38 @@
             tbody.appendChild(tr);
         });
     }
-
     function populateFilters() {
         const nationalities = [...new Set(allApplications.map(app => app.nationality))];
         const jobs = [...new Set(allApplications.map(app => app.jobTitle))];
-
         const natSelect = document.getElementById('filterNationality');
         const jobSelect = document.getElementById('filterJob');
-
         natSelect.innerHTML = '<option value="">All Nationalities</option>';
-        nationalities.forEach(nat => {
-            natSelect.innerHTML += `<option value="${nat}">${nat}</option>`;
-        });
-
+        nationalities.forEach(nat => { natSelect.innerHTML += `<option value="${nat}">${nat}</option>`; });
         jobSelect.innerHTML = '<option value="">All Positions</option>';
-        jobs.forEach(job => {
-            jobSelect.innerHTML += `<option value="${job}">${job}</option>`;
-        });
+        jobs.forEach(job => { jobSelect.innerHTML += `<option value="${job}">${job}</option>`; });
     }
-
     function filterData() {
         const selectedNat = document.getElementById('filterNationality').value;
         const selectedJob = document.getElementById('filterJob').value;
         const selectedAgeRange = document.getElementById('filterAge').value;
-
         let filtered = allApplications.filter(app => {
             let matchNat = selectedNat === "" || app.nationality === selectedNat;
             let matchJob = selectedJob === "" || app.jobTitle === selectedJob;
             let matchAge = true;
-
-            if (selectedAgeRange === "under30") {
-                matchAge = app.age < 30;
-            } else if (selectedAgeRange === "30to40") {
-                matchAge = app.age >= 30 && app.age <= 40;
-            } else if (selectedAgeRange === "above40") {
-                matchAge = app.age > 40;
-            }
-
+            if (selectedAgeRange === "under30") matchAge = app.age < 30;
+            else if (selectedAgeRange === "30to40") matchAge = app.age >= 30 && app.age <= 40;
+            else if (selectedAgeRange === "above40") matchAge = app.age > 40;
             return matchNat && matchJob && matchAge;
         });
-
         displayData(filtered);
     }
-
     function clearData() {
         if (confirm('Are you sure you want to clear all stored applications?')) {
-            localStorage.removeItem('tikTakApplications');
+            localStorage.removeItem('TICTACApplications');
             loadData();
         }
     }
-
     window.onload = loadData;
 </script>
-
 </body>
 </html>
