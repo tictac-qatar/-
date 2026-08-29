@@ -28,7 +28,7 @@
         }
 
         .admin-wrapper {
-            max-width: 1350px;
+            max-width: 1400px;
             margin: 0 auto;
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -150,6 +150,26 @@
             color: var(--accent);
         }
 
+        .cv-link {
+            background: #0f172a;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .cv-link:hover {
+            background: var(--accent);
+        }
+
+        .no-cv {
+            color: var(--text-muted);
+            font-size: 0.85srem;
+        }
+
         .no-data {
             text-align: center;
             padding: 30px;
@@ -219,6 +239,7 @@
                     <th id="thPhone">رقم التواصل</th>
                     <th id="thPos">الوظيفة</th>
                     <th id="thExp">نبذة الخبرة</th>
+                    <th id="thCv">السيرة الذاتية</th>
                     <th id="thStatus">إقامة / رخصة / سيارة</th>
                 </tr>
             </thead>
@@ -237,7 +258,8 @@
             fPos: "تصفية حسب الوظيفة",
             fAge: "تصفية حسب الفئة العمرية",
             thName: "الاسم", thAge: "العمر", thNat: "الجنسية", thPhone: "رقم التواصل",
-            thPos: "الوظيفة", thExp: "نبذة الخبرة", thStatus: "إقامة / رخصة / سيارة",
+            thPos: "الوظيفة", thExp: "نبذة الخبرة", thCv: "السيرة الذاتية", thStatus: "إقامة / رخصة / سيارة",
+            noCv: "لا يوجد", downloadBtn: "تحميل CV",
             noData: "لا توجد طلبات مسجلة حتى الآن."
         },
         en: {
@@ -246,7 +268,8 @@
             fPos: "Filter by Position",
             fAge: "Filter by Age Group",
             thName: "Name", thAge: "Age", thNat: "Nationality", thPhone: "Contact",
-            thPos: "Position", thExp: "Experience", thStatus: "Res / Lic / Car",
+            thPos: "Position", thExp: "Experience", thCv: "CV / Resume", thStatus: "Res / Lic / Car",
+            noCv: "None", downloadBtn: "Download CV",
             noData: "No applications registered yet."
         },
         ur: {
@@ -255,7 +278,8 @@
             fPos: "عہدے کے لحاظ سے فلٹر کریں",
             fAge: "عمر کے لحاظ سے فلٹر کریں",
             thName: "نام", thAge: "عمر", thNat: "قومیت", thPhone: "رابطہ نمبر",
-            thPos: "عہدہ", thExp: "تجربہ", thStatus: "اقامہ / لائسنس / گاڑی",
+            thPos: "عہدہ", thExp: "تجربہ", thCv: "سی وی (CV)", thStatus: "اقامہ / لائسنس / گاڑی",
+            noCv: "کوئی نہیں", downloadBtn: "ڈاؤن لوڈ کریں",
             noData: "ابھی تک کوئی درخواست درج نہیں ہے۔"
         }
     };
@@ -292,6 +316,7 @@
         document.getElementById('thPhone').innerText = t.thPhone;
         document.getElementById('thPos').innerText = t.thPos;
         document.getElementById('thExp').innerText = t.thExp;
+        document.getElementById('thCv').innerText = t.thCv;
         document.getElementById('thStatus').innerText = t.thStatus;
 
         renderTable();
@@ -324,11 +349,18 @@
         });
 
         if (filtered.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="7" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="8" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
             return;
         }
 
+        const t = adminDict[currentLang];
+
         filtered.forEach(app => {
+            let cvCell = `<span class="no-cv">${t.noCv}</span>`;
+            if (app.cvData) {
+                cvCell = `<a href="${app.cvData}" download="${app.cvName || 'CV'}" class="cv-link">${t.downloadBtn}</a>`;
+            }
+
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td><strong>${app.name}</strong></td>
@@ -337,13 +369,13 @@
                 <td class="phone-highlight">${app.phone}</td>
                 <td><span class="badge-position">${app.position}</span></td>
                 <td>${app.experience || '-'}</td>
+                <td>${cvCell}</td>
                 <td>${app.qatarId} / ${app.license} / ${app.car}</td>
             `;
             tableBody.appendChild(tr);
         });
     }
 
-    // تحميل البيانات عند فتح الصفحة
     window.onload = renderTable;
 </script>
 </body>
