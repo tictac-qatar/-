@@ -28,7 +28,7 @@
         }
 
         .admin-wrapper {
-            max-width: 1400px;
+            max-width: 1450px;
             margin: 0 auto;
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -167,7 +167,47 @@
 
         .no-cv {
             color: var(--text-muted);
-            font-size: 0.85srem;
+        }
+
+        /* تنسيق أزرار الإجراءات والحالات */
+        .actions-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-select {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+
+        /* ألوان قائمة الحالة */
+        .status-green { background-color: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+        .status-yellow { background-color: #fef3c7; color: #92400e; border-color: #fde68a; }
+        .status-red { background-color: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        .status-default { background-color: #f8fafc; color: var(--text-main); }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #991b1b;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-delete:hover {
+            background: #fecaca;
         }
 
         .no-data {
@@ -240,7 +280,8 @@
                     <th id="thPos">الوظيفة</th>
                     <th id="thExp">نبذة الخبرة</th>
                     <th id="thCv">السيرة الذاتية</th>
-                    <th id="thStatus">إقامة / رخصة / سيارة</th>
+                    <th id="thStatusInfo">إقامة / رخصة / سيارة</th>
+                    <th id="thActions">إجراءات المتابعة</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -258,8 +299,10 @@
             fPos: "تصفية حسب الوظيفة",
             fAge: "تصفية حسب الفئة العمرية",
             thName: "الاسم", thAge: "العمر", thNat: "الجنسية", thPhone: "رقم التواصل",
-            thPos: "الوظيفة", thExp: "نبذة الخبرة", thCv: "السيرة الذاتية", thStatus: "إقامة / رخصة / سيارة",
+            thPos: "الوظيفة", thExp: "نبذة الخبرة", thCv: "السيرة الذاتية", thStatusInfo: "إقامة / رخصة / سيارة", thActions: "إجراءات المتابعة",
             noCv: "لا يوجد", downloadBtn: "تحميل CV",
+            optDefault: "اختر الحالة...", optGreen: "🟢 مقبول (موافق)", optYellow: "🟡 قيد المراجعة", optRed: "🔴 مرفوض",
+            deleteBtn: "حذف",
             noData: "لا توجد طلبات مسجلة حتى الآن."
         },
         en: {
@@ -268,8 +311,10 @@
             fPos: "Filter by Position",
             fAge: "Filter by Age Group",
             thName: "Name", thAge: "Age", thNat: "Nationality", thPhone: "Contact",
-            thPos: "Position", thExp: "Experience", thCv: "CV / Resume", thStatus: "Res / Lic / Car",
+            thPos: "Position", thExp: "Experience", thCv: "CV / Resume", thStatusInfo: "Res / Lic / Car", thActions: "Actions",
             noCv: "None", downloadBtn: "Download CV",
+            optDefault: "Status...", optGreen: "🟢 Accepted", optYellow: "🟡 Reviewing", optRed: "🔴 Rejected",
+            deleteBtn: "Delete",
             noData: "No applications registered yet."
         },
         ur: {
@@ -278,7 +323,7 @@
             fPos: "عہدے کے لحاظ سے فلٹر کریں",
             fAge: "عمر کے لحاظ سے فلٹر کریں",
             thName: "نام", thAge: "عمر", thNat: "قومیت", thPhone: "رابطہ نمبر",
-            thPos: "عہدہ", thExp: "تجربہ", thCv: "سی وی (CV)", thStatus: "اقامہ / لائسنس / گاڑی",
+            thPos: "عہدہ", thExp: "تجربہ", thCv: "سی وی (CV)", thStatusInfo: "اقامہ / لائسنس / گاڑی", thActions: "کارروائی",
             noCv: "کوئی نہیں", downloadBtn: "ڈاؤن لوڈ کریں",
             noData: "ابھی تک کوئی درخواست درج نہیں ہے۔"
         }
@@ -317,7 +362,8 @@
         document.getElementById('thPos').innerText = t.thPos;
         document.getElementById('thExp').innerText = t.thExp;
         document.getElementById('thCv').innerText = t.thCv;
-        document.getElementById('thStatus').innerText = t.thStatus;
+        document.getElementById('thStatusInfo').innerText = t.thStatusInfo;
+        document.getElementById('thActions').innerText = t.thActions;
 
         renderTable();
     }
@@ -330,6 +376,22 @@
         return '';
     }
 
+    function updateStatus(index, value) {
+        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        if (applicants[index]) {
+            applicants[index].status = value;
+            localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+            renderTable(); // إعادة الرسم لتحديث لون القائمة المنسدلة فوراً
+        }
+    }
+
+    function deleteApplicant(index) {
+        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        applicants.splice(index, 1); // حذف العنصر المحدد
+        localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+        renderTable();
+    }
+
     function renderTable() {
         const tableBody = document.getElementById('tableBody');
         const applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
@@ -340,7 +402,7 @@
 
         tableBody.innerHTML = '';
 
-        const filtered = applicants.filter(app => {
+        const filtered = applicants.map((app, originalIndex) => ({ app, originalIndex })).filter(({ app }) => {
             const ageGrp = getAgeGroup(app.age);
             const matchN = !natFilter || app.nationality === natFilter;
             const matchP = !posFilter || app.position === posFilter;
@@ -349,17 +411,23 @@
         });
 
         if (filtered.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="8" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="9" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
             return;
         }
 
         const t = adminDict[currentLang];
 
-        filtered.forEach(app => {
+        filtered.forEach(({ app, originalIndex }) => {
             let cvCell = `<span class="no-cv">${t.noCv}</span>`;
             if (app.cvData) {
                 cvCell = `<a href="${app.cvData}" download="${app.cvName || 'CV'}" class="cv-link">${t.downloadBtn}</a>`;
             }
+
+            // تحديد لون القائمة بناءً على الحالة المخزنة
+            let statusClass = 'status-default';
+            if (app.status === 'green') statusClass = 'status-green';
+            else if (app.status === 'yellow') statusClass = 'status-yellow';
+            else if (app.status === 'red') statusClass = 'status-red';
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -371,6 +439,17 @@
                 <td>${app.experience || '-'}</td>
                 <td>${cvCell}</td>
                 <td>${app.qatarId} / ${app.license} / ${app.car}</td>
+                <td>
+                    <div class="actions-cell">
+                        <select class="status-select ${statusClass}" onchange="updateStatus(${originalIndex}, this.value)">
+                            <option value="" ${!app.status ? 'selected' : ''}>${t.optDefault || 'اختر الحالة...'}</option>
+                            <option value="green" ${app.status === 'green' ? 'selected' : ''}>🟢 مقبول</option>
+                            <option value="yellow" ${app.status === 'yellow' ? 'selected' : ''}>🟡 قيد المراجعة</option>
+                            <option value="red" ${app.status === 'red' ? 'selected' : ''}>🔴 مرفوض</option>
+                        </select>
+                        <button class="btn-delete" onclick="deleteApplicant(${originalIndex})">${t.deleteBtn || 'حذف'}</button>
+                    </div>
+                </td>
             `;
             tableBody.appendChild(tr);
         });
