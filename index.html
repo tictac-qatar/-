@@ -9,104 +9,109 @@
         :root {
             --primary: #1e3a8a;
             --accent: #2563eb;
-            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             --card-bg: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border: #e5e7eb;
-            --radius: 16px;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --radius: 18px;
         }
         body {
             font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
             background: var(--bg-gradient);
             color: var(--text-main);
             margin: 0;
-            padding: 30px 15px;
+            padding: 40px 15px;
             min-height: 100vh;
         }
         .container {
-            max-width: 750px;
+            max-width: 780px;
             background: var(--card-bg);
             margin: 0 auto;
-            padding: 40px;
+            padding: 45px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.9);
         }
         .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 15px;
+            padding-bottom: 20px;
         }
         .company-title {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 700;
             color: var(--primary);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
         .lang-select-wrapper select {
             appearance: none;
             background-color: #f8fafc;
             border: 1px solid var(--border);
-            padding: 8px 36px 8px 14px;
-            border-radius: 8px;
+            padding: 9px 38px 9px 15px;
+            border-radius: 10px;
             font-size: 13px;
             font-weight: 600;
             color: var(--text-main);
             cursor: pointer;
             outline: none;
+            transition: all 0.2s;
         }
-        h2 { text-align: center; color: var(--primary); margin-bottom: 25px; font-size: 24px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        .lang-select-wrapper select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 30px; font-size: 26px; }
+        .form-group { margin-bottom: 22px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: #334155; }
         input[type="text"], input[type="tel"], input[type="date"], select, textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 13px 16px;
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
-            background-color: #fcfcfc;
+            background-color: #f8fafc;
             outline: none;
             box-sizing: border-box;
             font-family: inherit;
+            transition: all 0.2s;
         }
         input:focus, select:focus, textarea:focus {
             border-color: var(--accent);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
         .file-upload-box {
             border: 2px dashed var(--border);
-            padding: 20px;
+            padding: 22px;
             text-align: center;
-            border-radius: 10px;
-            background: #fafafa;
+            border-radius: 12px;
+            background: #f8fafc;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        .file-upload-box:hover { background: #f4f6f8; border-color: var(--accent); }
+        .file-upload-box:hover { background: #f1f5f9; border-color: var(--accent); }
         .btn-submit {
             background: var(--primary);
             color: white;
             border: none;
             width: 100%;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s;
+            margin-top: 15px;
+            transition: background 0.2s, transform 0.1s;
         }
         .btn-submit:hover { background: var(--accent); }
-        .admin-link-container { text-align: center; margin-top: 20px; }
-        .admin-link { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600; }
+        .btn-submit:active { transform: scale(0.99); }
+        .admin-link-container { text-align: center; margin-top: 25px; }
+        .admin-link { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
         .admin-link:hover { color: var(--primary); text-decoration: underline; }
         .success-msg {
-            display: none; background: #ecfdf5; color: #065f46; padding: 15px;
-            border-radius: 10px; text-align: center; font-weight: 600; margin-bottom: 20px;
+            display: none; background: #ecfdf5; color: #065f46; padding: 16px;
+            border-radius: 12px; text-align: center; font-weight: 600; margin-bottom: 22px;
             border: 1px solid #a7f3d0;
         }
     </style>
@@ -360,7 +365,8 @@
         const nationality = document.getElementById('nationality').value;
         const phone = document.getElementById('phone').value;
         const jobTitleSelect = document.getElementById('jobTitle');
-        const jobTitle = jobTitleSelect.options[jobTitleSelect.selectedIndex].text.split('/')[0].trim();
+        const jobTitle = jobTitleSelect.options[jobTitleSelect.selectedIndex].text; // حفظ النص كاملاً بوضوح
+
         const experience = document.getElementById('experience').value;
         const cvFile = document.getElementById('cvFile').files[0];
         const cvFileName = cvFile ? cvFile.name : "No file";
