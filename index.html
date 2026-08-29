@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tic tac for building maintenance</title>
     <style>
-        /* استدعاء خط لوسيل والخطوط العصرية البديلة */
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
         :root {
@@ -44,7 +43,6 @@
             overflow: hidden;
         }
 
-        /* شريط العنوان العلوي ومبدل اللغات */
         .header-bar {
             background: var(--primary);
             color: #ffffff;
@@ -60,7 +58,6 @@
             font-size: 1.25rem;
             margin: 0 0 5px 0;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         .brand-info p {
@@ -92,10 +89,8 @@
         .lang-btn.active {
             background: var(--accent);
             color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* نموذج الإدخال */
         .form-content {
             padding: 35px;
         }
@@ -132,7 +127,6 @@
             color: var(--text-main);
             box-sizing: border-box;
             font-family: inherit;
-            transition: all 0.2s ease;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -141,7 +135,6 @@
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
-        /* حاوية الخيارات الثنائية (نعم / لا) */
         .option-box {
             background: #f8fafc;
             border: 1.5px solid var(--border);
@@ -224,8 +217,6 @@
             body { padding: 10px; }
             .form-grid { grid-template-columns: 1fr; }
             .full-width, .submit-container { grid-column: span 1; }
-            .header-bar { padding: 20px; }
-            .form-content { padding: 20px; }
         }
     </style>
 </head>
@@ -237,7 +228,6 @@
             <h1 id="mainTitle">tic tac for building maintenance</h1>
             <p id="subTitle">بوابة طلبات التوظيف والمشاركة التشغيلية الشاملة</p>
         </div>
-        <!-- أزرار تبديل اللغات -->
         <div class="lang-switcher">
             <button class="lang-btn active" onclick="switchLanguage('ar')" id="bAr">عربي</button>
             <button class="lang-btn" onclick="switchLanguage('en')" id="bEn">English</button>
@@ -251,6 +241,11 @@
             <div class="form-group">
                 <label id="lblName">الاسم الكامل</label>
                 <input type="text" id="fullName" required placeholder="أدخل اسمك الثلاثي أو الرباعي">
+            </div>
+
+            <div class="form-group">
+                <label id="lblAge">العمر (السن)</label>
+                <input type="number" id="age" required placeholder="مثال: 32" min="18" max="70">
             </div>
 
             <div class="form-group">
@@ -276,7 +271,7 @@
                 <input type="tel" id="phone" required placeholder="+974 XXXXXXXX">
             </div>
 
-            <div class="form-group">
+            <div class="form-group full-width">
                 <label id="lblPosition">الوظيفة المتقدم لها</label>
                 <select id="position" required>
                     <option value="">اختر الوظيفة المناسبة</option>
@@ -317,17 +312,12 @@
                 <textarea id="experience" rows="3" placeholder="ذكر سنوات الخبرة وأبرز المشاريع السابقة..."></textarea>
             </div>
 
-            <div class="form-group full-width">
-                <label id="lblCV">رفع السيرة الذاتية (CV / Resume)</label>
-                <input type="file" id="cvFile" accept=".pdf,.doc,.docx">
-            </div>
-
             <div class="form-group">
                 <div class="option-box">
-                    <label id="lblQatarID">هل لديك إقامة قطرية قابلة للتحويل أو سارية؟</label>
+                    <label id="lblQatarID">هل لديك إقامة قطرية سارية؟</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="qatarId" value="Yes" required> <span id="y1">نعم</span></label>
-                        <label><input type="radio" name="qatarId" value="No"> <span id="n1">لا</span></label>
+                        <label><input type="radio" name="qatarId" value="نعم" required> <span>نعم</span></label>
+                        <label><input type="radio" name="qatarId" value="لا"> <span>لا</span></label>
                     </div>
                 </div>
             </div>
@@ -336,18 +326,18 @@
                 <div class="option-box">
                     <label id="lblLicense">هل لديك رخصة قيادة قطرية؟</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="license" value="Yes" required> <span id="y2">نعم</span></label>
-                        <label><input type="radio" name="license" value="No"> <span id="n2">لا</span></label>
+                        <label><input type="radio" name="license" value="نعم" required> <span>نعم</span></label>
+                        <label><input type="radio" name="license" value="لا"> <span>لا</span></label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group full-width">
                 <div class="option-box">
-                    <label id="lblCar">هل تتوفر لديك سيارة خاصة للانتقال للمواقع؟</label>
+                    <label id="lblCar">هل تتوفر لديك سيارة خاصة؟</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="car" value="Yes" required> <span id="y3">نعم</span></label>
-                        <label><input type="radio" name="car" value="No"> <span id="n3">لا</span></label>
+                        <label><input type="radio" name="car" value="نعم" required> <span>نعم</span></label>
+                        <label><input type="radio" name="car" value="لا"> <span>لا</span></label>
                     </div>
                 </div>
             </div>
@@ -371,16 +361,15 @@
             subTitle: "بوابة طلبات التوظيف والمشاركة التشغيلية الشاملة",
             lblName: "الاسم الكامل",
             phName: "أدخل اسمك الثلاثي أو الرباعي",
+            lblAge: "العمر (السن)",
             lblNationality: "الجنسية",
             lblPhone: "رقم الهاتف / الواتساب",
             lblPosition: "الوظيفة المتقدم لها",
             lblExp: "نبذة مختصرة عن الخبرات السابقة",
             phExp: "ذكر سنوات الخبرة وأبرز المشاريع السابقة...",
-            lblCV: "رفع السيرة الذاتية (CV / Resume)",
-            lblQatarID: "هل لديك إقامة قطرية قابلة للتحويل أو سارية؟",
+            lblQatarID: "هل لديك إقامة قطرية سارية؟",
             lblLicense: "هل لديك رخصة قيادة قطرية؟",
-            lblCar: "هل تتوفر لديك سيارة خاصة للانتقال للمواقع؟",
-            yes: "نعم", no: "لا",
+            lblCar: "هل تتوفر لديك سيارة خاصة؟",
             btnSubmit: "إرسال الطلب الآن",
             success: "تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا!",
             footer: 'للدعم والاستفسار المباشر: <a href="tel:66608077">66608077</a> (اتصال / واتساب)'
@@ -389,16 +378,15 @@
             subTitle: "Comprehensive Employment & Operational Portal",
             lblName: "Full Name",
             phName: "Enter your full name",
+            lblAge: "Age",
             lblNationality: "Nationality",
             lblPhone: "Phone / WhatsApp Number",
             lblPosition: "Position Applied For",
             lblExp: "Brief Summary of Experience",
             phExp: "Mention years of experience and key projects...",
-            lblCV: "Upload CV / Resume",
             lblQatarID: "Do you have a Qatari residency permit?",
             lblLicense: "Do you have a Qatari driving license?",
-            lblCar: "Do you have a private car for site commuting?",
-            yes: "Yes", no: "No",
+            lblCar: "Do you have a private car?",
             btnSubmit: "Submit Application",
             success: "Application submitted successfully! We will contact you soon.",
             footer: 'Direct Support: <a href="tel:66608077">66608077</a> (Call / WhatsApp)'
@@ -407,19 +395,18 @@
             subTitle: "ملازمتی اور آپریشنل پورٹل",
             lblName: "पूरा नाम (Full Name)",
             phName: "اپنا پورا نام درج کریں",
+            lblAge: "عمر",
             lblNationality: "قومیت (Nationality)",
             lblPhone: "رابطہ نمبر / واٹس ایپ",
             lblPosition: "درخواست کردہ عہدہ (Position)",
             lblExp: "تجربے کا مختصر خلاصہ",
             phExp: "اپنے تجربے کے بارے میں لکھیں...",
-            lblCV: "سی وی اپ لوڈ کریں (CV Upload)",
             lblQatarID: "کیا آپ کے پاس قطری اقامہ ہے؟",
             lblLicense: "کیا آپ کے پاس قطری ڈرائیونگ لائسنس ہے؟",
             lblCar: "کیا آپ کے پاس ذاتی گاڑی ہے؟",
-            yes: "ہاں (Yes)", no: "نہیں (No)",
             btnSubmit: "درخواست جمع کروائیں",
             success: "آپ کی درخواست کامیابی سے جمع ہو گئی ہے!",
-            footer: 'رابطہ کریں: <a href="tel:66608077">66608077</a> (کال / واٹس ایپ)'
+            footer: 'رابطہ کریں: <a href="tel:66608077">66608077</a> (کال یا واٹس ایپ)'
         }
     };
 
@@ -445,18 +432,15 @@
         document.getElementById('subTitle').innerText = t.subTitle;
         document.getElementById('lblName').innerText = t.lblName;
         document.getElementById('fullName').placeholder = t.phName;
+        document.getElementById('lblAge').innerText = t.lblAge;
         document.getElementById('lblNationality').innerText = t.lblNationality;
         document.getElementById('lblPhone').innerText = t.lblPhone;
         document.getElementById('lblPosition').innerText = t.lblPosition;
         document.getElementById('lblExp').innerText = t.lblExp;
         document.getElementById('experience').placeholder = t.phExp;
-        document.getElementById('lblCV').innerText = t.lblCV;
         document.getElementById('lblQatarID').innerText = t.lblQatarID;
         document.getElementById('lblLicense').innerText = t.lblLicense;
         document.getElementById('lblCar').innerText = t.lblCar;
-        document.getElementById('y1').innerText = t.yes; document.getElementById('n1').innerText = t.no;
-        document.getElementById('y2').innerText = t.yes; document.getElementById('n2').innerText = t.no;
-        document.getElementById('y3').innerText = t.yes; document.getElementById('n3').innerText = t.no;
         document.getElementById('btnSubmit').innerText = t.btnSubmit;
         document.getElementById('successMessage').innerText = t.success;
         document.getElementById('footerText').innerHTML = t.footer;
@@ -464,6 +448,28 @@
 
     function handleFormSubmit(e) {
         e.preventDefault();
+
+        // تجميع بيانات المتقدم
+        const applicant = {
+            name: document.getElementById('fullName').value,
+            age: document.getElementById('age').value,
+            nationality: document.getElementById('nationality').value,
+            phone: document.getElementById('phone').value,
+            position: document.getElementById('position').value,
+            experience: document.getElementById('experience').value,
+            qatarId: document.querySelector('input[name="qatarId"]:checked').value,
+            license: document.querySelector('input[name="license"]:checked').value,
+            car: document.querySelector('input[name="car"]:checked').value
+        };
+
+        // جلب الطلبات السابقة من الذاكرة المحلية أو إنشاء مصفوفة جديدة
+        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        applicants.push(applicant);
+        
+        // حفظ القائمة المحدثة
+        localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+
+        // إظهار رسالة النجاح وتفريغ الحقول
         const msg = document.getElementById('successMessage');
         msg.style.display = 'block';
         setTimeout(() => {
