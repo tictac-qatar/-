@@ -129,6 +129,12 @@
             font-family: inherit;
         }
 
+        input[type="file"] {
+            padding: 9px;
+            background: #f8fafc;
+            cursor: pointer;
+        }
+
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--border-focus);
@@ -312,6 +318,12 @@
                 <textarea id="experience" rows="3" placeholder="ذكر سنوات الخبرة وأبرز المشاريع السابقة..."></textarea>
             </div>
 
+            <!-- حقل إرفاق السيرة الذاتية -->
+            <div class="form-group full-width">
+                <label id="lblCv">إرفاق السيرة الذاتية (CV / PDF أو صورة)</label>
+                <input type="file" id="cvFile" accept=".pdf,image/*">
+            </div>
+
             <div class="form-group">
                 <div class="option-box">
                     <label id="lblQatarID">هل لديك إقامة قطرية سارية؟</label>
@@ -367,6 +379,7 @@
             lblPosition: "الوظيفة المتقدم لها",
             lblExp: "نبذة مختصرة عن الخبرات السابقة",
             phExp: "ذكر سنوات الخبرة وأبرز المشاريع السابقة...",
+            lblCv: "إرفاق السيرة الذاتية (CV / PDF أو صورة)",
             lblQatarID: "هل لديك إقامة قطرية سارية؟",
             lblLicense: "هل لديك رخصة قيادة قطرية؟",
             lblCar: "هل تتوفر لديك سيارة خاصة؟",
@@ -384,6 +397,7 @@
             lblPosition: "Position Applied For",
             lblExp: "Brief Summary of Experience",
             phExp: "Mention years of experience and key projects...",
+            lblCv: "Upload CV (PDF or Image)",
             lblQatarID: "Do you have a Qatari residency permit?",
             lblLicense: "Do you have a Qatari driving license?",
             lblCar: "Do you have a private car?",
@@ -394,13 +408,14 @@
         ur: {
             subTitle: "ملازمتی اور آپریشنل پورٹل",
             lblName: "पूरा नाम (Full Name)",
-            phName: "اپنا پورا نام درج کریں",
+            phName: "अपना پورا نام درج کریں",
             lblAge: "عمر",
             lblNationality: "قومیت (Nationality)",
             lblPhone: "رابطہ نمبر / واٹس ایپ",
             lblPosition: "درخواست کردہ عہدہ (Position)",
             lblExp: "تجربے کا مختصر خلاصہ",
             phExp: "اپنے تجربے کے بارے میں لکھیں...",
+            lblCv: "سی وی اپ لوڈ کریں (CV)",
             lblQatarID: "کیا آپ کے پاس قطری اقامہ ہے؟",
             lblLicense: "کیا آپ کے پاس قطری ڈرائیونگ لائسنس ہے؟",
             lblCar: "کیا آپ کے پاس ذاتی گاڑی ہے؟",
@@ -438,6 +453,7 @@
         document.getElementById('lblPosition').innerText = t.lblPosition;
         document.getElementById('lblExp').innerText = t.lblExp;
         document.getElementById('experience').placeholder = t.phExp;
+        document.getElementById('lblCv').innerText = t.lblCv;
         document.getElementById('lblQatarID').innerText = t.lblQatarID;
         document.getElementById('lblLicense').innerText = t.lblLicense;
         document.getElementById('lblCar').innerText = t.lblCar;
@@ -449,7 +465,22 @@
     function handleFormSubmit(e) {
         e.preventDefault();
 
-        // تجميع بيانات المتقدم
+        const fileInput = document.getElementById('cvFile');
+        const file = fileInput.files[0];
+
+        // دالة لتحويل الملف المرفوع إلى نص Base64 ليتم تخزينه في الذاكرة المحلية
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(uploadEvent) {
+                saveData(uploadEvent.target.result, file.name);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            saveData(null, null);
+        }
+    }
+
+    function saveData(fileData, fileName) {
         const applicant = {
             name: document.getElementById('fullName').value,
             age: document.getElementById('age').value,
@@ -457,19 +488,17 @@
             phone: document.getElementById('phone').value,
             position: document.getElementById('position').value,
             experience: document.getElementById('experience').value,
+            cvData: fileData,
+            cvName: fileName,
             qatarId: document.querySelector('input[name="qatarId"]:checked').value,
             license: document.querySelector('input[name="license"]:checked').value,
             car: document.querySelector('input[name="car"]:checked').value
         };
 
-        // جلب الطلبات السابقة من الذاكرة المحلية أو إنشاء مصفوفة جديدة
         let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
         applicants.push(applicant);
-        
-        // حفظ القائمة المحدثة
         localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
 
-        // إظهار رسالة النجاح وتفريغ الحقول
         const msg = document.getElementById('successMessage');
         msg.style.display = 'block';
         setTimeout(() => {
