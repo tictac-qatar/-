@@ -125,28 +125,40 @@
             <label id="lblJob">Filter by Job Title:</label>
             <select id="filterJob" onchange="filterData()">
                 <option value="" id="optAllJob">All Positions</option>
-                <optgroup label="Engineering Roles / الوظائف الهندسية" id="grpEng">
-                    <option value="Project Manager">Project Manager / مدير مشروع</option>
-                    <option value="Construction Manager">Construction Manager / مدير إنشاءات</option>
-                    <option value="Architectural Engineer">Architectural Engineer / مهندس معماري</option>
-                    <option value="Civil Engineer">Civil Engineer / مهندس مدني</option>
-                    <option value="Structural Engineer">Structural Engineer / مهندس إنشائي</option>
-                    <option value="MEP Engineer">MEP Engineer / مهندس كهروميكانيك MEP</option>
-                    <option value="Electrical Engineer">Electrical Engineer / مهندس كهرباء</option>
-                    <option value="Mechanical Engineer">Mechanical Engineer / مهندس ميكانيكا</option>
-                    <option value="Quantity Surveyor (QS)">Quantity Surveyor (QS) / مهندس حصر كميات</option>
-                    <option value="Planning / Cost Control Engineer">Planning / Cost Control Engineer / مهندس تخطيط ومراقبة تكاليف</option>
-                    <option value="QA/QC Engineer">QA/QC Engineer / مهندس جودة QA/QC</option>
-                    <option value="HSE / Safety Engineer">HSE / Safety Engineer / مهندس ألام والسلامة المهنية HSE</option>
-                    <option value="Site Engineer">Site Engineer / مهندس موقع</option>
-                </optgroup>
-                <optgroup label="Technical & Supervisory Roles / الوظائف الفنية والإشرافية" id="grpTech">
-                    <option value="Architectural Drafter / BIM Modeler">Architectural Drafter / BIM Modeler / رسام معماري / نمذجة معلومات البناء BIM</option>
-                    <option value="Senior General Foreman">Senior General Foreman / مقاول عام / فورمان رئيسي</option>
+                <optgroup label="Supervisors & Foremen / المشرفون والفورمان">
+                    <option value="General Foreman">General Foreman / فورمان عام</option>
                     <option value="Civil Site Supervisor">Civil Site Supervisor / مراقب موقع مدني</option>
-                    <option value="Surveyor">Surveyor / مساح أراضي</option>
-                    <option value="Material Controller">Material Controller / مسؤل تحكم ومستودعات مواد</option>
-                    <option value="Foreman (Carpentry / Steel)">Foreman (Carpentry / Steel) / فورمان نجارة أو تسليح حديد</option>
+                    <option value="Carpenter Foreman">Carpenter Foreman / فورمان نجارة مسلحة</option>
+                    <option value="Steel Fixing Foreman">Steel Fixing Foreman / فورمان حداد تسليح</option>
+                    <option value="Masonry/Plaster Foreman">Masonry & Plaster Foreman / فورمان بناء وتلبيس</option>
+                    <option value="MEP Supervisor">MEP Supervisor / مراقب كهروميكانيك MEP</option>
+                    <option value="Safety Supervisor">Safety Supervisor / مراقب أمن وسلامة HSE</option>
+                </optgroup>
+                <optgroup label="Skilled Technicians & Craftsmen / الفنيون والحرفيون المهرة">
+                    <option value="Shuttering Carpenter">Shuttering Carpenter / نجار مسلح</option>
+                    <option value="Steel Fixer">Steel Fixer / حداد تسليح</option>
+                    <option value="Mason / Bricklayer">Mason / Bricklayer / بنّاء / معلم طوب</option>
+                    <option value="Plasterer / Finisher">Plasterer / Finisher / معلّم مساح وتلييس</option>
+                    <option value="Tile Setter / Marble Fixer">Tile Setter & Marble Fixer / معلّم سيراميك ورخام</option>
+                    <option value="Painter / Finisher">Painter / Finisher / دهّان / فني تشطيبات</option>
+                    <option value="Gypsum Board Technician">Gypsum Board Technician / فني جبس بورد (سقف معلق)</option>
+                    <option value="Electrician">Electrician / كهربائي موقع وبناء</option>
+                    <option value="Plumber / Pipe Fitter">Plumber / Pipe Fitter / سباك / فني صحي</option>
+                    <option value="Welder / Fabricator">Welder / Fabricator / لحّام / فني تشكيل معادن</option>
+                    <option value="HVAC Technician">HVAC Technician / فني تكييف وتبريد</option>
+                    <option value="Scaffolder">Scaffolder / فني سقالات (سكافولدر)</option>
+                </optgroup>
+                <optgroup label="Equipment Operators & Drivers / مشغلو المعدات والسائقون">
+                    <option value="Crane Operator">Crane Operator / مشغل رافعة (كرين)</option>
+                    <option value="Excavator / Loader Operator">Excavator / Loader Operator / مشغل حفار وجرافة (بوكات/بيكو)</option>
+                    <option value="Forklift Operator">Forklift Operator / مشغل رافعة شوكية (فوركلفت)</option>
+                    <option value="Heavy Bus/Truck Driver">Heavy Bus / Truck Driver / سائق شاحنة أو باص ثقيل</option>
+                    <option value="Light Vehicle Driver">Light Vehicle Driver / سائق مركبة خفيفة</option>
+                </optgroup>
+                <optgroup label="General Workers / العمالة العادية">
+                    <option value="Construction General Worker">Construction General Worker / عامل إنشاءات وبناء عادي</option>
+                    <option value="Loading & Unloading Helper">Loading & Unloading Helper / عامل تحميل وتنزيل مواد</option>
+                    <option value="Site Cleaner / Housekeeping">Site Cleaner / Housekeeping / عامل نظافة ترتيب موقع</option>
                 </optgroup>
             </select>
         </div>
@@ -201,7 +213,7 @@
         },
         ar: {
             dir: "rtl", font: "'Cairo', sans-serif",
-            title: "لوحة تحكم TIC TAC - إدارة الطلبات",
+            title: "لوحة تحكم TIC TAC - إدارة الطلبات (العمال والفنيين)",
             lblNat: "تصفية حسب الجنسية:", optAllNat: "كل الجنسيات",
             lblJob: "تصفية حسب الوظيفة:", optAllJob: "كل الوظائف",
             lblAge: "تصفية حسب العمر:", optAllAge: "كل الأعمار",
