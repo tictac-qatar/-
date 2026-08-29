@@ -3,223 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tik Tak Trading & Contracting - Partnership & Job Application</title>
-    <!-- استيراد خطوط جوجل -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <title>Tik Tak Trading & Contracting - Partnership Application</title>
+    <!-- استيراد خطوط جوجل الحديثة -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cairo:wght@400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0056b3;
-            --secondary-color: #f4f7f6;
-            --text-color: #333;
+            --primary: #1e3a8a;
+            --primary-hover: #1e40af;
+            --accent: #2563eb;
+            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --radius: 14px;
         }
+
         body {
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
+            font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .container {
-            max-width: 700px;
-            background: #fff;
-            margin: 0 auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+        .wrapper {
+            width: 100%;
+            max-width: 680px;
         }
-        /* شريط اختيار اللغة في الأعلى */
-        .lang-switcher {
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        /* شريط اختيار اللغة العصري */
+        .top-bar {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-        .lang-switcher select {
-            padding: 6px 12px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            cursor: pointer;
-            background: #fff;
-        }
-        h2 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 14px;
-            color: #666;
             margin-bottom: 25px;
         }
-        .form-group {
-            margin-bottom: 20px;
+
+        .lang-select-wrapper {
+            position: relative;
+            display: inline-block;
         }
+
+        .lang-select-wrapper select {
+            appearance: none;
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 8px 36px 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-select-wrapper select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .lang-select-wrapper::after {
+            content: '▼';
+            font-size: 10px;
+            color: var(--text-muted);
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        [dir="ltr"] .lang-select-wrapper::after {
+            left: auto;
+            right: 12px;
+        }
+
+        /* رأس الصفحة */
+        .header-section {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* الحقول والنماذج */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
         label {
             display: block;
             font-weight: 600;
+            font-size: 14px;
             margin-bottom: 8px;
+            color: #374151;
         }
+
         input[type="text"],
         input[type="date"],
         input[type="tel"],
-        select,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
             box-sizing: border-box;
             font-size: 15px;
+            background-color: #fafafa;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
         textarea {
             resize: vertical;
-            height: 100px;
+            height: 110px;
         }
+
+        /* تصميم زر رفع الملفات العصري */
+        .file-upload-box {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .file-upload-box:hover {
+            border-color: var(--accent);
+            background: #f0f6ff;
+        }
+
         input[type="file"] {
-            padding: 5px;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
         }
-        button {
-            background-color: var(--primary-color);
+
+        .file-upload-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* زر الإرسال */
+        button[type="submit"] {
+            background: var(--accent);
             color: white;
             padding: 14px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 10px;
             width: 100%;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            margin-top: 10px;
         }
-        button:hover {
-            background-color: #004085;
+
+        button[type="submit"]:hover {
+            background: var(--primary-hover);
         }
+
+        button[type="submit"]:active {
+            transform: scale(0.98);
+        }
+
+        /* معلومات التواصل السفلى */
         .contact-info {
             text-align: center;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            font-size: 15px;
-            color: #444;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text-muted);
         }
+
         .contact-info a {
-            color: #25d366;
+            color: #10b981;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* تجاوب الشاشات الصغيرة */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- قائمة تغيير اللغة من الأعلى -->
-    <div class="lang-switcher">
-        <select id="languageSelect" onchange="changeLanguage()">
-            <option value="en" selected>English</option>
-            <option value="ar">العربية</option>
-            <option value="ur">اردو</option>
-        </select>
-    </div>
-
-    <h2 id="compTitle">Tik Tak Trading & Contracting</h2>
-    <div class="subtitle" id="compSub">Partnership & Job Application Form</div>
-
-    <form id="applicationForm" onsubmit="submitForm(event)">
-        
-        <!-- الاسم -->
-        <div class="form-group">
-            <label id="labelName">Full Name:</label>
-            <input type="text" id="fullName" required placeholder="Enter your full name">
+<div class="wrapper">
+    <div class="card">
+        <!-- شريط اللغة -->
+        <div class="top-bar">
+            <div class="lang-select-wrapper">
+                <select id="languageSelect" onchange="changeLanguage()">
+                    <option value="en" selected>English</option>
+                    <option value="ar">العربية</option>
+                    <option value="ur">اردو</option>
+                </select>
+            </div>
         </div>
 
-        <!-- تاريخ الميلاد -->
-        <div class="form-group">
-            <label id="labelDob">Date of Birth:</label>
-            <input type="date" id="dob" required>
+        <div class="header-section">
+            <h2 id="compTitle">Tik Tak Trading & Contracting</h2>
+            <div class="subtitle" id="compSub">Partnership & Job Application Form</div>
         </div>
 
-        <!-- الجنسيه -->
-        <div class="form-group">
-            <label id="labelNationality">Nationality:</label>
-            <input type="text" id="nationality" required placeholder="e.g., Qatari, Egyptian, Indian ...">
+        <form id="applicationForm" onsubmit="submitForm(event)">
+            
+            <!-- الاسم -->
+            <div class="form-group">
+                <label id="labelName">Full Name</label>
+                <input type="text" id="fullName" required placeholder="Enter your full name">
+            </div>
+
+            <!-- تاريخ الميلاد -->
+            <div class="form-group">
+                <label id="labelDob">Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+
+            <!-- الجنسيه -->
+            <div class="form-group">
+                <label id="labelNationality">Nationality</label>
+                <input type="text" id="nationality" required placeholder="e.g., Qatari, Egyptian, Indian ...">
+            </div>
+
+            <!-- رقم التواصل -->
+            <div class="form-group">
+                <label id="labelPhone">Contact Number</label>
+                <input type="tel" id="phone" required placeholder="00974XXXXXXXX">
+            </div>
+
+            <!-- الوظيفه -->
+            <div class="form-group">
+                <label id="labelJob">Job Title / Position</label>
+                <input type="text" id="jobTitle" required placeholder="e.g., Engineer, Technician, Admin ...">
+            </div>
+
+            <!-- نبذه عن خبراتك فى العمل الفعلى -->
+            <div class="form-group">
+                <label id="labelExp">Brief about your practical work experience</label>
+                <textarea id="experience" required placeholder="Write briefly about your previous work experience..."></textarea>
+            </div>
+
+            <!-- لتحميل ملف سيره ذاتيه -->
+            <div class="form-group">
+                <label id="labelCv">Upload CV (PDF, DOC)</label>
+                <div class="file-upload-box">
+                    <span class="file-upload-text" id="fileText">Click or drag file to upload CV</span>
+                    <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required onchange="updateFileName(this)">
+                </div>
+            </div>
+
+            <!-- زر تقديم طلب -->
+            <button type="submit" id="submitBtn">Submit Application</button>
+
+        </form>
+
+        <!-- معلومات التواصل -->
+        <div class="contact-info" id="contactText">
+            For inquiries (Call / WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>
         </div>
-
-        <!-- رقم التواصل -->
-        <div class="form-group">
-            <label id="labelPhone">Contact Number:</label>
-            <input type="tel" id="phone" required placeholder="00974XXXXXXXX">
-        </div>
-
-        <!-- الوظيفه -->
-        <div class="form-group">
-            <label id="labelJob">Job Title / Position:</label>
-            <input type="text" id="jobTitle" required placeholder="e.g., Engineer, Technician, Admin ...">
-        </div>
-
-        <!-- نبذه عن خبراتك فى العمل الفعلى -->
-        <div class="form-group">
-            <label id="labelExp">Brief about your practical work experience:</label>
-            <textarea id="experience" required placeholder="Write briefly about your previous work experience..."></textarea>
-        </div>
-
-        <!-- لتحميل ملف سيره ذاتيه -->
-        <div class="form-group">
-            <label id="labelCv">Upload CV:</label>
-            <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required>
-        </div>
-
-        <!-- زر تقديم طلب -->
-        <button type="submit" id="submitBtn">Submit Application</button>
-
-    </form>
-
-    <!-- معلومات التواصل المطلوبة -->
-    <div class="contact-info" id="contactText">
-        For inquiries and contact (Call or WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>
     </div>
 </div>
 
 <script>
-    // النصوص الخاصة باللغات الثلاث (اللغة الإنجليزية أساسية وافتراضية)
     const translations = {
         en: {
             dir: "ltr",
-            font: "'Poppins', sans-serif",
+            font: "'Plus Jakarta Sans', sans-serif",
             compTitle: "Tik Tak Trading & Contracting",
             compSub: "Partnership & Job Application Form",
-            labelName: "Full Name:",
+            labelName: "Full Name",
             phName: "Enter your full name",
-            labelDob: "Date of Birth:",
-            labelNationality: "Nationality:",
+            labelDob: "Date of Birth",
+            labelNationality: "Nationality",
             phNationality: "e.g., Qatari, Egyptian, Indian ...",
-            labelPhone: "Contact Number:",
-            labelJob: "Job Title / Position:",
+            labelPhone: "Contact Number",
+            labelJob: "Job Title / Position",
             phJob: "e.g., Engineer, Technician, Admin ...",
-            labelExp: "Brief about your practical work experience:",
+            labelExp: "Brief about your practical work experience",
             phExp: "Write briefly about your previous work experience...",
-            labelCv: "Upload CV:",
+            labelCv: "Upload CV (PDF, DOC)",
+            fileText: "Click or drag file to upload CV",
             submitBtn: "Submit Application",
-            contactText: 'For inquiries and contact (Call or WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
+            contactText: 'For inquiries (Call / WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
             successMsg: "Application submitted successfully! Thank you."
         },
         ar: {
             dir: "rtl",
             font: "'Cairo', sans-serif",
             compTitle: "شركة تيك تاك للتجارة والمقاولات",
-            compSub: "نموذج طلب مشاركة",
-            labelName: "الاسم الكامل:",
+            compSub: "نموذج طلب مشاركة وعمل",
+            labelName: "الاسم الكامل",
             phName: "أدخل اسمك الكامل",
-            labelDob: "تاريخ الميلاد:",
-            labelNationality: "الجنسية:",
+            labelDob: "تاريخ الميلاد",
+            labelNationality: "الجنسية",
             phNationality: "مثال: قطري، مصري، هندي ...",
-            labelPhone: "رقم التواصل:",
-            labelJob: "الوظيفة المطلوبة / الحالية:",
+            labelPhone: "رقم التواصل",
+            labelJob: "الوظيفة المطلوبة / الحالية",
             phJob: "مثال: مهندس، فني، إداري ...",
-            labelExp: "نبذة عن خبراتك في العمل الفعلي:",
+            labelExp: "نبذة عن خبراتك في العمل الفعلي",
             phExp: "اكتب باختصار عن خبراتك السابقة في مجال العمل...",
-            labelCv: "تحميل ملف السيرة الذاتية (CV):",
-            submitBtn: "تقديم طلب",
-            contactText: 'للاستفسار والتواصل (اتصال أو واتساب): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
+            labelCv: "تحميل السيرة الذاتية (CV)",
+            fileText: "انقر لاختيار ملف السيرة الذاتية",
+            submitBtn: "تقديم الطلب",
+            contactText: 'للاستفسار والتواصل (اتصال / واتساب): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
             successMsg: "تم تقديم الطلب بنجاح! شكراً لك."
         },
         ur: {
@@ -227,19 +377,20 @@
             font: "'Noto Nastaliq Urdu', serif",
             compTitle: "ٹیک ٹیک ٹریڈنگ اینڈ کنٹریکٹنگ",
             compSub: "پارٹنرشپ اور جاب ایپلیکیشن فارم",
-            labelName: "پورا نام:",
+            labelName: "پورا نام",
             phName: "اپنا پورا نام درج کریں",
-            labelDob: "تاریخ پیدائش:",
-            labelNationality: "قومیت:",
+            labelDob: "تاریخ پیدائش",
+            labelNationality: "قومیت",
             phNationality: "مثلا: قطری، مصری، ہندوستانی ...",
-            labelPhone: "رابطہ نمبر:",
-            labelJob: "عہدہ / ملازمت کی پوزیشن:",
+            labelPhone: "رابطہ نمبر",
+            labelJob: "عہدہ / ملازمت کی پوزیشن",
             phJob: "مثلا: انجینئر، ٹیکنیشن، ایڈمن ...",
-            labelExp: "عملی تجربے کا خلاصہ:",
+            labelExp: "عملی تجربے کا خلاصہ",
             phExp: "اپنے پچھلے کام کے تجربے کے بارے میں مختصر لکھیں...",
-            labelCv: "سی وی اپ لوڈ کریں:",
+            labelCv: "سی وی اپ لوڈ کریں (PDF, DOC)",
+            fileText: "فائل منتخب کرنے کے لیے یہاں کلک کریں",
             submitBtn: "درخواست جمع کرائیں",
-            contactText: 'انکوائری اور رابطہ (کال یا واٹس ایپ): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
+            contactText: 'انکوائری اور رابطہ (کال / واٹس ایپ): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
             successMsg: "درخواست کامیابی کے ساتھ جمع ہو گئی ہے! شکریہ."
         }
     };
@@ -265,8 +416,16 @@
         document.getElementById('labelExp').innerText = t.labelExp;
         document.getElementById('experience').placeholder = t.phExp;
         document.getElementById('labelCv').innerText = t.labelCv;
+        document.getElementById('fileText').innerText = t.fileText;
         document.getElementById('submitBtn').innerText = t.submitBtn;
         document.getElementById('contactText').innerHTML = t.contactText;
+    }
+
+    function updateFileName(input) {
+        if (input.files && input.files[0]) {
+            const fileName = input.files[0].name;
+            document.getElementById('fileText').innerText = "✓ " + fileName;
+        }
     }
 
     function submitForm(event) {
@@ -282,12 +441,11 @@
         const cvFileInput = document.getElementById('cvFile');
         const cvFileName = cvFileInput.files.length > 0 ? cvFileInput.files[0].name : "No file";
 
-        // حساب السن تلقائياً
         const birthDate = new Date(dob);
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
         const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        if (m < 0 || (m === 0 && today.getDate() - birthDate.getDate() < 0)) {
             age--;
         }
 
@@ -310,6 +468,7 @@
 
         alert(translations[lang].successMsg);
         document.getElementById('applicationForm').reset();
+        document.getElementById('fileText').innerText = translations[lang].fileText;
     }
 </script>
 
