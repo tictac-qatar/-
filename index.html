@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شركة تيك تاك للتجارة والمقاولات - طلب مشاركة</title>
+    <title>Tik Tak Trading & Contracting - Partnership & Job Application</title>
+    <!-- استيراد خطوط جوجل -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,7 +13,7 @@
             --text-color: #333;
         }
         body {
-            font-family: 'Cairo', 'Poppins', sans-serif;
+            font-family: 'Poppins', 'Cairo', sans-serif;
             background-color: var(--secondary-color);
             color: var(--text-color);
             margin: 0;
@@ -25,6 +26,20 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        /* شريط اختيار اللغة في الأعلى */
+        .lang-switcher {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .lang-switcher select {
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            cursor: pointer;
+            background: #fff;
         }
         h2 {
             text-align: center;
@@ -44,16 +59,6 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-        }
-        .lang-sub {
-            display: block;
-            font-size: 13px;
-            color: #555;
-            font-weight: normal;
-        }
-        .urdu-text {
-            font-family: 'Noto Nastaliq Urdu', serif;
-            direction: rtl;
         }
         input[type="text"],
         input[type="date"],
@@ -102,98 +107,172 @@
             text-decoration: none;
             font-weight: bold;
         }
-        .admin-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .admin-link a {
-            color: #666;
-            font-size: 13px;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>شركة تيك تاك للتجارة والمقاولات</h2>
-    <div class="subtitle">نموذج طلب مشاركة / Partnership & Job Application Form</div>
+    <!-- قائمة تغيير اللغة من الأعلى -->
+    <div class="lang-switcher">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en" selected>English</option>
+            <option value="ar">العربية</option>
+            <option value="ur">اردو</option>
+        </select>
+    </div>
+
+    <h2 id="compTitle">Tik Tak Trading & Contracting</h2>
+    <div class="subtitle" id="compSub">Partnership & Job Application Form</div>
 
     <form id="applicationForm" onsubmit="submitForm(event)">
         
+        <!-- الاسم -->
         <div class="form-group">
-            <label>
-                الاسم الكامل:
-                <span class="lang-sub">Full Name / پورا نام</span>
-            </label>
-            <input type="text" id="fullName" required placeholder="أدخل اسمك الكامل">
+            <label id="labelName">Full Name:</label>
+            <input type="text" id="fullName" required placeholder="Enter your full name">
         </div>
 
+        <!-- تاريخ الميلاد -->
         <div class="form-group">
-            <label>
-                تاريخ الميلاد:
-                <span class="lang-sub">Date of Birth / تاریخ پیدائش</span>
-            </label>
+            <label id="labelDob">Date of Birth:</label>
             <input type="date" id="dob" required>
         </div>
 
+        <!-- الجنسيه -->
         <div class="form-group">
-            <label>
-                الجنسية:
-                <span class="lang-sub">Nationality / قومیت</span>
-            </label>
-            <input type="text" id="nationality" required placeholder="مثال: قطري، مصري، هندي ...">
+            <label id="labelNationality">Nationality:</label>
+            <input type="text" id="nationality" required placeholder="e.g., Qatari, Egyptian, Indian ...">
         </div>
 
+        <!-- رقم التواصل -->
         <div class="form-group">
-            <label>
-                رقم التواصل:
-                <span class="lang-sub">Contact Number / رابطہ نمبر</span>
-            </label>
+            <label id="labelPhone">Contact Number:</label>
             <input type="tel" id="phone" required placeholder="00974XXXXXXXX">
         </div>
 
+        <!-- الوظيفه -->
         <div class="form-group">
-            <label>
-                الوظيفة المطلوبة / الحالية:
-                <span class="lang-sub">Job Title / عہدہ</span>
-            </label>
-            <input type="text" id="jobTitle" required placeholder="مثال: مهندس، فني، إداري ...">
+            <label id="labelJob">Job Title / Position:</label>
+            <input type="text" id="jobTitle" required placeholder="e.g., Engineer, Technician, Admin ...">
         </div>
 
+        <!-- نبذه عن خبراتك فى العمل الفعلى -->
         <div class="form-group">
-            <label>
-                نبذة عن خبراتك في العمل الفعلي:
-                <span class="lang-sub">Brief about your practical work experience / عملی تجربے کا خلاصہ</span>
-            </label>
-            <textarea id="experience" required placeholder="اكتب باختصار عن خبراتك السابقة في مجال العمل..."></textarea>
+            <label id="labelExp">Brief about your practical work experience:</label>
+            <textarea id="experience" required placeholder="Write briefly about your previous work experience..."></textarea>
         </div>
 
+        <!-- لتحميل ملف سيره ذاتيه -->
         <div class="form-group">
-            <label>
-                تحميل ملف السيرة الذاتية (CV):
-                <span class="lang-sub">Upload CV / سی وی اپ لوڈ کریں</span>
-            </label>
+            <label id="labelCv">Upload CV:</label>
             <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <button type="submit">تقديم طلب / Submit Application</button>
+        <!-- زر تقديم طلب -->
+        <button type="submit" id="submitBtn">Submit Application</button>
 
     </form>
 
-    <div class="contact-info">
-        للاستفسار والتواصل (اتصال أو واتساب): <a href="https://wa.me/97466608077" target="_blank">66608077</a>
-    </div>
-
-    <div class="admin-link">
-        <a href="admin.html" target="_blank">عرض لوحة التحكم (إدارة الطلبات)</a>
+    <!-- معلومات التواصل المطلوبة -->
+    <div class="contact-info" id="contactText">
+        For inquiries and contact (Call or WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>
     </div>
 </div>
 
 <script>
+    // النصوص الخاصة باللغات الثلاث (اللغة الإنجليزية أساسية وافتراضية)
+    const translations = {
+        en: {
+            dir: "ltr",
+            font: "'Poppins', sans-serif",
+            compTitle: "Tik Tak Trading & Contracting",
+            compSub: "Partnership & Job Application Form",
+            labelName: "Full Name:",
+            phName: "Enter your full name",
+            labelDob: "Date of Birth:",
+            labelNationality: "Nationality:",
+            phNationality: "e.g., Qatari, Egyptian, Indian ...",
+            labelPhone: "Contact Number:",
+            labelJob: "Job Title / Position:",
+            phJob: "e.g., Engineer, Technician, Admin ...",
+            labelExp: "Brief about your practical work experience:",
+            phExp: "Write briefly about your previous work experience...",
+            labelCv: "Upload CV:",
+            submitBtn: "Submit Application",
+            contactText: 'For inquiries and contact (Call or WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
+            successMsg: "Application submitted successfully! Thank you."
+        },
+        ar: {
+            dir: "rtl",
+            font: "'Cairo', sans-serif",
+            compTitle: "شركة تيك تاك للتجارة والمقاولات",
+            compSub: "نموذج طلب مشاركة",
+            labelName: "الاسم الكامل:",
+            phName: "أدخل اسمك الكامل",
+            labelDob: "تاريخ الميلاد:",
+            labelNationality: "الجنسية:",
+            phNationality: "مثال: قطري، مصري، هندي ...",
+            labelPhone: "رقم التواصل:",
+            labelJob: "الوظيفة المطلوبة / الحالية:",
+            phJob: "مثال: مهندس، فني، إداري ...",
+            labelExp: "نبذة عن خبراتك في العمل الفعلي:",
+            phExp: "اكتب باختصار عن خبراتك السابقة في مجال العمل...",
+            labelCv: "تحميل ملف السيرة الذاتية (CV):",
+            submitBtn: "تقديم طلب",
+            contactText: 'للاستفسار والتواصل (اتصال أو واتساب): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
+            successMsg: "تم تقديم الطلب بنجاح! شكراً لك."
+        },
+        ur: {
+            dir: "rtl",
+            font: "'Noto Nastaliq Urdu', serif",
+            compTitle: "ٹیک ٹیک ٹریڈنگ اینڈ کنٹریکٹنگ",
+            compSub: "پارٹنرشپ اور جاب ایپلیکیشن فارم",
+            labelName: "پورا نام:",
+            phName: "اپنا پورا نام درج کریں",
+            labelDob: "تاریخ پیدائش:",
+            labelNationality: "قومیت:",
+            phNationality: "مثلا: قطری، مصری، ہندوستانی ...",
+            labelPhone: "رابطہ نمبر:",
+            labelJob: "عہدہ / ملازمت کی پوزیشن:",
+            phJob: "مثلا: انجینئر، ٹیکنیشن، ایڈمن ...",
+            labelExp: "عملی تجربے کا خلاصہ:",
+            phExp: "اپنے پچھلے کام کے تجربے کے بارے میں مختصر لکھیں...",
+            labelCv: "سی وی اپ لوڈ کریں:",
+            submitBtn: "درخواست جمع کرائیں",
+            contactText: 'انکوائری اور رابطہ (کال یا واٹس ایپ): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
+            successMsg: "درخواست کامیابی کے ساتھ جمع ہو گئی ہے! شکریہ."
+        }
+    };
+
+    function changeLanguage() {
+        const lang = document.getElementById('languageSelect').value;
+        const t = translations[lang];
+        
+        document.getElementById('htmlTag').setAttribute('lang', lang);
+        document.getElementById('htmlTag').setAttribute('dir', t.dir);
+        document.body.style.fontFamily = t.font;
+
+        document.getElementById('compTitle').innerText = t.compTitle;
+        document.getElementById('compSub').innerText = t.compSub;
+        document.getElementById('labelName').innerText = t.labelName;
+        document.getElementById('fullName').placeholder = t.phName;
+        document.getElementById('labelDob').innerText = t.labelDob;
+        document.getElementById('labelNationality').innerText = t.labelNationality;
+        document.getElementById('nationality').placeholder = t.phNationality;
+        document.getElementById('labelPhone').innerText = t.labelPhone;
+        document.getElementById('labelJob').innerText = t.labelJob;
+        document.getElementById('jobTitle').placeholder = t.phJob;
+        document.getElementById('labelExp').innerText = t.labelExp;
+        document.getElementById('experience').placeholder = t.phExp;
+        document.getElementById('labelCv').innerText = t.labelCv;
+        document.getElementById('submitBtn').innerText = t.submitBtn;
+        document.getElementById('contactText').innerHTML = t.contactText;
+    }
+
     function submitForm(event) {
         event.preventDefault();
 
+        const lang = document.getElementById('languageSelect').value;
         const fullName = document.getElementById('fullName').value;
         const dob = document.getElementById('dob').value;
         const nationality = document.getElementById('nationality').value.trim();
@@ -201,9 +280,9 @@
         const jobTitle = document.getElementById('jobTitle').value.trim();
         const experience = document.getElementById('experience').value;
         const cvFileInput = document.getElementById('cvFile');
-        const cvFileName = cvFileInput.files.length > 0 ? cvFileInput.files[0].name : "بدون ملف";
+        const cvFileName = cvFileInput.files.length > 0 ? cvFileInput.files[0].name : "No file";
 
-        // حساب السن تلقائياً من تاريخ الميلاد
+        // حساب السن تلقائياً
         const birthDate = new Date(dob);
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -222,15 +301,14 @@
             jobTitle,
             experience,
             cvFileName,
-            date: new Date().toLocaleDateString('ar-EG')
+            date: new Date().toLocaleDateString('en-GB')
         };
 
-        // جلب الطلبات السابقة أو مصفوفة فارغة
         let applications = JSON.parse(localStorage.getItem('tikTakApplications')) || [];
         applications.push(newApplication);
         localStorage.setItem('tikTakApplications', JSON.stringify(applications));
 
-        alert('تم تقديم الطلب بنجاح! شكراً لك.');
+        alert(translations[lang].successMsg);
         document.getElementById('applicationForm').reset();
     }
 </script>
