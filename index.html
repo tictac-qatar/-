@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة تيك تاك للتجارة والمقاولات - طلب مشاركة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f4f7f6;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .lang-sub {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            font-weight: normal;
+        }
+        .urdu-text {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            direction: rtl;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        input[type="file"] {
+            padding: 5px;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+        .contact-info {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 15px;
+            color: #444;
+        }
+        .contact-info a {
+            color: #25d366;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .admin-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .admin-link a {
+            color: #666;
+            font-size: 13px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>شركة تيك تاك للتجارة والمقاولات</h2>
+    <div class="subtitle">نموذج طلب مشاركة / Partnership & Job Application Form</div>
+
+    <form id="applicationForm" onsubmit="submitForm(event)">
+        
+        <div class="form-group">
+            <label>
+                الاسم الكامل:
+                <span class="lang-sub">Full Name / پورا نام</span>
+            </label>
+            <input type="text" id="fullName" required placeholder="أدخل اسمك الكامل">
+        </div>
+
+        <div class="form-group">
+            <label>
+                تاريخ الميلاد:
+                <span class="lang-sub">Date of Birth / تاریخ پیدائش</span>
+            </label>
+            <input type="date" id="dob" required>
+        </div>
+
+        <div class="form-group">
+            <label>
+                الجنسية:
+                <span class="lang-sub">Nationality / قومیت</span>
+            </label>
+            <input type="text" id="nationality" required placeholder="مثال: قطري، مصري، هندي ...">
+        </div>
+
+        <div class="form-group">
+            <label>
+                رقم التواصل:
+                <span class="lang-sub">Contact Number / رابطہ نمبر</span>
+            </label>
+            <input type="tel" id="phone" required placeholder="00974XXXXXXXX">
+        </div>
+
+        <div class="form-group">
+            <label>
+                الوظيفة المطلوبة / الحالية:
+                <span class="lang-sub">Job Title / عہدہ</span>
+            </label>
+            <input type="text" id="jobTitle" required placeholder="مثال: مهندس، فني، إداري ...">
+        </div>
+
+        <div class="form-group">
+            <label>
+                نبذة عن خبراتك في العمل الفعلي:
+                <span class="lang-sub">Brief about your practical work experience / عملی تجربے کا خلاصہ</span>
+            </label>
+            <textarea id="experience" required placeholder="اكتب باختصار عن خبراتك السابقة في مجال العمل..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>
+                تحميل ملف السيرة الذاتية (CV):
+                <span class="lang-sub">Upload CV / سی وی اپ لوڈ کریں</span>
+            </label>
+            <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required>
+        </div>
+
+        <button type="submit">تقديم طلب / Submit Application</button>
+
+    </form>
+
+    <div class="contact-info">
+        للاستفسار والتواصل (اتصال أو واتساب): <a href="https://wa.me/97466608077" target="_blank">66608077</a>
+    </div>
+
+    <div class="admin-link">
+        <a href="admin.html" target="_blank">عرض لوحة التحكم (إدارة الطلبات)</a>
+    </div>
+</div>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById('fullName').value;
+        const dob = document.getElementById('dob').value;
+        const nationality = document.getElementById('nationality').value.trim();
+        const phone = document.getElementById('phone').value;
+        const jobTitle = document.getElementById('jobTitle').value.trim();
+        const experience = document.getElementById('experience').value;
+        const cvFileInput = document.getElementById('cvFile');
+        const cvFileName = cvFileInput.files.length > 0 ? cvFileInput.files[0].name : "بدون ملف";
+
+        // حساب السن تلقائياً من تاريخ الميلاد
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        const newApplication = {
+            id: Date.now(),
+            fullName,
+            dob,
+            age,
+            nationality,
+            phone,
+            jobTitle,
+            experience,
+            cvFileName,
+            date: new Date().toLocaleDateString('ar-EG')
+        };
+
+        // جلب الطلبات السابقة أو مصفوفة فارغة
+        let applications = JSON.parse(localStorage.getItem('tikTakApplications')) || [];
+        applications.push(newApplication);
+        localStorage.setItem('tikTakApplications', JSON.stringify(applications));
+
+        alert('تم تقديم الطلب بنجاح! شكراً لك.');
+        document.getElementById('applicationForm').reset();
+    }
+</script>
+
+</body>
+</html>
