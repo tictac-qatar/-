@@ -3,42 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIC TAC Trading & Contracting - Partnership Application</title>
+    <title>TIC TAC Trading & Contracting - Job Application</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cairo:wght@400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1e3a8a;
-            --primary-hover: #1e40af;
             --accent: #2563eb;
             --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-muted: #6b7280;
             --border: #e5e7eb;
-            --radius: 14px;
+            --radius: 16px;
         }
         body {
             font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
             background: var(--bg-gradient);
             color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 30px 15px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        .wrapper { width: 100%; max-width: 680px; }
-        .card {
+        .container {
+            max-width: 750px;
             background: var(--card-bg);
+            margin: 0 auto;
+            padding: 40px;
             border-radius: var(--radius);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 40px;
-            box-sizing: border-box;
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
-        .top-bar { display: flex; justify-content: flex-end; margin-bottom: 25px; }
-        .lang-select-wrapper { position: relative; display: inline-block; }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+        }
+        .company-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
         .lang-select-wrapper select {
             appearance: none;
             background-color: #f8fafc;
@@ -49,206 +57,325 @@
             font-weight: 600;
             color: var(--text-main);
             cursor: pointer;
+            outline: none;
         }
-        .header-section {
-            text-align: center;
-            margin-bottom: 35px;
-            border-bottom: 2px solid #f3f4f6;
-            padding-bottom: 25px;
-        }
-        h2 { font-size: 26px; font-weight: 700; color: var(--primary); margin: 0 0 8px 0; }
-        .subtitle { font-size: 14px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-        .form-group { margin-bottom: 22px; }
-        label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px; color: #374151; }
-        input[type="text"], input[type="date"], input[type="tel"], textarea {
+        h2 { text-align: center; color: var(--primary); margin-bottom: 25px; font-size: 24px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        input[type="text"], input[type="tel"], input[type="date"], select, textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 15px;
             border: 1px solid var(--border);
             border-radius: 10px;
+            font-size: 14px;
+            background-color: #fcfcfc;
+            outline: none;
             box-sizing: border-box;
-            font-size: 15px;
-            background-color: #fafafa;
-            color: var(--text-main);
             font-family: inherit;
         }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); background-color: #fff; }
-        textarea { resize: vertical; height: 110px; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
         .file-upload-box {
             border: 2px dashed var(--border);
-            border-radius: 10px;
-            padding: 18px;
+            padding: 20px;
             text-align: center;
+            border-radius: 10px;
             background: #fafafa;
             cursor: pointer;
-            position: relative;
         }
-        input[type="file"] { opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; }
-        .file-upload-text { font-size: 14px; color: var(--text-muted); font-weight: 500; }
-        button[type="submit"] {
-            background: var(--accent);
+        .file-upload-box:hover { background: #f4f6f8; border-color: var(--accent); }
+        .btn-submit {
+            background: var(--primary);
             color: white;
-            padding: 14px 20px;
             border: none;
-            border-radius: 10px;
             width: 100%;
+            padding: 14px;
+            border-radius: 10px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
             margin-top: 10px;
+            transition: background 0.2s;
         }
-        button[type="submit"]:hover { background: var(--primary-hover); }
-        .contact-info { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
-        .contact-info a { color: #10b981; text-decoration: none; font-weight: 700; }
+        .btn-submit:hover { background: var(--accent); }
+        .admin-link-container { text-align: center; margin-top: 20px; }
+        .admin-link { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600; }
+        .admin-link:hover { color: var(--primary); text-decoration: underline; }
+        .success-msg {
+            display: none; background: #ecfdf5; color: #065f46; padding: 15px;
+            border-radius: 10px; text-align: center; font-weight: 600; margin-bottom: 20px;
+            border: 1px solid #a7f3d0;
+        }
     </style>
 </head>
 <body>
-<div class="wrapper">
-    <div class="card">
-        <div class="top-bar">
-            <div class="lang-select-wrapper">
-                <select id="languageSelect" onchange="changeLanguage()">
-                    <option value="en" selected>English</option>
-                    <option value="ar">العربية</option>
-                    <option value="ur">اردو</option>
-                </select>
-            </div>
-        </div>
-        <div class="header-section">
-            <h2 id="compTitle">TIC TAC Trading & Contracting</h2>
-            <div class="subtitle" id="compSub">Partnership & Job Application Form</div>
-        </div>
-        <form id="applicationForm" onsubmit="submitForm(event)">
-            <div class="form-group">
-                <label id="labelName">Full Name</label>
-                <input type="text" id="fullName" required placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-                <label id="labelDob">Date of Birth</label>
-                <input type="date" id="dob" required>
-            </div>
-            <div class="form-group">
-                <label id="labelNationality">Nationality</label>
-                <input type="text" id="nationality" required placeholder="e.g., Qatari, Egyptian, Indian ...">
-            </div>
-            <div class="form-group">
-                <label id="labelPhone">Contact Number</label>
-                <input type="tel" id="phone" required placeholder="00974XXXXXXXX">
-            </div>
-            <div class="form-group">
-                <label id="labelJob">Job Title / Position</label>
-                <input type="text" id="jobTitle" required placeholder="e.g., Engineer, Technician, Admin ...">
-            </div>
-            <div class="form-group">
-                <label id="labelExp">Brief about your practical work experience</label>
-                <textarea id="experience" required placeholder="Write briefly about your previous work experience..."></textarea>
-            </div>
-            <div class="form-group">
-                <label id="labelCv">Upload CV (PDF, DOC)</label>
-                <div class="file-upload-box">
-                    <span class="file-upload-text" id="fileText">Click or drag file to upload CV</span>
-                    <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required onchange="updateFileName(this)">
-                </div>
-            </div>
-            <button type="submit" id="submitBtn">Submit Application</button>
-        </form>
-        <div class="contact-info" id="contactText">
-            For inquiries (Call / WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>
+<div class="container">
+    <div class="header-top">
+        <div class="company-title">TIC TAC Trading & Contracting</div>
+        <div class="lang-select-wrapper">
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="en" selected>English</option>
+                <option value="ar">العربية</option>
+                <option value="ur">اردو</option>
+            </select>
         </div>
     </div>
+
+    <h2 id="formTitle">Job Application Form</h2>
+    
+    <div id="successMessage" class="success-msg">Application submitted successfully!</div>
+
+    <form id="jobForm" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+            <label id="lblFullName" for="fullName">Full Name:</label>
+            <input type="text" id="fullName" required placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+            <label id="lblDob" for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required onchange="calculateAge()">
+        </div>
+
+        <div class="form-group">
+            <label id="lblNationality" for="nationality">Nationality:</label>
+            <select id="nationality" required>
+                <option value="" disabled selected id="optSelectNat">-- Select Nationality --</option>
+                <option value="Qatari">Qatari / قطري</option>
+                <option value="Egyptian">Egyptian / مصري</option>
+                <option value="Indian">Indian / هندي</option>
+                <option value="Pakistani">Pakistani / باكستاني</option>
+                <option value="Nepalese">Nepalese / نيبالي</option>
+                <option value="Filipino">Filipino / فلبيني</option>
+                <option value="Bangladeshi">Bangladeshi / بنغالي</option>
+                <option value="Sri Lankan">Sri Lankan / سريلانكي</option>
+                <option value="Syrian">Syrian / سوري</option>
+                <option value="Jordanian">Jordanian / أردني</option>
+                <option value="Palestinian">Palestinian / فلسطيني</option>
+                <option value="Lebanese">Lebanese / لبناني</option>
+                <option value="Sudanese">Sudanese / سوداني</option>
+                <option value="Tunisian">Tunisian / تونسي</option>
+                <option value="Moroccan">Moroccan / مغربي</option>
+                <option value="Algerian">Algerian / جزائري</option>
+                <option value="Iraqi">Iraqi / عراقي</option>
+                <option value="Yemeni">Yemeni / يمني</option>
+                <option value="Omani">Omani / عماني</option>
+                <option value="Kuwaiti">Kuwaiti / كويتي</option>
+                <option value="Saudi">Saudi / سعودي</option>
+                <option value="Emirati">Emirati / إماراتي</option>
+                <option value="Bahraini">Bahraini / بحريني</option>
+                <option value="Turkish">Turkish / تركي</option>
+                <option value="British">British / بريطاني</option>
+                <option value="American">American / أمريكي</option>
+                <option value="Other">Other / جنسية أخرى</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label id="lblPhone" for="phone">Contact Number (with Country Code):</label>
+            <input type="tel" id="phone" required placeholder="+974 XXXXXXXX">
+        </div>
+
+        <div class="form-group">
+            <label id="lblJobTitle" for="jobTitle">Job Title / Position:</label>
+            <select id="jobTitle" required>
+                <option value="" disabled selected id="optSelectJob">-- Select Position --</option>
+                <optgroup label="Engineering Roles / الوظائف الهندسية">
+                    <option value="Project Manager">Project Manager / مدير مشروع</option>
+                    <option value="Construction Manager">Construction Manager / مدير إنشاءات</option>
+                    <option value="Architectural Engineer">Architectural Engineer / مهندس معماري</option>
+                    <option value="Civil Engineer">Civil Engineer / مهندس مدني</option>
+                    <option value="Structural Engineer">Structural Engineer / مهندس إنشائي</option>
+                    <option value="MEP Engineer">MEP Engineer / مهندس كهروميكانيك MEP</option>
+                    <option value="Electrical Engineer">Electrical Engineer / مهندس كهرباء</option>
+                    <option value="Mechanical Engineer">Mechanical Engineer / مهندس ميكانيكا</option>
+                    <option value="Quantity Surveyor (QS)">Quantity Surveyor (QS) / مهندس حصر كميات</option>
+                    <option value="Planning / Cost Control Engineer">Planning / Cost Control Engineer / مهندس تخطيط ومراقبة تكاليف</option>
+                    <option value="QA/QC Engineer">QA/QC Engineer / مهندس جودة QA/QC</option>
+                    <option value="HSE / Safety Engineer">HSE / Safety Engineer / مهندس ألام والسلامة المهنية HSE</option>
+                    <option value="Site Engineer">Site Engineer / مهندس موقع</option>
+                </optgroup>
+                <optgroup label="Technical & Supervisory Roles / الوظائف الفنية والإشرافية">
+                    <option value="Architectural Drafter / BIM Modeler">Architectural Drafter / BIM Modeler / رسام معماري / نمذجة معلومات البناء BIM</option>
+                    <option value="Senior General Foreman">Senior General Foreman / مقاول عام / فورمان رئيسي</option>
+                    <option value="Civil Site Supervisor">Civil Site Supervisor / مراقب موقع مدني</option>
+                    <option value="Surveyor">Surveyor / مساح أراضي</option>
+                    <option value="Material Controller">Material Controller / مسؤل تحكم ومستودعات مواد</option>
+                    <option value="Foreman (Carpentry / Steel)">Foreman (Carpentry / Steel) / فورمان نجارة أو تسليح حديد</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label id="lblExperience" for="experience">Practical Experience Summary:</label>
+            <textarea id="experience" rows="4" required placeholder="Briefly describe your relevant work experience..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label id="lblCv" for="cvFile">Upload CV (PDF / Word):</label>
+            <div class="file-upload-box" onclick="document.getElementById('cvFile').click()">
+                <span id="fileLabelText">Click here to browse and upload file</span>
+                <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required style="display: none;" onchange="updateFileName(this)">
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">Submit Application</button>
+    </form>
+
+    <div class="admin-link-container">
+        <a href="admin.html" class="admin-link" id="adminLink">Admin Dashboard →</a>
+    </div>
 </div>
+
 <script>
     const translations = {
         en: {
             dir: "ltr", font: "'Plus Jakarta Sans', sans-serif",
-            compTitle: "TIC TAC Trading & Contracting",
-            compSub: "Partnership & Job Application Form",
-            labelName: "Full Name", phName: "Enter your full name",
-            labelDob: "Date of Birth", labelNationality: "Nationality", phNationality: "e.g., Qatari, Egyptian, Indian ...",
-            labelPhone: "Contact Number", labelJob: "Job Title / Position", phJob: "e.g., Engineer, Technician, Admin ...",
-            labelExp: "Brief about your practical work experience", phExp: "Write briefly about your previous work experience...",
-            labelCv: "Upload CV (PDF, DOC)", fileText: "Click or drag file to upload CV",
+            formTitle: "Job Application Form",
+            lblFullName: "Full Name:",
+            lblDob: "Date of Birth:",
+            lblNationality: "Nationality:",
+            optSelectNat: "-- Select Nationality --",
+            lblPhone: "Contact Number (with Country Code):",
+            lblJobTitle: "Job Title / Position:",
+            optSelectJob: "-- Select Position --",
+            lblExperience: "Practical Experience Summary:",
+            lblExperiencePlaceholder: "Briefly describe your relevant work experience...",
+            lblCv: "Upload CV (PDF / Word):",
+            fileLabel: "Click here to browse and upload file",
             submitBtn: "Submit Application",
-            contactText: 'For inquiries (Call / WhatsApp): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
-            successMsg: "Application submitted successfully! Thank you."
+            adminLink: "Admin Dashboard →",
+            successMsg: "Application submitted successfully!"
         },
         ar: {
             dir: "rtl", font: "'Cairo', sans-serif",
-            compTitle: "شركة TIC TAC للتجارة والمقاولات",
-            compSub: "نموذج طلب مشاركة وعمل",
-            labelName: "الاسم الكامل", phName: "أدخل اسمك الكامل",
-            labelDob: "تاريخ الميلاد", labelNationality: "الجنسية", phNationality: "مثال: قطري، مصري، هندي ...",
-            labelPhone: "رقم التواصل", labelJob: "الوظيفة المطلوبة / الحالية", phJob: "مثال: مهندس، فني، إداري ...",
-            labelExp: "نبذة عن خبراتك في العمل الفعلي", phExp: "اكتب باختصار عن خبراتك السابقة في مجال العمل...",
-            labelCv: "تحميل السيرة الذاتية (CV)", fileText: "انقر لاختيار ملف السيرة الذاتية",
-            submitBtn: "تقديم الطلب",
-            contactText: 'للاستفسار والتواصل (اتصال / واتساب): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
-            successMsg: "تم تقديم الطلب بنجاح! شكراً لك."
+            formTitle: "نموذج التقديم للوظائف",
+            lblFullName: "الاسم الكامل:",
+            lblDob: "تاريخ الميلاد:",
+            lblNationality: "الجنسية:",
+            optSelectNat: "-- اختر الجنسية --",
+            lblPhone: "رقم التواصل (مع رمز الدولة):",
+            lblJobTitle: "المسمى الوظيفي المطلوب:",
+            optSelectJob: "-- اختر المسمى الوظيفي --",
+            lblExperience: "ملخص الخبرة العملية:",
+            lblExperiencePlaceholder: "اكتب نبذة مختصرة عن خبرتك العملية...",
+            lblCv: "رفع السيرة الذاتية (PDF / Word):",
+            fileLabel: "انقر هنا لاختيار الملف ورفعه",
+            submitBtn: "إرسال الطلب",
+            adminLink: "← لوحة تحكم الإدارة",
+            successMsg: "تم إرسال طلبك بنجاح!"
         },
         ur: {
             dir: "rtl", font: "'Noto Nastaliq Urdu', serif",
-            compTitle: "TIC TAC ٹریڈنگ اینڈ کنٹریکٹنگ",
-            compSub: "پارٹنرشپ اور جاب ایپلیکیشن فارم",
-            labelName: "پورا نام", phName: "اپنا پورا نام درج کریں",
-            labelDob: "تاریخ پیدائش", labelNationality: "قومیت", phNationality: "مثلا: قطری، مصری، ہندوستانی ...",
-            labelPhone: "رابطہ نمبر", labelJob: "عہدہ / ملازمت کی پوزیشن", phJob: "مثلا: انجینئر، ٹیکنیشن، ایڈمن ...",
-            labelExp: "عملی تجربے کا خلاصہ", phExp: "اپنے پچھلے کام کے تجربے کے بارے میں مختصر لکھیں...",
-            labelCv: "سی وی اپ لوڈ کریں (PDF, DOC)", fileText: "فائل منتخب کرنے کے لیے یہاں کلک کریں",
-            submitBtn: "درخواست جمع کرائیں",
-            contactText: 'انکوائری اور رابطہ (کال / واٹس ایپ): <a href="https://wa.me/97466608077" target="_blank">66608077</a>',
-            successMsg: "درخواست کامیابی کے ساتھ جمع ہو گئی ہے! شکریہ."
+            formTitle: "ملازمت کے لیے درخواست فارم",
+            lblFullName: "پورا نام:",
+            lblDob: "تاریخ پیدائش:",
+            lblNationality: "قومیت:",
+            optSelectNat: "-- قومیت منتخب کریں --",
+            lblPhone: "رابطہ نمبر (کنٹری کوڈ کے ساتھ):",
+            lblJobTitle: "مطلوبہ عہدہ / جاب ٹائٹل:",
+            optSelectJob: "-- عہدہ منتخب کریں --",
+            lblExperience: "عملی تجربے کا خلاصہ:",
+            lblExperiencePlaceholder: "اپنے متعلقہ تجربے کا مختصر بیان دیں...",
+            lblCv: "سی وی اپ لوڈ کریں (PDF / Word):",
+            fileLabel: "فाइल منتخب کرنے کے لیے یہاں کلک کریں",
+            submitBtn: "درخواست جمع کروائیں",
+            adminLink: "← ایڈمن ڈیش بورڈ",
+            successMsg: "درخواست کامیابی کے ساتھ جمع ہو گئی!"
         }
     };
+
     function changeLanguage() {
-        const lang = document.getElementById('languageSelect').value;
+        const lang = document.getElementById('langSelect').value;
         const t = translations[lang];
-        document.getElementById('htmlTag').setAttribute('lang', lang);
-        document.getElementById('htmlTag').setAttribute('dir', t.dir);
+        const htmlTag = document.getElementById('htmlTag');
+        
+        htmlTag.setAttribute('lang', lang);
+        htmlTag.setAttribute('dir', t.dir);
         document.body.style.fontFamily = t.font;
-        document.getElementById('compTitle').innerText = t.compTitle;
-        document.getElementById('compSub').innerText = t.compSub;
-        document.getElementById('labelName').innerText = t.labelName;
-        document.getElementById('fullName').placeholder = t.phName;
-        document.getElementById('labelDob').innerText = t.labelDob;
-        document.getElementById('labelNationality').innerText = t.labelNationality;
-        document.getElementById('nationality').placeholder = t.phNationality;
-        document.getElementById('labelPhone').innerText = t.labelPhone;
-        document.getElementById('labelJob').innerText = t.labelJob;
-        document.getElementById('jobTitle').placeholder = t.phJob;
-        document.getElementById('labelExp').innerText = t.labelExp;
-        document.getElementById('experience').placeholder = t.phExp;
-        document.getElementById('labelCv').innerText = t.labelCv;
-        document.getElementById('fileText').innerText = t.fileText;
+
+        document.getElementById('formTitle').innerText = t.formTitle;
+        document.getElementById('lblFullName').innerText = t.lblFullName;
+        document.getElementById('lblDob').innerText = t.lblDob;
+        document.getElementById('lblNationality').innerText = t.lblNationality;
+        document.getElementById('optSelectNat').innerText = t.optSelectNat;
+        document.getElementById('lblPhone').innerText = t.lblPhone;
+        document.getElementById('lblJobTitle').innerText = t.lblJobTitle;
+        document.getElementById('optSelectJob').innerText = t.optSelectJob;
+        document.getElementById('lblExperience').innerText = t.lblExperience;
+        document.getElementById('experience').placeholder = t.lblExperiencePlaceholder;
+        document.getElementById('lblCv').innerText = t.lblCv;
+        
+        const fileInputText = document.getElementById('cvFile').files.length > 0 ? document.getElementById('cvFile').files[0].name : t.fileLabel;
+        document.getElementById('fileLabelText').innerText = fileInputText;
+        
         document.getElementById('submitBtn').innerText = t.submitBtn;
-        document.getElementById('contactText').innerHTML = t.contactText;
+        document.getElementById('adminLink').innerText = t.adminLink;
+        document.getElementById('successMessage').innerText = t.successMsg;
     }
+
+    function calculateAge() {
+        const dobVal = document.getElementById('dob').value;
+        if (!dobVal) return null;
+        const dobDate = new Date(dobVal);
+        const today = new Date();
+        let age = today.getFullYear() - dobDate.getFullYear();
+        const m = today.getMonth() - dobDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
     function updateFileName(input) {
         if (input.files && input.files[0]) {
-            document.getElementById('fileText').innerText = "✓ " + input.files[0].name;
+            document.getElementById('fileLabelText').innerText = "📎 " + input.files[0].name;
         }
     }
-    function submitForm(event) {
+
+    function handleFormSubmit(event) {
         event.preventDefault();
-        const lang = document.getElementById('languageSelect').value;
+        
         const fullName = document.getElementById('fullName').value;
         const dob = document.getElementById('dob').value;
-        const nationality = document.getElementById('nationality').value.trim();
+        const age = calculateAge();
+        const nationality = document.getElementById('nationality').value;
         const phone = document.getElementById('phone').value;
-        const jobTitle = document.getElementById('jobTitle').value.trim();
+        const jobTitleSelect = document.getElementById('jobTitle');
+        const jobTitle = jobTitleSelect.options[jobTitleSelect.selectedIndex].text.split('/')[0].trim();
         const experience = document.getElementById('experience').value;
-        const cvFileName = document.getElementById('cvFile').files[0] ? document.getElementById('cvFile').files[0].name : "No file";
-        const birthDate = new Date(dob);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() - birthDate.getDate() < 0)) age--;
-        const newApplication = { id: Date.now(), fullName, dob, age, nationality, phone, jobTitle, experience, cvFileName, date: new Date().toLocaleDateString('en-GB') };
-        let applications = JSON.parse(localStorage.getItem('TICTACApplications')) || [];
-        applications.push(newApplication);
-        localStorage.setItem('TICTACApplications', JSON.stringify(applications));
-        alert(translations[lang].successMsg);
-        document.getElementById('applicationForm').reset();
-        document.getElementById('fileText').innerText = translations[lang].fileText;
+        const cvFile = document.getElementById('cvFile').files[0];
+        const cvFileName = cvFile ? cvFile.name : "No file";
+
+        const currentDate = new Date().toISOString().split('T')[0];
+
+        const newApplication = {
+            fullName,
+            dob,
+            age,
+            nationality,
+            phone,
+            jobTitle,
+            experience,
+            cvFileName,
+            date: currentDate
+        };
+
+        let existingApps = JSON.parse(localStorage.getItem('TICTACApplications')) || [];
+        existingApps.push(newApplication);
+        localStorage.setItem('TICTACApplications', JSON.stringify(existingApps));
+
+        const successDiv = document.getElementById('successMessage');
+        successDiv.style.display = 'block';
+
+        document.getElementById('jobForm').reset();
+        document.getElementById('fileLabelText').innerText = translations[document.getElementById('langSelect').value].fileLabel;
+
+        setTimeout(() => {
+            successDiv.style.display = 'none';
+        }, 4000);
     }
 </script>
 </body>
