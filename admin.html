@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" id="adminHtmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - TIC TAC Trading & Contracting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cairo:wght@400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1e3a8a;
@@ -17,7 +17,7 @@
             --radius: 14px;
         }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
             background: var(--bg-gradient);
             color: var(--text-main);
             margin: 0;
@@ -33,6 +33,18 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
+        .top-bar { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+        .lang-select-wrapper select {
+            appearance: none;
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 8px 36px 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+        }
         h2 { color: var(--primary); text-align: center; margin-bottom: 25px; font-size: 24px; }
         .filters {
             display: grid;
@@ -47,11 +59,11 @@
         .filter-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; }
         .filter-group select {
             width: 100%; padding: 10px; border: 1px solid var(--border);
-            border-radius: 8px; background: #fff; font-size: 14px; outline: none;
+            border-radius: 8px; background: #fff; font-size: 14px; outline: none; font-family: inherit;
         }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; white-space: nowrap; }
-        th, td { border: 1px solid var(--border); padding: 12px 15px; text-align: left; font-size: 14px; }
+        th, td { border: 1px solid var(--border); padding: 12px 15px; text-align: start; font-size: 14px; }
         th { background-color: var(--primary); color: white; font-weight: 600; }
         tr:nth-child(even) { background-color: #fcfcfc; }
         tr:hover { background-color: #f1f5f9; }
@@ -64,71 +76,166 @@
 </head>
 <body>
 <div class="container">
-    <h2>TIC TAC Dashboard - Applications Management</h2>
-    <div class="filters">
-        <div class="filter-group">
-            <label>Filter by Nationality:</label>
-            <select id="filterNationality" onchange="filterData()">
-                <option value="">All Nationalities</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Filter by Job Title:</label>
-            <select id="filterJob" onchange="filterData()">
-                <option value="">All Positions</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Filter by Age Range:</label>
-            <select id="filterAge" onchange="filterData()">
-                <option value="">All Ages</option>
-                <option value="under30">Under 30 years</option>
-                <option value="30to40">30 to 40 years</option>
-                <option value="above40">Above 40 years</option>
+    <div class="top-bar">
+        <div class="lang-select-wrapper">
+            <select id="adminLangSelect" onchange="changeAdminLanguage()">
+                <option value="en" selected>English</option>
+                <option value="ar">العربية</option>
+                <option value="ur">اردو</option>
             </select>
         </div>
     </div>
+    
+    <h2 id="adminTitle">TIC TAC Dashboard - Applications Management</h2>
+    
+    <div class="filters">
+        <div class="filter-group">
+            <label id="lblNat">Filter by Nationality:</label>
+            <select id="filterNationality" onchange="filterData()">
+                <option value="" id="optAllNat">All Nationalities</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label id="lblJob">Filter by Job Title:</label>
+            <select id="filterJob" onchange="filterData()">
+                <option value="" id="optAllJob">All Positions</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label id="lblAge">Filter by Age Range:</label>
+            <select id="filterAge" onchange="filterData()">
+                <option value="" id="optAllAge">All Ages</option>
+                <option value="under30" id="optUnder30">Under 30 years</option>
+                <option value="30to40" id="opt30to40">30 to 40 years</option>
+                <option value="above40" id="optAbove40">Above 40 years</option>
+            </select>
+        </div>
+    </div>
+
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th>Full Name</th>
-                    <th>Date of Birth (Age)</th>
-                    <th>Nationality</th>
-                    <th>Contact Number</th>
-                    <th>Job Title</th>
-                    <th>Practical Experience</th>
-                    <th>CV File</th>
-                    <th>Submission Date</th>
+                    <th id="thName">Full Name</th>
+                    <th id="thDob">Date of Birth (Age)</th>
+                    <th id="thNat">Nationality</th>
+                    <th id="thPhone">Contact Number</th>
+                    <th id="thJob">Job Title</th>
+                    <th id="thExp">Practical Experience</th>
+                    <th id="thCv">CV File</th>
+                    <th id="thDate">Submission Date</th>
                 </tr>
             </thead>
             <tbody id="tableBody"></tbody>
         </table>
     </div>
+
     <div class="actions-bar">
-        <a href="index.html" class="back-link">← Back to Application Form</a>
-        <button class="btn-reset" onclick="clearData()">Clear All Data</button>
+        <a href="index.html" class="back-link" id="backLink">← Back to Application Form</a>
+        <button class="btn-reset" id="resetBtn" onclick="clearData()">Clear All Data</button>
     </div>
 </div>
+
 <script>
+    const adminTexts = {
+        en: {
+            dir: "ltr", font: "'Plus Jakarta Sans', sans-serif",
+            title: "TIC TAC Dashboard - Applications Management",
+            lblNat: "Filter by Nationality:", optAllNat: "All Nationalities",
+            lblJob: "Filter by Job Title:", optAllJob: "All Positions",
+            lblAge: "Filter by Age Range:", optAllAge: "All Ages",
+            optUnder30: "Under 30 years", opt30to40: "30 to 40 years", optAbove40: "Above 40 years",
+            thName: "Full Name", thDob: "Date of Birth (Age)", thNat: "Nationality",
+            thPhone: "Contact Number", thJob: "Job Title", thExp: "Practical Experience",
+            thCv: "CV File", thDate: "Submission Date",
+            backLink: "← Back to Application Form", resetBtn: "Clear All Data",
+            noData: "No applications recorded yet.", confirmClear: "Are you sure you want to clear all stored applications?"
+        },
+        ar: {
+            dir: "rtl", font: "'Cairo', sans-serif",
+            title: "لوحة تحكم TIC TAC - إدارة الطلبات",
+            lblNat: "تصفية حسب الجنسية:", optAllNat: "كل الجنسيات",
+            lblJob: "تصفية حسب الوظيفة:", optAllJob: "كل الوظائف",
+            lblAge: "تصفية حسب العمر:", optAllAge: "كل الأعمار",
+            optUnder30: "أقل من 30 سنة", opt30to40: "من 30 إلى 40 سنة", optAbove40: "أكثر من 40 سنة",
+            thName: "الاسم الكامل", thDob: "تاريخ الميلاد (العمر)", thNat: "الجنسية",
+            thPhone: "رقم التواصل", thJob: "المسمى الوظيفي", thExp: "الخبرة العملية",
+            thCv: "ملف السيرة الذاتية", thDate: "تاريخ التقديم",
+            backLink: "← العودة إلى نموذج التقديم", resetBtn: "حذف جميع البيانات",
+            noData: "لا توجد طلبات مسجلة حتى الآن.", confirmClear: "هل أنت متأكد من رغبتك في حذف جميع الطلبات المحفوظة؟"
+        },
+        ur: {
+            dir: "rtl", font: "'Noto Nastaliq Urdu', serif",
+            title: "TIC TAC ڈیش بورڈ - درخواستوں کا انتظام",
+            lblNat: "قومیت کے لحاظ سے فلٹر کریں:", optAllNat: "تمام قومیتیں",
+            lblJob: "عہدے کے لحاظ سے فلٹر کریں:", optAllJob: "تمام پوزیشنز",
+            lblAge: "عمر کے لحاظ سے فلٹر کریں:", optAllAge: "تمام عمر",
+            optUnder30: "30 سال سے کم", opt30to40: "30 سے 40 سال", optAbove40: "40 سال سے زیادہ",
+            thName: "پورا نام", thDob: "تاریخ پیدائش (عمر)", thNat: "قومیت",
+            thPhone: "رابطہ نمبر", thJob: "جاب ٹائٹل", thExp: "عملی تجربہ",
+            thCv: "سی وی فائل", thDate: "جمع کرانے کی تاریخ",
+            backLink: "← درخواست فارم پر واپس جائیں", resetBtn: "تمام ڈیٹا صاف کریں",
+            noData: "ابھی تک کوئی درخواست درج نہیں کی گئی۔", confirmClear: "کیا آپ واقعی تمام محفوظ کردہ درخواستیں حذف کرنا چاہتے ہیں؟"
+        }
+    };
+
     let allApplications = [];
+
+    function changeAdminLanguage() {
+        const lang = document.getElementById('adminLangSelect').value;
+        const t = adminTexts[lang];
+        document.getElementById('adminHtmlTag').setAttribute('lang', lang);
+        document.getElementById('adminHtmlTag').setAttribute('dir', t.dir);
+        document.body.style.fontFamily = t.font;
+
+        document.getElementById('adminTitle').innerText = t.title;
+        document.getElementById('lblNat').innerText = t.lblNat;
+        document.getElementById('optAllNat').innerText = t.optAllNat;
+        document.getElementById('lblJob').innerText = t.lblJob;
+        document.getElementById('optAllJob').innerText = t.optAllJob;
+        document.getElementById('lblAge').innerText = t.lblAge;
+        document.getElementById('optAllAge').innerText = t.optAllAge;
+        document.getElementById('optUnder30').innerText = t.optUnder30;
+        document.getElementById('opt30to40').innerText = t.opt30to40;
+        document.getElementById('optAbove40').innerText = t.optAbove40;
+
+        document.getElementById('thName').innerText = t.thName;
+        document.getElementById('thDob').innerText = t.thDob;
+        document.getElementById('thNat').innerText = t.thNat;
+        document.getElementById('thPhone').innerText = t.thPhone;
+        document.getElementById('thJob').innerText = t.thJob;
+        document.getElementById('thExp').innerText = t.thExp;
+        document.getElementById('thCv').innerText = t.thCv;
+        document.getElementById('thDate').innerText = t.thDate;
+
+        document.getElementById('backLink').innerText = t.backLink;
+        document.getElementById('resetBtn').innerText = t.resetBtn;
+
+        displayData(allApplications);
+    }
+
     function loadData() {
         allApplications = JSON.parse(localStorage.getItem('TICTACApplications')) || [];
         populateFilters();
         displayData(allApplications);
     }
+
     function displayData(data) {
+        const lang = document.getElementById('adminLangSelect').value;
+        const t = adminTexts[lang];
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
+
         if (data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" class="no-data">No applications recorded yet.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" class="no-data">${t.noData}</td></tr>`;
             return;
         }
+
         data.forEach(app => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td><strong>${app.fullName}</strong></td>
-                <td>${app.dob} (${app.age} yrs)</td>
+                <td>${app.dob} (${app.age})</td>
                 <td>${app.nationality}</td>
                 <td><a href="tel:${app.phone}" style="color: var(--accent); text-decoration: none; font-weight: 600;">${app.phone}</a></td>
                 <td>${app.jobTitle}</td>
@@ -139,37 +246,52 @@
             tbody.appendChild(tr);
         });
     }
+
     function populateFilters() {
         const nationalities = [...new Set(allApplications.map(app => app.nationality))];
         const jobs = [...new Set(allApplications.map(app => app.jobTitle))];
+        const lang = document.getElementById('adminLangSelect').value;
+        const t = adminTexts[lang];
+
         const natSelect = document.getElementById('filterNationality');
         const jobSelect = document.getElementById('filterJob');
-        natSelect.innerHTML = '<option value="">All Nationalities</option>';
+
+        natSelect.innerHTML = `<option value="">${t.optAllNat}</option>`;
         nationalities.forEach(nat => { natSelect.innerHTML += `<option value="${nat}">${nat}</option>`; });
-        jobSelect.innerHTML = '<option value="">All Positions</option>';
+
+        jobSelect.innerHTML = `<option value="">${t.optAllJob}</option>`;
         jobs.forEach(job => { jobSelect.innerHTML += `<option value="${job}">${job}</option>`; });
     }
+
     function filterData() {
         const selectedNat = document.getElementById('filterNationality').value;
         const selectedJob = document.getElementById('filterJob').value;
         const selectedAgeRange = document.getElementById('filterAge').value;
+
         let filtered = allApplications.filter(app => {
             let matchNat = selectedNat === "" || app.nationality === selectedNat;
             let matchJob = selectedJob === "" || app.jobTitle === selectedJob;
             let matchAge = true;
+
             if (selectedAgeRange === "under30") matchAge = app.age < 30;
             else if (selectedAgeRange === "30to40") matchAge = app.age >= 30 && app.age <= 40;
             else if (selectedAgeRange === "above40") matchAge = app.age > 40;
+
             return matchNat && matchJob && matchAge;
         });
+
         displayData(filtered);
     }
+
     function clearData() {
-        if (confirm('Are you sure you want to clear all stored applications?')) {
+        const lang = document.getElementById('adminLangSelect').value;
+        const t = adminTexts[lang];
+        if (confirm(t.confirmClear)) {
             localStorage.removeItem('TICTACApplications');
             loadData();
         }
     }
+
     window.onload = loadData;
 </script>
 </body>
