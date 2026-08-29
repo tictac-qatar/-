@@ -80,7 +80,6 @@
             color: #fff;
         }
 
-        /* شريط الفلاتر المتقدمة */
         .filters-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -110,7 +109,6 @@
             font-family: inherit;
         }
 
-        /* الجدول */
         .table-container {
             overflow-x: auto;
         }
@@ -147,20 +145,16 @@
             display: inline-block;
         }
 
-        .btn-cv {
-            background: #f1f5f9;
-            color: #334155;
-            padding: 5px 10px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: bold;
-            border: 1px solid var(--border);
-        }
-
         .phone-highlight {
             font-weight: bold;
             color: var(--accent);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         @media(max-width: 768px) {
@@ -181,29 +175,32 @@
         </div>
     </div>
 
-    <!-- أداة الفرز والتصفية -->
     <div class="filters-container">
         <div class="filter-box">
             <label id="lblFilterNat">تصفية حسب الجنسية</label>
-            <select id="filterNat" onchange="applyFilters()">
+            <select id="filterNat" onchange="renderTable()">
                 <option value="">جميع الجنسيات</option>
                 <option value="Egyptian">مصري</option>
                 <option value="Indian">هندي</option>
+                <option value="Nepalese">نيبالي</option>
                 <option value="Pakistani">باكستاني</option>
+                <option value="Bangladeshi">بنجلاديشي</option>
+                <option value="Filipino">فلبيني</option>
             </select>
         </div>
         <div class="filter-box">
             <label id="lblFilterPos">تصفية حسب الوظيفة</label>
-            <select id="filterPos" onchange="applyFilters()">
+            <select id="filterPos" onchange="renderTable()">
                 <option value="">جميع الوظائف</option>
                 <option value="Electrician">فني كهرباء</option>
                 <option value="Plumber">فني سباكة</option>
                 <option value="Site Engineer">مهندس موقع</option>
+                <option value="Project Manager">مدير مشروع</option>
             </select>
         </div>
         <div class="filter-box">
             <label id="lblFilterAge">تصفية حسب الفئة العمرية</label>
-            <select id="filterAge" onchange="applyFilters()">
+            <select id="filterAge" onchange="renderTable()">
                 <option value="">جميع الأعمار</option>
                 <option value="20-30">20 - 30 سنة</option>
                 <option value="31-40">31 - 40 سنة</option>
@@ -222,31 +219,11 @@
                     <th id="thPhone">رقم التواصل</th>
                     <th id="thPos">الوظيفة</th>
                     <th id="thExp">نبذة الخبرة</th>
-                    <th id="thCV">السيرة الذاتية</th>
                     <th id="thStatus">إقامة / رخصة / سيارة</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr data-nat="Egyptian" data-pos="Electrician" data-age="31-40">
-                    <td><strong>محمد عبد الله</strong></td>
-                    <td>34</td>
-                    <td>Egyptian</td>
-                    <td class="phone-highlight">66608077</td>
-                    <td><span class="badge-position">Electrician</span></td>
-                    <td>6 سنوات في صيانة المباني</td>
-                    <td><a href="#" class="btn-cv">تحميل الملف</a></td>
-                    <td>نعم / نعم / لا</td>
-                </tr>
-                <tr data-nat="Indian" data-pos="Plumber" data-age="20-30">
-                    <td><strong>سانجاي كومار</strong></td>
-                    <td>27</td>
-                    <td>Indian</td>
-                    <td class="phone-highlight">+974 55987654</td>
-                    <td><span class="badge-position">Plumber</span></td>
-                    <td>4 سنوات في التمديدات الصحية</td>
-                    <td><a href="#" class="btn-cv">تحميل الملف</a></td>
-                    <td>نعم / لا / لا</td>
-                </tr>
+            <tbody id="tableBody">
+                <!-- سيتم تعبئة البيانات تلقائياً هنا -->
             </tbody>
         </table>
     </div>
@@ -260,7 +237,8 @@
             fPos: "تصفية حسب الوظيفة",
             fAge: "تصفية حسب الفئة العمرية",
             thName: "الاسم", thAge: "العمر", thNat: "الجنسية", thPhone: "رقم التواصل",
-            thPos: "الوظيفة", thExp: "نبذة الخبرة", thCV: "السيرة الذاتية", thStatus: "إقامة / رخصة / سيارة"
+            thPos: "الوظيفة", thExp: "نبذة الخبرة", thStatus: "إقامة / رخصة / سيارة",
+            noData: "لا توجد طلبات مسجلة حتى الآن."
         },
         en: {
             title: "Admin Dashboard - tic tac",
@@ -268,7 +246,8 @@
             fPos: "Filter by Position",
             fAge: "Filter by Age Group",
             thName: "Name", thAge: "Age", thNat: "Nationality", thPhone: "Contact",
-            thPos: "Position", thExp: "Experience", thCV: "CV File", thStatus: "Res / Lic / Car"
+            thPos: "Position", thExp: "Experience", thStatus: "Res / Lic / Car",
+            noData: "No applications registered yet."
         },
         ur: {
             title: "ایڈمن ڈیش بورڈ - tic tac",
@@ -276,11 +255,15 @@
             fPos: "عہدے کے لحاظ سے فلٹر کریں",
             fAge: "عمر کے لحاظ سے فلٹر کریں",
             thName: "نام", thAge: "عمر", thNat: "قومیت", thPhone: "رابطہ نمبر",
-            thPos: "عہدہ", thExp: "تجربہ", thCV: "سی وی", thStatus: "اقامہ / لائسنس / گاڑی"
+            thPos: "عہدہ", thExp: "تجربہ", thStatus: "اقامہ / لائسنس / گاڑی",
+            noData: "ابھی تک کوئی درخواست درج نہیں ہے۔"
         }
     };
 
+    let currentLang = 'ar';
+
     function switchAdminLang(lang) {
+        currentLang = lang;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         const html = document.getElementById('adminHtml');
         
@@ -309,23 +292,59 @@
         document.getElementById('thPhone').innerText = t.thPhone;
         document.getElementById('thPos').innerText = t.thPos;
         document.getElementById('thExp').innerText = t.thExp;
-        document.getElementById('thCV').innerText = t.thCV;
         document.getElementById('thStatus').innerText = t.thStatus;
+
+        renderTable();
     }
 
-    function applyFilters() {
-        const nVal = document.getElementById('filterNat').value;
-        const pVal = document.getElementById('filterPos').value;
-        const aVal = document.getElementById('filterAge').value;
+    function getAgeGroup(age) {
+        const num = parseInt(age);
+        if (num >= 20 && num <= 30) return '20-30';
+        if (num >= 31 && num <= 40) return '31-40';
+        if (num >= 41) return '41+';
+        return '';
+    }
 
-        document.querySelectorAll('#applicantsTable tbody tr').forEach(row => {
-            const matchN = !nVal || row.getAttribute('data-nat') === nVal;
-            const matchP = !pVal || row.getAttribute('data-pos') === pVal;
-            const matchA = !aVal || row.getAttribute('data-age') === aVal;
+    function renderTable() {
+        const tableBody = document.getElementById('tableBody');
+        const applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        
+        const natFilter = document.getElementById('filterNat').value;
+        const posFilter = document.getElementById('filterPos').value;
+        const ageFilter = document.getElementById('filterAge').value;
 
-            row.style.display = (matchN && matchP && matchA) ? '' : 'none';
+        tableBody.innerHTML = '';
+
+        const filtered = applicants.filter(app => {
+            const ageGrp = getAgeGroup(app.age);
+            const matchN = !natFilter || app.nationality === natFilter;
+            const matchP = !posFilter || app.position === posFilter;
+            const matchA = !ageFilter || ageGrp === ageFilter;
+            return matchN && matchP && matchA;
+        });
+
+        if (filtered.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="7" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
+            return;
+        }
+
+        filtered.forEach(app => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${app.name}</strong></td>
+                <td>${app.age}</td>
+                <td>${app.nationality}</td>
+                <td class="phone-highlight">${app.phone}</td>
+                <td><span class="badge-position">${app.position}</span></td>
+                <td>${app.experience || '-'}</td>
+                <td>${app.qatarId} / ${app.license} / ${app.car}</td>
+            `;
+            tableBody.appendChild(tr);
         });
     }
+
+    // تحميل البيانات عند فتح الصفحة
+    window.onload = renderTable;
 </script>
 </body>
 </html>
