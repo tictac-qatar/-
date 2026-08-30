@@ -255,6 +255,15 @@
             </div>
 
             <div class="form-group">
+                <label id="lblGender">الجنس (النوع)</label>
+                <select id="gender" required>
+                    <option value="">اختر الجنس</option>
+                    <option value="ذكر">ذكر (Male)</option>
+                    <option value="أنثى">أنثى (Female)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label id="lblNationality">الجنسية</label>
                 <select id="nationality" required>
                     <option value="">اختر الجنسية</option>
@@ -318,7 +327,6 @@
                 <textarea id="experience" rows="3" placeholder="ذكر سنوات الخبرة وأبرز المشاريع السابقة..."></textarea>
             </div>
 
-            <!-- حقل إرفاق السيرة الذاتية -->
             <div class="form-group full-width">
                 <label id="lblCv">إرفاق السيرة الذاتية (CV / PDF أو صورة)</label>
                 <input type="file" id="cvFile" accept=".pdf,image/*">
@@ -374,6 +382,7 @@
             lblName: "الاسم الكامل",
             phName: "أدخل اسمك الثلاثي أو الرباعي",
             lblAge: "العمر (السن)",
+            lblGender: "الجنس (النوع)",
             lblNationality: "الجنسية",
             lblPhone: "رقم الهاتف / الواتساب",
             lblPosition: "الوظيفة المتقدم لها",
@@ -392,6 +401,7 @@
             lblName: "Full Name",
             phName: "Enter your full name",
             lblAge: "Age",
+            lblGender: "Gender",
             lblNationality: "Nationality",
             lblPhone: "Phone / WhatsApp Number",
             lblPosition: "Position Applied For",
@@ -410,6 +420,7 @@
             lblName: "पूरा नाम (Full Name)",
             phName: "अपना پورا نام درج کریں",
             lblAge: "عمر",
+            lblGender: "صنف (Gender)",
             lblNationality: "قومیت (Nationality)",
             lblPhone: "رابطہ نمبر / واٹس ایپ",
             lblPosition: "درخواست کردہ عہدہ (Position)",
@@ -448,6 +459,7 @@
         document.getElementById('lblName').innerText = t.lblName;
         document.getElementById('fullName').placeholder = t.phName;
         document.getElementById('lblAge').innerText = t.lblAge;
+        document.getElementById('lblGender').innerText = t.lblGender;
         document.getElementById('lblNationality').innerText = t.lblNationality;
         document.getElementById('lblPhone').innerText = t.lblPhone;
         document.getElementById('lblPosition').innerText = t.lblPosition;
@@ -468,7 +480,6 @@
         const fileInput = document.getElementById('cvFile');
         const file = fileInput.files[0];
 
-        // دالة لتحويل الملف المرفوع إلى نص Base64 ليتم تخزينه في الذاكرة المحلية
         if (file) {
             const reader = new FileReader();
             reader.onload = function(uploadEvent) {
@@ -484,6 +495,7 @@
         const applicant = {
             name: document.getElementById('fullName').value,
             age: document.getElementById('age').value,
+            gender: document.getElementById('gender').value,
             nationality: document.getElementById('nationality').value,
             phone: document.getElementById('phone').value,
             position: document.getElementById('position').value,
