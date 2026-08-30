@@ -28,7 +28,7 @@
         }
 
         .admin-wrapper {
-            max-width: 1500px;
+            max-width: 1550px;
             margin: 0 auto;
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -82,7 +82,7 @@
 
         .filters-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             background: #f8fafc;
             padding: 20px;
@@ -215,6 +215,10 @@
             font-weight: 500;
         }
 
+        @media(max-width: 1024px) {
+            .filters-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media(max-width: 768px) {
             .filters-container { grid-template-columns: 1fr; }
             .admin-wrapper { padding: 15px; }
@@ -234,6 +238,14 @@
     </div>
 
     <div class="filters-container">
+        <div class="filter-box">
+            <label id="lblFilterGender">تصفية حسب الجنس</label>
+            <select id="filterGender" onchange="renderTable()">
+                <option value="">جميع الأجناس</option>
+                <option value="ذكر">ذكر</option>
+                <option value="أنثى">أنثى</option>
+            </select>
+        </div>
         <div class="filter-box">
             <label id="lblFilterNat">تصفية حسب الجنسية</label>
             <select id="filterNat" onchange="renderTable()">
@@ -294,6 +306,7 @@
     const adminDict = {
         ar: {
             title: "لوحة التحكم الإدارية - tic tac",
+            fGender: "تصفية حسب الجنس",
             fNat: "تصفية حسب الجنسية",
             fPos: "تصفية حسب الوظيفة",
             fAge: "تصفية حسب الفئة العمرية",
@@ -305,6 +318,7 @@
         },
         en: {
             title: "Admin Dashboard - tic tac",
+            fGender: "Filter by Gender",
             fNat: "Filter by Nationality",
             fPos: "Filter by Position",
             fAge: "Filter by Age Group",
@@ -316,6 +330,7 @@
         },
         ur: {
             title: "ایڈمن ڈیش بورڈ - tic tac",
+            fGender: "صنف کے لحاظ سے فلٹر کریں",
             fNat: "قومیت کے لحاظ سے فلٹر کریں",
             fPos: "عہدے کے لحاظ سے فلٹر کریں",
             fAge: "عمر کے لحاظ سے فلٹر کریں",
@@ -349,6 +364,7 @@
 
         const t = adminDict[lang];
         document.getElementById('admTitle').innerText = t.title;
+        document.getElementById('lblFilterGender').innerText = t.fGender;
         document.getElementById('lblFilterNat').innerText = t.fNat;
         document.getElementById('lblFilterPos').innerText = t.fPos;
         document.getElementById('lblFilterAge').innerText = t.fAge;
@@ -394,6 +410,7 @@
         const tableBody = document.getElementById('tableBody');
         const applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
         
+        const genderFilter = document.getElementById('filterGender').value;
         const natFilter = document.getElementById('filterNat').value;
         const posFilter = document.getElementById('filterPos').value;
         const ageFilter = document.getElementById('filterAge').value;
@@ -402,10 +419,11 @@
 
         const filtered = applicants.map((app, originalIndex) => ({ app, originalIndex })).filter(({ app }) => {
             const ageGrp = getAgeGroup(app.age);
+            const matchG = !genderFilter || app.gender === genderFilter;
             const matchN = !natFilter || app.nationality === natFilter;
             const matchP = !posFilter || app.position === posFilter;
             const matchA = !ageFilter || ageGrp === ageFilter;
-            return matchN && matchP && matchA;
+            return matchG && matchN && matchP && matchA;
         });
 
         if (filtered.length === 0) {
