@@ -28,7 +28,7 @@
         }
 
         .admin-wrapper {
-            max-width: 1450px;
+            max-width: 1500px;
             margin: 0 auto;
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -169,7 +169,6 @@
             color: var(--text-muted);
         }
 
-        /* تنسيق أزرار الإجراءات والحالات */
         .actions-cell {
             display: flex;
             align-items: center;
@@ -188,7 +187,6 @@
             font-family: inherit;
         }
 
-        /* ألوان قائمة الحالة */
         .status-green { background-color: #d1fae5; color: #065f46; border-color: #a7f3d0; }
         .status-yellow { background-color: #fef3c7; color: #92400e; border-color: #fde68a; }
         .status-red { background-color: #fee2e2; color: #991b1b; border-color: #fecaca; }
@@ -275,6 +273,7 @@
                 <tr>
                     <th id="thName">الاسم</th>
                     <th id="thAge">العمر</th>
+                    <th id="thGender">الجنس</th>
                     <th id="thNat">الجنسية</th>
                     <th id="thPhone">رقم التواصل</th>
                     <th id="thPos">الوظيفة</th>
@@ -298,11 +297,10 @@
             fNat: "تصفية حسب الجنسية",
             fPos: "تصفية حسب الوظيفة",
             fAge: "تصفية حسب الفئة العمرية",
-            thName: "الاسم", thAge: "العمر", thNat: "الجنسية", thPhone: "رقم التواصل",
+            thName: "الاسم", thAge: "العمر", thGender: "الجنس", thNat: "الجنسية", thPhone: "رقم التواصل",
             thPos: "الوظيفة", thExp: "نبذة الخبرة", thCv: "السيرة الذاتية", thStatusInfo: "إقامة / رخصة / سيارة", thActions: "إجراءات المتابعة",
             noCv: "لا يوجد", downloadBtn: "تحميل CV",
-            optDefault: "اختر الحالة...", optGreen: "🟢 مقبول (موافق)", optYellow: "🟡 قيد المراجعة", optRed: "🔴 مرفوض",
-            deleteBtn: "حذف",
+            optDefault: "اختر الحالة...", deleteBtn: "حذف",
             noData: "لا توجد طلبات مسجلة حتى الآن."
         },
         en: {
@@ -310,11 +308,10 @@
             fNat: "Filter by Nationality",
             fPos: "Filter by Position",
             fAge: "Filter by Age Group",
-            thName: "Name", thAge: "Age", thNat: "Nationality", thPhone: "Contact",
+            thName: "Name", thAge: "Age", thGender: "Gender", thNat: "Nationality", thPhone: "Contact",
             thPos: "Position", thExp: "Experience", thCv: "CV / Resume", thStatusInfo: "Res / Lic / Car", thActions: "Actions",
             noCv: "None", downloadBtn: "Download CV",
-            optDefault: "Status...", optGreen: "🟢 Accepted", optYellow: "🟡 Reviewing", optRed: "🔴 Rejected",
-            deleteBtn: "Delete",
+            optDefault: "Status...", deleteBtn: "Delete",
             noData: "No applications registered yet."
         },
         ur: {
@@ -322,7 +319,7 @@
             fNat: "قومیت کے لحاظ سے فلٹر کریں",
             fPos: "عہدے کے لحاظ سے فلٹر کریں",
             fAge: "عمر کے لحاظ سے فلٹر کریں",
-            thName: "نام", thAge: "عمر", thNat: "قومیت", thPhone: "رابطہ نمبر",
+            thName: "نام", thAge: "عمر", thGender: "صنف", thNat: "قومیت", thPhone: "رابطہ نمبر",
             thPos: "عہدہ", thExp: "تجربہ", thCv: "سی وی (CV)", thStatusInfo: "اقامہ / لائسنس / گاڑی", thActions: "کارروائی",
             noCv: "کوئی نہیں", downloadBtn: "ڈاؤن لوڈ کریں",
             noData: "ابھی تک کوئی درخواست درج نہیں ہے۔"
@@ -357,6 +354,7 @@
         document.getElementById('lblFilterAge').innerText = t.fAge;
         document.getElementById('thName').innerText = t.thName;
         document.getElementById('thAge').innerText = t.thAge;
+        document.getElementById('thGender').innerText = t.thGender;
         document.getElementById('thNat').innerText = t.thNat;
         document.getElementById('thPhone').innerText = t.thPhone;
         document.getElementById('thPos').innerText = t.thPos;
@@ -381,13 +379,13 @@
         if (applicants[index]) {
             applicants[index].status = value;
             localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
-            renderTable(); // إعادة الرسم لتحديث لون القائمة المنسدلة فوراً
+            renderTable();
         }
     }
 
     function deleteApplicant(index) {
         let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
-        applicants.splice(index, 1); // حذف العنصر المحدد
+        applicants.splice(index, 1);
         localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
         renderTable();
     }
@@ -411,7 +409,7 @@
         });
 
         if (filtered.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="9" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="10" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
             return;
         }
 
@@ -423,7 +421,6 @@
                 cvCell = `<a href="${app.cvData}" download="${app.cvName || 'CV'}" class="cv-link">${t.downloadBtn}</a>`;
             }
 
-            // تحديد لون القائمة بناءً على الحالة المخزنة
             let statusClass = 'status-default';
             if (app.status === 'green') statusClass = 'status-green';
             else if (app.status === 'yellow') statusClass = 'status-yellow';
@@ -433,6 +430,7 @@
             tr.innerHTML = `
                 <td><strong>${app.name}</strong></td>
                 <td>${app.age}</td>
+                <td>${app.gender || '-'}</td>
                 <td>${app.nationality}</td>
                 <td class="phone-highlight">${app.phone}</td>
                 <td><span class="badge-position">${app.position}</span></td>
