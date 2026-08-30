@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="adminHtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج طلب التوظيف - TIC TAC</title>
+    <title>Admin Dashboard - tic tac</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
         :root {
             --primary: #0f172a;
@@ -20,15 +20,15 @@
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Lusail Plus', 'Tajawal', 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
             padding: 30px 20px;
         }
 
-        .form-wrapper {
-            max-width: 800px;
+        .admin-wrapper {
+            max-width: 1550px;
             margin: 0 auto;
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -37,210 +37,441 @@
             padding: 30px;
         }
 
-        .form-header {
-            text-align: center;
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 2px solid var(--border);
             padding-bottom: 20px;
             margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .form-header h1 {
-            font-size: 1.5rem;
-            margin: 0 0 10px 0;
+        .admin-header h1 {
+            font-size: 1.3rem;
+            margin: 0;
             color: var(--primary);
+            font-weight: 700;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .lang-switcher {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 10px;
+            gap: 4px;
         }
 
-        .form-group label {
+        .lang-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .filters-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .filter-box label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--text-main);
+            color: var(--text-muted);
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .filter-box select {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px 14px;
             border: 1.5px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             background: #fff;
             font-family: inherit;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s;
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--accent);
+        .table-container {
+            overflow-x: auto;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .btn-submit {
-            background: var(--accent);
-            color: #fff;
-            border: none;
+        table {
             width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        [dir="ltr"] table {
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .badge-position {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .phone-highlight {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .cv-link {
+            background: #0f172a;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .cv-link:hover {
+            background: var(--accent);
+        }
+
+        .no-cv {
+            color: var(--text-muted);
+        }
+
+        .actions-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-select {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .status-green { background-color: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+        .status-yellow { background-color: #fef3c7; color: #92400e; border-color: #fde68a; }
+        .status-red { background-color: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        .status-default { background-color: #f8fafc; color: var(--text-main); }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #991b1b;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
             transition: background 0.2s;
         }
 
-        .btn-submit:hover {
-            background: #1d4ed8;
+        .btn-delete:hover {
+            background: #fecaca;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        @media(max-width: 1024px) {
+            .filters-container { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media(max-width: 768px) {
-            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .filters-container { grid-template-columns: 1fr; }
+            .admin-wrapper { padding: 15px; }
         }
     </style>
 </head>
 <body>
 
-<div class="form-wrapper">
-    <div class="form-header">
-        <h1>نموذج تقديم الوظائف - TIC TAC</h1>
-        <p>يرجى تعبئة البيانات أدناه بدقة لإرسال طلبك</p>
+<div class="admin-wrapper">
+    <div class="admin-header">
+        <h1 id="admTitle">لوحة التحكم الإدارية - tic tac</h1>
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="switchAdminLang('ar')" id="aAr">عربي</button>
+            <button class="lang-btn" onclick="switchAdminLang('en')" id="aEn">English</button>
+            <button class="lang-btn" onclick="switchAdminLang('ur')" id="aUr">اردو</button>
+        </div>
     </div>
 
-    <form id="applicantForm" onsubmit="saveApplicant(event)">
-        <div class="form-row">
-            <div class="form-group">
-                <label>الاسم الكامل</label>
-                <input type="text" id="appName" required placeholder="أدخل اسمك الكامل">
-            </div>
-            <div class="form-group">
-                <label>العمر</label>
-                <input type="number" id="appAge" required min="18" max="70" placeholder="أدخل العمر">
-            </div>
+    <div class="filters-container">
+        <div class="filter-box">
+            <label id="lblFilterGender">تصفية حسب الجنس</label>
+            <select id="filterGender" onchange="renderTable()">
+                <option value="">جميع الأجناس</option>
+                <option value="ذكر">ذكر</option>
+                <option value="أنثى">أنثى</option>
+            </select>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>الجنس</label>
-                <select id="appGender" required>
-                    <option value="">اختر الجنس</option>
-                    <option value="ذكر">ذكر</option>
-                    <option value="أنثى">أنثى</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>الجنسية</label>
-                <select id="appNationality" required>
-                    <option value="">اختر الجنسية</option>
-                    <option value="Egyptian">مصري</option>
-                    <option value="Indian">هندي</option>
-                    <option value="Nepalese">نيبالي</option>
-                    <option value="Pakistani">باكستاني</option>
-                    <option value="Bangladeshi">بنجلاديشي</option>
-                    <option value="Filipino">فلبيني</option>
-                </select>
-            </div>
+        <div class="filter-box">
+            <label id="lblFilterNat">تصفية حسب الجنسية</label>
+            <select id="filterNat" onchange="renderTable()">
+                <option value="">جميع الجنسيات</option>
+                <option value="Egyptian">مصري</option>
+                <option value="Indian">هندي</option>
+                <option value="Nepalese">نيبالي</option>
+                <option value="Pakistani">باكستاني</option>
+                <option value="Bangladeshi">بنجلاديشي</option>
+                <option value="Filipino">فلبيني</option>
+            </select>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>رقم التواصل</label>
-                <input type="tel" id="appPhone" required placeholder="مثال: 50000000">
-            </div>
-            <div class="form-group">
-                <label>الوظيفة المطلوبة</label>
-                <select id="appPosition" required>
-                    <option value="">اختر الوظيفة</option>
-                    <option value="Electrician">فني كهرباء</option>
-                    <option value="Plumber">فني سباكة</option>
-                    <option value="Site Engineer">مهندس موقع</option>
-                    <option value="Project Manager">مدير مشروع</option>
-                </select>
-            </div>
+        <div class="filter-box">
+            <label id="lblFilterPos">تصفية حسب الوظيفة</label>
+            <select id="filterPos" onchange="renderTable()">
+                <option value="">جميع الوظائف</option>
+                <option value="Electrician">فني كهرباء</option>
+                <option value="Plumber">فني سباكة</option>
+                <option value="Site Engineer">مهندس موقع</option>
+                <option value="Project Manager">مدير مشروع</option>
+            </select>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>الحالة (إقامة / رخصة / سيارة)</label>
-                <div style="display: flex; gap: 10px;">
-                    <select id="appQatarId">
-                        <option value="إقامة سارية">إقامة سارية</option>
-                        <option value="إقامة منتهية">إقامة منتهية</option>
-                    </select>
-                    <select id="appLicense">
-                        <option value="رخصة قيادة">رخصة قيادة</option>
-                        <option value="بدون رخصة">بدون رخصة</option>
-                    </select>
-                    <select id="appCar">
-                        <option value="يوجد سيارة">يوجد سيارة</option>
-                        <option value="بدون سيارة">بدون سيارة</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>رفع السيرة الذاتية (CV)</label>
-                <input type="file" id="appCv" accept=".pdf,.doc,.docx">
-            </div>
+        <div class="filter-box">
+            <label id="lblFilterAge">تصفية حسب الفئة العمرية</label>
+            <select id="filterAge" onchange="renderTable()">
+                <option value="">جميع الأعمار</option>
+                <option value="20-30">20 - 30 سنة</option>
+                <option value="31-40">31 - 40 سنة</option>
+                <option value="41+">41 سنة فأكثر</option>
+            </select>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label>نبذة عن الخبرة</label>
-            <textarea id="appExperience" rows="3" placeholder="اكتب نبذة مختصرة عن خبرتك السابقة..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit">إرسال الطلب</button>
-    </form>
+    <div class="table-container">
+        <table id="applicantsTable">
+            <thead>
+                <tr>
+                    <th id="thName">الاسم</th>
+                    <th id="thAge">العمر</th>
+                    <th id="thGender">الجنس</th>
+                    <th id="thNat">الجنسية</th>
+                    <th id="thPhone">رقم التواصل</th>
+                    <th id="thPos">الوظيفة</th>
+                    <th id="thExp">نبذة الخبرة</th>
+                    <th id="thCv">السيرة الذاتية</th>
+                    <th id="thStatusInfo">إقامة / رخصة / سيارة</th>
+                    <th id="thActions">إجراءات المتابعة</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- سيتم تعبئة البيانات تلقائياً هنا -->
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
-    function saveApplicant(event) {
-        event.preventDefault();
+    const adminDict = {
+        ar: {
+            title: "لوحة التحكم الإدارية - tic tac",
+            fGender: "تصفية حسب الجنس",
+            fNat: "تصفية حسب الجنسية",
+            fPos: "تصفية حسب الوظيفة",
+            fAge: "تصفية حسب الفئة العمرية",
+            thName: "الاسم", thAge: "العمر", thGender: "الجنس", thNat: "الجنسية", thPhone: "رقم التواصل",
+            thPos: "الوظيفة", thExp: "نبذة الخبرة", thCv: "السيرة الذاتية", thStatusInfo: "إقامة / رخصة / سيارة", thActions: "إجراءات المتابعة",
+            noCv: "لا يوجد", downloadBtn: "تحميل CV",
+            optDefault: "اختر الحالة...", deleteBtn: "حذف",
+            noData: "لا توجد طلبات مسجلة حتى الآن."
+        },
+        en: {
+            title: "Admin Dashboard - tic tac",
+            fGender: "Filter by Gender",
+            fNat: "Filter by Nationality",
+            fPos: "Filter by Position",
+            fAge: "Filter by Age Group",
+            thName: "Name", thAge: "Age", thGender: "Gender", thNat: "Nationality", thPhone: "Contact",
+            thPos: "Position", thExp: "Experience", thCv: "CV / Resume", thStatusInfo: "Res / Lic / Car", thActions: "Actions",
+            noCv: "None", downloadBtn: "Download CV",
+            optDefault: "Status...", deleteBtn: "Delete",
+            noData: "No applications registered yet."
+        },
+        ur: {
+            title: "ایڈمن ڈیش بورڈ - tic tac",
+            fGender: "صنف کے لحاظ سے فلٹر کریں",
+            fNat: "قومیت کے لحاظ سے فلٹر کریں",
+            fPos: "عہدے کے لحاظ سے فلٹر کریں",
+            fAge: "عمر کے لحاظ سے فلٹر کریں",
+            thName: "نام", thAge: "عمر", thGender: "صنف", thNat: "قومیت", thPhone: "رابطہ نمبر",
+            thPos: "عہدہ", thExp: "تجربہ", thCv: "سی وی (CV)", thStatusInfo: "اقامہ / لائسنس / گاڑی", thActions: "کارروائی",
+            noCv: "کوئی نہیں", downloadBtn: "ڈاؤن لوڈ کریں",
+            noData: "ابھی تک کوئی درخواست درج نہیں ہے۔"
+        }
+    };
 
-        const name = document.getElementById('appName').value;
-        const age = document.getElementById('appAge').value;
-        const gender = document.getElementById('appGender').value;
-        const nationality = document.getElementById('appNationality').value;
-        const phone = document.getElementById('appPhone').value;
-        const position = document.getElementById('appPosition').value;
-        const qatarId = document.getElementById('appQatarId').value;
-        const license = document.getElementById('appLicense').value;
-        const car = document.getElementById('appCar').value;
-        const experience = document.getElementById('appExperience').value;
+    let currentLang = 'ar';
+
+    function switchAdminLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        const html = document.getElementById('adminHtml');
         
-        const cvFileInput = document.getElementById('appCv');
-        
-        function finalizeSave(cvData = '', cvName = '') {
-            const newApplicant = {
-                name, age, gender, nationality, phone, position, qatarId, license, car, experience,
-                cvData, cvName, status: ''
-            };
-
-            let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
-            applicants.push(newApplicant);
-            localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
-
-            alert('تم إرسال طلبك بنجاح!');
-            document.getElementById('applicantForm').reset();
+        if(lang === 'ar') {
+            html.setAttribute('lang', 'ar');
+            html.setAttribute('dir', 'rtl');
+            document.getElementById('aAr').classList.add('active');
+        } else if(lang === 'en') {
+            html.setAttribute('lang', 'en');
+            html.setAttribute('dir', 'ltr');
+            document.getElementById('aEn').classList.add('active');
+        } else {
+            html.setAttribute('lang', 'ur');
+            html.setAttribute('dir', 'rtl');
+            document.getElementById('aUr').classList.add('active');
         }
 
-        if (cvFileInput.files && cvFileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                finalizeSave(e.target.result, cvFileInput.files[0].name);
-            };
-            reader.readAsDataURL(cvFileInput.files[0]);
-        } else {
-            finalizeSave();
+        const t = adminDict[lang];
+        document.getElementById('admTitle').innerText = t.title;
+        document.getElementById('lblFilterGender').innerText = t.fGender;
+        document.getElementById('lblFilterNat').innerText = t.fNat;
+        document.getElementById('lblFilterPos').innerText = t.fPos;
+        document.getElementById('lblFilterAge').innerText = t.fAge;
+        document.getElementById('thName').innerText = t.thName;
+        document.getElementById('thAge').innerText = t.thAge;
+        document.getElementById('thGender').innerText = t.thGender;
+        document.getElementById('thNat').innerText = t.thNat;
+        document.getElementById('thPhone').innerText = t.thPhone;
+        document.getElementById('thPos').innerText = t.thPos;
+        document.getElementById('thExp').innerText = t.thExp;
+        document.getElementById('thCv').innerText = t.thCv;
+        document.getElementById('thStatusInfo').innerText = t.thStatusInfo;
+        document.getElementById('thActions').innerText = t.thActions;
+
+        renderTable();
+    }
+
+    function getAgeGroup(age) {
+        const num = parseInt(age);
+        if (num >= 20 && num <= 30) return '20-30';
+        if (num >= 31 && num <= 40) return '31-40';
+        if (num >= 41) return '41+';
+        return '';
+    }
+
+    function updateStatus(index, value) {
+        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        if (applicants[index]) {
+            applicants[index].status = value;
+            localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+            renderTable();
         }
     }
+
+    function deleteApplicant(index) {
+        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        applicants.splice(index, 1);
+        localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+        renderTable();
+    }
+
+    function renderTable() {
+        const tableBody = document.getElementById('tableBody');
+        const applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        
+        const genderFilter = document.getElementById('filterGender').value;
+        const natFilter = document.getElementById('filterNat').value;
+        const posFilter = document.getElementById('filterPos').value;
+        const ageFilter = document.getElementById('filterAge').value;
+
+        tableBody.innerHTML = '';
+
+        const filtered = applicants.map((app, originalIndex) => ({ app, originalIndex })).filter(({ app }) => {
+            const ageGrp = getAgeGroup(app.age);
+            const matchG = !genderFilter || app.gender === genderFilter;
+            const matchN = !natFilter || app.nationality === natFilter;
+            const matchP = !posFilter || app.position === posFilter;
+            const matchA = !ageFilter || ageGrp === ageFilter;
+            return matchG && matchN && matchP && matchA;
+        });
+
+        if (filtered.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="10" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
+            return;
+        }
+
+        const t = adminDict[currentLang];
+
+        filtered.forEach(({ app, originalIndex }) => {
+            let cvCell = `<span class="no-cv">${t.noCv}</span>`;
+            if (app.cvData) {
+                cvCell = `<a href="${app.cvData}" download="${app.cvName || 'CV'}" class="cv-link">${t.downloadBtn}</a>`;
+            }
+
+            let statusClass = 'status-default';
+            if (app.status === 'green') statusClass = 'status-green';
+            else if (app.status === 'yellow') statusClass = 'status-yellow';
+            else if (app.status === 'red') statusClass = 'status-red';
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${app.name}</strong></td>
+                <td>${app.age}</td>
+                <td>${app.gender || '-'}</td>
+                <td>${app.nationality}</td>
+                <td class="phone-highlight">${app.phone}</td>
+                <td><span class="badge-position">${app.position}</span></td>
+                <td>${app.experience || '-'}</td>
+                <td>${cvCell}</td>
+                <td>${app.qatarId} / ${app.license} / ${app.car}</td>
+                <td>
+                    <div class="actions-cell">
+                        <select class="status-select ${statusClass}" onchange="updateStatus(${originalIndex}, this.value)">
+                            <option value="" ${!app.status ? 'selected' : ''}>${t.optDefault || 'اختر الحالة...'}</option>
+                            <option value="green" ${app.status === 'green' ? 'selected' : ''}>🟢 مقبول</option>
+                            <option value="yellow" ${app.status === 'yellow' ? 'selected' : ''}>🟡 قيد المراجعة</option>
+                            <option value="red" ${app.status === 'red' ? 'selected' : ''}>🔴 مرفوض</option>
+                        </select>
+                        <button class="btn-delete" onclick="deleteApplicant(${originalIndex})">${t.deleteBtn || 'حذف'}</button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    window.onload = renderTable;
 </script>
 </body>
 </html>
