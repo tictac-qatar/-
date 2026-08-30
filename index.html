@@ -1,522 +1,245 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlTag">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tic tac for building maintenance</title>
+    <title>نموذج طلب التوظيف - TIC TAC</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
 
         :root {
             --primary: #0f172a;
             --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --bg-main: #f8fafc;
+            --bg-body: #f1f5f9;
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --border-focus: #3b82f6;
             --radius: 16px;
-            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
         }
 
         body {
-            font-family: 'Lusail Plus', 'Tajawal', 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-main);
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 30px 20px;
         }
 
-        .wrapper {
-            width: 100%;
-            max-width: 850px;
+        .form-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
             background: var(--card-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
-            overflow: hidden;
+            padding: 30px;
         }
 
-        .header-bar {
-            background: var(--primary);
-            color: #ffffff;
-            padding: 25px 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+        .form-header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .brand-info h1 {
-            font-size: 1.25rem;
-            margin: 0 0 5px 0;
-            font-weight: 700;
-        }
-
-        .brand-info p {
-            font-size: 0.85rem;
-            margin: 0;
-            color: #94a3b8;
-        }
-
-        .lang-switcher {
-            display: flex;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px;
-            border-radius: 10px;
-            gap: 4px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            color: #cbd5e1;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.25s ease;
-        }
-
-        .lang-btn.active {
-            background: var(--accent);
-            color: #ffffff;
-        }
-
-        .form-content {
-            padding: 35px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .form-header h1 {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            color: var(--primary);
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .full-width {
-            grid-column: span 2;
-        }
-
-        label {
+        .form-group label {
+            display: block;
             font-size: 0.9rem;
             font-weight: 600;
+            margin-bottom: 8px;
             color: var(--text-main);
         }
 
-        input, select, textarea {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 15px;
             border: 1.5px solid var(--border);
             border-radius: 10px;
             font-size: 0.95rem;
-            background: #ffffff;
-            color: var(--text-main);
-            box-sizing: border-box;
+            background: #fff;
             font-family: inherit;
-        }
-
-        input[type="file"] {
-            padding: 9px;
-            background: #f8fafc;
-            cursor: pointer;
-        }
-
-        input:focus, select:focus, textarea:focus {
+            box-sizing: border-box;
             outline: none;
-            border-color: var(--border-focus);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transition: border-color 0.2s;
         }
 
-        .option-box {
-            background: #f8fafc;
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--accent);
         }
 
-        .option-box label {
-            margin: 0;
-        }
-
-        .radio-options {
-            display: flex;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-
-        .radio-options label {
-            font-weight: normal;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        .submit-container {
-            grid-column: span 2;
-            margin-top: 10px;
         }
 
         .btn-submit {
             background: var(--accent);
-            color: #ffffff;
+            color: #fff;
             border: none;
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border-radius: 10px;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s ease;
-            font-family: inherit;
+            transition: background 0.2s;
         }
 
         .btn-submit:hover {
-            background: var(--accent-hover);
-        }
-
-        .alert-success {
-            display: none;
-            background: #ecfdf5;
-            color: #065f46;
-            padding: 14px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 600;
-            grid-column: span 2;
-            border: 1px solid #a7f3d0;
-            margin-top: 10px;
-        }
-
-        .footer-info {
-            text-align: center;
-            padding: 20px;
-            background: #f8fafc;
-            border-top: 1px solid var(--border);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .footer-info a {
-            color: var(--accent);
-            font-weight: bold;
-            text-decoration: none;
+            background: #1d4ed8;
         }
 
         @media(max-width: 768px) {
-            body { padding: 10px; }
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width, .submit-container { grid-column: span 1; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-    <div class="header-bar">
-        <div class="brand-info">
-            <h1 id="mainTitle">tic tac for building maintenance</h1>
-            <p id="subTitle">بوابة طلبات التوظيف والمشاركة التشغيلية الشاملة</p>
-        </div>
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="switchLanguage('ar')" id="bAr">عربي</button>
-            <button class="lang-btn" onclick="switchLanguage('en')" id="bEn">English</button>
-            <button class="lang-btn" onclick="switchLanguage('ur')" id="bUr">اردو</button>
-        </div>
+<div class="form-wrapper">
+    <div class="form-header">
+        <h1>نموذج تقديم الوظائف - TIC TAC</h1>
+        <p>يرجى تعبئة البيانات أدناه بدقة لإرسال طلبك</p>
     </div>
 
-    <div class="form-content">
-        <form id="employmentForm" onsubmit="handleFormSubmit(event)" class="form-grid">
-            
+    <form id="applicantForm" onsubmit="saveApplicant(event)">
+        <div class="form-row">
             <div class="form-group">
-                <label id="lblName">الاسم الكامل</label>
-                <input type="text" id="fullName" required placeholder="أدخل اسمك الثلاثي أو الرباعي">
+                <label>الاسم الكامل</label>
+                <input type="text" id="appName" required placeholder="أدخل اسمك الكامل">
             </div>
-
             <div class="form-group">
-                <label id="lblAge">العمر (السن)</label>
-                <input type="number" id="age" required placeholder="مثال: 32" min="18" max="70">
+                <label>العمر</label>
+                <input type="number" id="appAge" required min="18" max="70" placeholder="أدخل العمر">
             </div>
+        </div>
 
+        <div class="form-row">
             <div class="form-group">
-                <label id="lblGender">الجنس (النوع)</label>
-                <select id="gender" required>
+                <label>الجنس</label>
+                <select id="appGender" required>
                     <option value="">اختر الجنس</option>
-                    <option value="ذكر">ذكر (Male)</option>
-                    <option value="أنثى">أنثى (Female)</option>
+                    <option value="ذكر">ذكر</option>
+                    <option value="أنثى">أنثى</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label id="lblNationality">الجنسية</label>
-                <select id="nationality" required>
+                <label>الجنسية</label>
+                <select id="appNationality" required>
                     <option value="">اختر الجنسية</option>
-                    <option value="Egyptian">مصري (Egyptian)</option>
-                    <option value="Indian">هندي (Indian)</option>
-                    <option value="Nepalese">نيبالي (Nepalese)</option>
-                    <option value="Pakistani">باكستاني (Pakistani)</option>
-                    <option value="Bangladeshi">بنجلاديشي (Bangladeshi)</option>
-                    <option value="Filipino">فلبيني (Filipino)</option>
-                    <option value="Sri Lankan">سريلانكي (Sri Lankan)</option>
-                    <option value="Sudanese">سوداني (Sudanese)</option>
-                    <option value="Syrian">سوري (Syrian)</option>
-                    <option value="Jordanian">أردني (Jordanian)</option>
-                    <option value="Other">جنسية أخرى (Other)</option>
+                    <option value="Egyptian">مصري</option>
+                    <option value="Indian">هندي</option>
+                    <option value="Nepalese">نيبالي</option>
+                    <option value="Pakistani">باكستاني</option>
+                    <option value="Bangladeshi">بنجلاديشي</option>
+                    <option value="Filipino">فلبيني</option>
                 </select>
             </div>
+        </div>
 
+        <div class="form-row">
             <div class="form-group">
-                <label id="lblPhone">رقم الهاتف / الواتساب</label>
-                <input type="tel" id="phone" required placeholder="+974 XXXXXXXX">
+                <label>رقم التواصل</label>
+                <input type="tel" id="appPhone" required placeholder="مثال: 50000000">
             </div>
-
-            <div class="form-group full-width">
-                <label id="lblPosition">الوظيفة المتقدم لها</label>
-                <select id="position" required>
-                    <option value="">اختر الوظيفة المناسبة</option>
-                    <optgroup label="الهندسة والإدارة العليا (Engineering & Management)">
-                        <option value="Project Manager">مدير مشروع (Project Manager)</option>
-                        <option value="Site Engineer">مهندس موقع (Site Engineer)</option>
-                        <option value="MEP Engineer">مهندس ميكانيكا وكهرباء (MEP Engineer)</option>
-                        <option value="Civil Engineer">مهندس مدني (Civil Engineer)</option>
-                        <option value="Quantity Surveyor">مهندس مسح كميات (Quantity Surveyor)</option>
-                        <option value="HSE Officer">مسؤول أمن وسلامة (HSE Officer)</option>
-                    </optgroup>
-                    <optgroup label="المشرفون والفنيون الحرفيون (Supervisors & Technicians)">
-                        <option value="General Supervisor">مشرف عام مواقع (General Supervisor)</option>
-                        <option value="Maintenance Supervisor">مشرف صيانة مباني (Maintenance Supervisor)</option>
-                        <option value="Electrician">فني كهرباء (Electrician)</option>
-                        <option value="Plumber">فني سباكة وصحي (Plumber)</option>
-                        <option value="HVAC Tech">فني تكييف وتبريد HVAC (HVAC Technician)</option>
-                        <option value="Gypsum Tech">فني جبس بورد وديكور (Gypsum Board Technician)</option>
-                        <option value="Painter">فني دهانات وديكور (Painter)</option>
-                        <option value="Mason">فني بناء ومحارة / بلاط (Mason / Plasterer)</option>
-                        <option value="Carpenter">نجار مباني / أثاث (Carpenter)</option>
-                        <option value="Welder">فني لحام وتشكيل معادن (Welder / Fabricator)</option>
-                        <option value="Aluminum Tech">فني ألوميتال وواجهات (Aluminum Technician)</option>
-                        <option value="Firefighting Tech">فني أنظمة إطفاء الحريق (Firefighting Tech)</option>
-                    </optgroup>
-                    <optgroup label="العمالة المهنية والخدمات المساندة (Laborers & Support)">
-                        <option value="General Laborer">عامل مقاولات عام (General Construction Laborer)</option>
-                        <option value="Maintenance Worker">عامل صيانة عامة (Building Maintenance Worker)</option>
-                        <option value="Helper">مساعد فني / هيلبر (Helper / Assistant)</option>
-                        <option value="Driver">سائق رخصة عمومي / خفيف (Driver)</option>
-                        <option value="Storekeeper">أمين مخزن مستلزمات مواقع (Storekeeper)</option>
-                    </optgroup>
+            <div class="form-group">
+                <label>الوظيفة المطلوبة</label>
+                <select id="appPosition" required>
+                    <option value="">اختر الوظيفة</option>
+                    <option value="Electrician">فني كهرباء</option>
+                    <option value="Plumber">فني سباكة</option>
+                    <option value="Site Engineer">مهندس موقع</option>
+                    <option value="Project Manager">مدير مشروع</option>
                 </select>
             </div>
+        </div>
 
-            <div class="form-group full-width">
-                <label id="lblExp">نبذة مختصرة عن الخبرات السابقة</label>
-                <textarea id="experience" rows="3" placeholder="ذكر سنوات الخبرة وأبرز المشاريع السابقة..."></textarea>
-            </div>
-
-            <div class="form-group full-width">
-                <label id="lblCv">إرفاق السيرة الذاتية (CV / PDF أو صورة)</label>
-                <input type="file" id="cvFile" accept=".pdf,image/*">
-            </div>
-
+        <div class="form-row">
             <div class="form-group">
-                <div class="option-box">
-                    <label id="lblQatarID">هل لديك إقامة قطرية سارية؟</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="qatarId" value="نعم" required> <span>نعم</span></label>
-                        <label><input type="radio" name="qatarId" value="لا"> <span>لا</span></label>
-                    </div>
+                <label>الحالة (إقامة / رخصة / سيارة)</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="appQatarId">
+                        <option value="إقامة سارية">إقامة سارية</option>
+                        <option value="إقامة منتهية">إقامة منتهية</option>
+                    </select>
+                    <select id="appLicense">
+                        <option value="رخصة قيادة">رخصة قيادة</option>
+                        <option value="بدون رخصة">بدون رخصة</option>
+                    </select>
+                    <select id="appCar">
+                        <option value="يوجد سيارة">يوجد سيارة</option>
+                        <option value="بدون سيارة">بدون سيارة</option>
+                    </select>
                 </div>
             </div>
-
             <div class="form-group">
-                <div class="option-box">
-                    <label id="lblLicense">هل لديك رخصة قيادة قطرية؟</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="license" value="نعم" required> <span>نعم</span></label>
-                        <label><input type="radio" name="license" value="لا"> <span>لا</span></label>
-                    </div>
-                </div>
+                <label>رفع السيرة الذاتية (CV)</label>
+                <input type="file" id="appCv" accept=".pdf,.doc,.docx">
             </div>
+        </div>
 
-            <div class="form-group full-width">
-                <div class="option-box">
-                    <label id="lblCar">هل تتوفر لديك سيارة خاصة؟</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="car" value="نعم" required> <span>نعم</span></label>
-                        <label><input type="radio" name="car" value="لا"> <span>لا</span></label>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label>نبذة عن الخبرة</label>
+            <textarea id="appExperience" rows="3" placeholder="اكتب نبذة مختصرة عن خبرتك السابقة..."></textarea>
+        </div>
 
-            <div class="submit-container">
-                <button type="submit" class="btn-submit" id="btnSubmit">إرسال الطلب الآن</button>
-            </div>
-            
-            <div id="successMessage" class="alert-success">تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا!</div>
-        </form>
-    </div>
-
-    <div class="footer-info" id="footerText">
-        للدعم والاستفسار المباشر: <a href="tel:66608077">66608077</a> (اتصال / واتساب)
-    </div>
+        <button type="submit" class="btn-submit">إرسال الطلب</button>
+    </form>
 </div>
 
 <script>
-    const contentDict = {
-        ar: {
-            subTitle: "بوابة طلبات التوظيف والمشاركة التشغيلية الشاملة",
-            lblName: "الاسم الكامل",
-            phName: "أدخل اسمك الثلاثي أو الرباعي",
-            lblAge: "العمر (السن)",
-            lblGender: "الجنس (النوع)",
-            lblNationality: "الجنسية",
-            lblPhone: "رقم الهاتف / الواتساب",
-            lblPosition: "الوظيفة المتقدم لها",
-            lblExp: "نبذة مختصرة عن الخبرات السابقة",
-            phExp: "ذكر سنوات الخبرة وأبرز المشاريع السابقة...",
-            lblCv: "إرفاق السيرة الذاتية (CV / PDF أو صورة)",
-            lblQatarID: "هل لديك إقامة قطرية سارية؟",
-            lblLicense: "هل لديك رخصة قيادة قطرية؟",
-            lblCar: "هل تتوفر لديك سيارة خاصة؟",
-            btnSubmit: "إرسال الطلب الآن",
-            success: "تم إرسال طلبك بنجاح، سيتم التواصل معك قريبًا!",
-            footer: 'للدعم والاستفسار المباشر: <a href="tel:66608077">66608077</a> (اتصال / واتساب)'
-        },
-        en: {
-            subTitle: "Comprehensive Employment & Operational Portal",
-            lblName: "Full Name",
-            phName: "Enter your full name",
-            lblAge: "Age",
-            lblGender: "Gender",
-            lblNationality: "Nationality",
-            lblPhone: "Phone / WhatsApp Number",
-            lblPosition: "Position Applied For",
-            lblExp: "Brief Summary of Experience",
-            phExp: "Mention years of experience and key projects...",
-            lblCv: "Upload CV (PDF or Image)",
-            lblQatarID: "Do you have a Qatari residency permit?",
-            lblLicense: "Do you have a Qatari driving license?",
-            lblCar: "Do you have a private car?",
-            btnSubmit: "Submit Application",
-            success: "Application submitted successfully! We will contact you soon.",
-            footer: 'Direct Support: <a href="tel:66608077">66608077</a> (Call / WhatsApp)'
-        },
-        ur: {
-            subTitle: "ملازمتی اور آپریشنل پورٹل",
-            lblName: "पूरा नाम (Full Name)",
-            phName: "अपना پورا نام درج کریں",
-            lblAge: "عمر",
-            lblGender: "صنف (Gender)",
-            lblNationality: "قومیت (Nationality)",
-            lblPhone: "رابطہ نمبر / واٹس ایپ",
-            lblPosition: "درخواست کردہ عہدہ (Position)",
-            lblExp: "تجربے کا مختصر خلاصہ",
-            phExp: "اپنے تجربے کے بارے میں لکھیں...",
-            lblCv: "سی وی اپ لوڈ کریں (CV)",
-            lblQatarID: "کیا آپ کے پاس قطری اقامہ ہے؟",
-            lblLicense: "کیا آپ کے پاس قطری ڈرائیونگ لائسنس ہے؟",
-            lblCar: "کیا آپ کے پاس ذاتی گاڑی ہے؟",
-            btnSubmit: "درخواست جمع کروائیں",
-            success: "آپ کی درخواست کامیابی سے جمع ہو گئی ہے!",
-            footer: 'رابطہ کریں: <a href="tel:66608077">66608077</a> (کال یا واٹس ایپ)'
-        }
-    };
+    function saveApplicant(event) {
+        event.preventDefault();
 
-    function switchLanguage(lang) {
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        const html = document.getElementById('htmlTag');
+        const name = document.getElementById('appName').value;
+        const age = document.getElementById('appAge').value;
+        const gender = document.getElementById('appGender').value;
+        const nationality = document.getElementById('appNationality').value;
+        const phone = document.getElementById('appPhone').value;
+        const position = document.getElementById('appPosition').value;
+        const qatarId = document.getElementById('appQatarId').value;
+        const license = document.getElementById('appLicense').value;
+        const car = document.getElementById('appCar').value;
+        const experience = document.getElementById('appExperience').value;
         
-        if(lang === 'ar') {
-            html.setAttribute('lang', 'ar');
-            html.setAttribute('dir', 'rtl');
-            document.getElementById('bAr').classList.add('active');
-        } else if(lang === 'en') {
-            html.setAttribute('lang', 'en');
-            html.setAttribute('dir', 'ltr');
-            document.getElementById('bEn').classList.add('active');
-        } else {
-            html.setAttribute('lang', 'ur');
-            html.setAttribute('dir', 'rtl');
-            document.getElementById('bUr').classList.add('active');
-        }
-
-        const t = contentDict[lang];
-        document.getElementById('subTitle').innerText = t.subTitle;
-        document.getElementById('lblName').innerText = t.lblName;
-        document.getElementById('fullName').placeholder = t.phName;
-        document.getElementById('lblAge').innerText = t.lblAge;
-        document.getElementById('lblGender').innerText = t.lblGender;
-        document.getElementById('lblNationality').innerText = t.lblNationality;
-        document.getElementById('lblPhone').innerText = t.lblPhone;
-        document.getElementById('lblPosition').innerText = t.lblPosition;
-        document.getElementById('lblExp').innerText = t.lblExp;
-        document.getElementById('experience').placeholder = t.phExp;
-        document.getElementById('lblCv').innerText = t.lblCv;
-        document.getElementById('lblQatarID').innerText = t.lblQatarID;
-        document.getElementById('lblLicense').innerText = t.lblLicense;
-        document.getElementById('lblCar').innerText = t.lblCar;
-        document.getElementById('btnSubmit').innerText = t.btnSubmit;
-        document.getElementById('successMessage').innerText = t.success;
-        document.getElementById('footerText').innerHTML = t.footer;
-    }
-
-    function handleFormSubmit(e) {
-        e.preventDefault();
-
-        const fileInput = document.getElementById('cvFile');
-        const file = fileInput.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(uploadEvent) {
-                saveData(uploadEvent.target.result, file.name);
+        const cvFileInput = document.getElementById('appCv');
+        
+        function finalizeSave(cvData = '', cvName = '') {
+            const newApplicant = {
+                name, age, gender, nationality, phone, position, qatarId, license, car, experience,
+                cvData, cvName, status: ''
             };
-            reader.readAsDataURL(file);
-        } else {
-            saveData(null, null);
+
+            let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+            applicants.push(newApplicant);
+            localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+
+            alert('تم إرسال طلبك بنجاح!');
+            document.getElementById('applicantForm').reset();
         }
-    }
 
-    function saveData(fileData, fileName) {
-        const applicant = {
-            name: document.getElementById('fullName').value,
-            age: document.getElementById('age').value,
-            gender: document.getElementById('gender').value,
-            nationality: document.getElementById('nationality').value,
-            phone: document.getElementById('phone').value,
-            position: document.getElementById('position').value,
-            experience: document.getElementById('experience').value,
-            cvData: fileData,
-            cvName: fileName,
-            qatarId: document.querySelector('input[name="qatarId"]:checked').value,
-            license: document.querySelector('input[name="license"]:checked').value,
-            car: document.querySelector('input[name="car"]:checked').value
-        };
-
-        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
-        applicants.push(applicant);
-        localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
-
-        const msg = document.getElementById('successMessage');
-        msg.style.display = 'block';
-        setTimeout(() => {
-            msg.style.display = 'none';
-            document.getElementById('employmentForm').reset();
-        }, 4000);
+        if (cvFileInput.files && cvFileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                finalizeSave(e.target.result, cvFileInput.files[0].name);
+            };
+            reader.readAsDataURL(cvFileInput.files[0]);
+        } else {
+            finalizeSave();
+        }
     }
 </script>
 </body>
