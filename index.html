@@ -6,92 +6,311 @@
     <title>تقديم طلب وظيفة - TIC TAC</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        
         :root {
-            --primary: #0f172a; --accent: #3b82f6; --accent-hover: #2563eb;
-            --bg-body: #f1f5f9; --card-bg: #ffffff; --text-main: #334155;
-            --text-muted: #64748b; --border: #e2e8f0; --radius: 16px;
-            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04);
+            --primary: #0b132b;
+            --secondary: #1c2541;
+            --accent: #3a86ff;
+            --accent-hover: #2667cc;
+            --bg-body: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            --radius: 16px;
+            --shadow: 0 15px 35px -5px rgba(11, 19, 43, 0.08);
         }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 30px 20px; }
-        .form-container { max-width: 700px; margin: 0 auto; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); border: 1.5px solid var(--border); padding: 30px; }
-        h2 { color: var(--primary); text-align: center; margin-bottom: 25px; font-weight: 900; }
-        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
-        label { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); }
-        input, select, textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.95rem; background: #f8fafc; color: var(--text-main); font-family: inherit; outline: none; box-sizing: border-box; }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
-        .submit-btn { background: var(--accent); color: #fff; border: none; width: 100%; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; transition: background 0.2s; }
-        .submit-btn:hover { background: var(--accent-hover); }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f4f6f9 0%, #e9ecef 100%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(222, 226, 230, 0.8);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .brand-logo-text {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .brand-logo-text span {
+            color: var(--accent);
+        }
+
+        .brand-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: #fdfdfe;
+            color: var(--text-main);
+            font-family: inherit;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(58, 134, 255, 0.12);
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background: #fdfdfe;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--accent);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(11, 19, 43, 0.15);
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+            .form-container { padding: 20px; }
+        }
     </style>
 </head>
 <body>
+
 <div class="form-container">
-    <h2>استمارة التقديم الوظيفي - TIC TAC</h2>
+    <div class="brand-header">
+        <div class="brand-logo-text">TIC <span>TAC</span></div>
+        <p>استمارة التقديم الوظيفي لقطاع المقاولات والصيانة - دولة قطر</p>
+    </div>
+
     <form id="jobForm" onsubmit="submitApplication(event)">
-        <div class="form-group"><label>الاسم الكامل</label><input type="text" id="name" required placeholder="أدخل اسمك الثلاثي"></div>
-        <div class="form-group"><label>العمر</label><input type="number" id="age" required placeholder="مثال: 28"></div>
-        <div class="form-group">
-            <label>الجنس</label>
-            <select id="gender" required>
-                <option value="">اختر الجنس...</option>
-                <option value="ذكر">ذكر</option>
-                <option value="أنثى">أنثى</option>
-            </select>
+        <div class="form-grid">
+            
+            <div class="form-group full-width">
+                <label>الاسم الكامل</label>
+                <input type="text" id="name" required placeholder="أدخل اسمك الثلاثي كما هو في الإقامة أو جواز السفر">
+            </div>
+
+            <div class="form-group">
+                <label>العمر</label>
+                <input type="number" id="age" required placeholder="مثال: 30">
+            </div>
+
+            <div class="form-group">
+                <label>الجنس</label>
+                <select id="gender" required>
+                    <option value="">اختر الجنس...</option>
+                    <option value="ذكر">ذكر</option>
+                    <option value="أنثى">أنثى</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>الجنسية</label>
+                <select id="nationality" required>
+                    <option value="">اختر الجنسية...</option>
+                    <option value="مصري">مصري</option>
+                    <option value="هندي">هندي</option>
+                    <option value="باكستاني">باكستاني</option>
+                    <option value="بنغلاديشي">بنغلاديشي</option>
+                    <option value="نيبالي">نيبالي</option>
+                    <option value="سوداني">سوداني</option>
+                    <option value="سوري">سوري</option>
+                    <option value="أردني">أردني</option>
+                    <option value="فلسطيني">فلسطيني</option>
+                    <option value="لبناني">لبناني</option>
+                    <option value="يمني">يمني</option>
+                    <option value="فلبيني">فلبيني</option>
+                    <option value="سريلانكي">سريلانكي</option>
+                    <option value="تونسى">تونسى</option>
+                    <option value="مغربي">مغربي</option>
+                    <option value="جزائري">جزائري</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>رقم التواصل (مع رمز الدولة)</label>
+                <input type="text" id="phone" required placeholder="مثال: +974xxxxxxxx">
+            </div>
+
+            <div class="form-group full-width">
+                <label>الوظيفة المطلوبة</label>
+                <select id="position" required>
+                    <option value="">اختر الوظيفة...</option>
+                    <option value="فني كهرباء مباني وكابلات">فني كهرباء مباني وكابلات</option>
+                    <option value="فني تكييف وتبريد (HVAC)">فني تكييف وتبريد (HVAC)</option>
+                    <option value="فني سباكة وصحي">فني سباكة وصحي</option>
+                    <option value="فني لحام وتشكيل معادن">فني لحام وتشكيل معادن</option>
+                    <option value="فني نجارة وأبواب">فني نجارة وأبواب</option>
+                    <option value="فني دهانات وديكور">فني دهانات وديكور</option>
+                    <option value="فني جبس بورد وتزيين">فني جبس بورد وتزيين</option>
+                    <option value="فني ألمنيوم وواجهات زجاجية">فني ألمنيوم وواجهات زجاجية</option>
+                    <option value="فني بلاط ورخام (سيراميك)">فني بلاط ورخام (سيراميك)</option>
+                    <option value="فني مباني ولياسة (طوب وبلاستر)">فني مباني ولياسة (طوب وبلاستر)</option>
+                    <option value="مساعد فني / عامل عادي">مساعد فني / عامل عادي</option>
+                    <option value="سائق معدات ثقيلة / رخصة قطرية">سائق معدات ثقيلة / رخصة قطرية</option>
+                    <option value="سائق سيارة خفيفة / رخصة قطرية">سائق سيارة خفيفة / رخصة قطرية</option>
+                    <option value="مشرف صيانة عامة">مشرف صيانة عامة</option>
+                    <option value="مراقب عمال (فورمان)">مراقب عمال (فورمان)</option>
+                    <option value="مهندس موقع (مقاولات وصيانة)">مهندس موقع (مقاولات وصيانة)</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+            </div>
+
+            <!-- خيارات الإقامة، الرخصة، والسيارة منفصلة وواضحة -->
+            <div class="form-group">
+                <label>حالة الإقامة في قطر</label>
+                <select id="iqamaStatus" required>
+                    <option value="">اختر حالة الإقامة...</option>
+                    <option value="إقامة قابلة للتحويل مع قيد وتصريح">إقامة قابلة للتحويل مع تصريح</option>
+                    <option value="إقامة حرة / سارية">إقامة حرة / سارية</option>
+                    <option value="زيارة / تأشيرة مؤقتة">زيارة / تأشيرة مؤقتة</option>
+                    <option value="خارج الدولة (تأشيرة جديدة)">خارج الدولة (تأشيرة جديدة)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>رخصة القيادة</label>
+                <select id="licenseStatus" required>
+                    <option value="">اختر نوع الرخصة...</option>
+                    <option value="رخصة قيادة قطرية خفيفة سارية">رخصة قيادة قطرية خفيفة سارية</option>
+                    <option value="رخصة قيادة قطرية ثقيلة / معدات">رخصة قيادة قطرية ثقيلة / معدات</option>
+                    <option value="رخصة دولية / خليجية">رخصة دولية / خليجية</option>
+                    <option value="بدون رخصة قيادة">بدون رخصة قيادة</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>توفر السيارة</label>
+                <select id="hasCar" required>
+                    <option value="">هل تمتلك سيارة خاصة؟</option>
+                    <option value="نعم، أمتلك سيارة خاصة">نعم، أمتلك سيارة خاصة</option>
+                    <option value="لا، لا أمتلك سيارة">لا، لا أمتلك سيارة</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>السيرة الذاتية (CV)</label>
+                <div class="file-upload-wrapper">
+                    <span class="file-upload-text" id="fileNameDisplay">اضغط لاختيار ملف (PDF أو Word)</span>
+                    <input type="file" id="cvFile" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label>نبذة عن الخبرة السابقة</label>
+                <textarea id="experience" rows="3" placeholder="ذكر سنوات الخبرة السابقة داخل قطر أو دول مجلس التعاون..."></textarea>
+            </div>
+
         </div>
-        <div class="form-group">
-            <label>الجنسية</label>
-            <select id="nationality" required>
-                <option value="">اختر الجنسية...</option>
-                <option value="مصري">مصري</option>
-                <option value="هندي">هندي</option>
-                <option value="باكستاني">باكستاني</option>
-                <option value="بنغلاديشي">بنغلاديشي</option>
-                <option value="نيبالي">نيبالي</option>
-                <option value="سوداني">سوداني</option>
-                <option value="سوري">سوري</option>
-                <option value="أردني">أردني</option>
-                <option value="فلسطيني">فلسطيني</option>
-                <option value="لبناني">لبناني</option>
-                <option value="يمني">يمني</option>
-                <option value="فلبيني">فلبيني</option>
-                <option value="سريلانكي">سريلانكي</option>
-                <option value="تونسى">تونسى</option>
-                <option value="مغربي">مغربي</option>
-                <option value="جزائري">جزائري</option>
-                <option value="أخرى">أخرى</option>
-            </select>
-        </div>
-        <div class="form-group"><label>رقم التواصل (مع رمز الدولة)</label><input type="text" id="phone" required placeholder="مثال: +974xxxxxxxx"></div>
-        <div class="form-group">
-            <label>الوظيفة المطلوبة</label>
-            <select id="position" required>
-                <option value="">اختر الوظيفة...</option>
-                <option value="فني كهرباء مباني وكابلات">فني كهرباء مباني وكابلات</option>
-                <option value="فني تكييف وتبريد (HVAC)">فني تكييف وتبريد (HVAC)</option>
-                <option value="فني سباكة وصحي">فني سباكة وصحي</option>
-                <option value="فني لحام وتشكيل معادن">فني لحام وتشكيل معادن</option>
-                <option value="فني نجارة وأبواب">فني نجارة وأبواب</option>
-                <option value="فني دهانات وديكور">فني دهانات وديكور</option>
-                <option value="فني جبس بورد وتزيين">فني جبس بورد وتزيين</option>
-                <option value="فني ألمنيوم وواجهات زجاجية">فني ألمنيوم وواجهات زجاجية</option>
-                <option value="فني بلاط ورخام (سيراميك)">فني بلاط ورخام (سيراميك)</option>
-                <option value="فني مباني ولياسة (طوب وبلاستر)">فني مباني ولياسة (طوب وبلاستر)</option>
-                <option value="مساعد فني / عامل عادي">مساعد فني / عامل عادي</option>
-                <option value="سائق معدات ثقيلة / رخصة قطرية">سائق معدات ثقيلة / رخصة قطرية</option>
-                <option value="سائق سيارة خفيفة / رخصة قطرية">سائق سيارة خفيفة / رخصة قطرية</option>
-                <option value="مشرف صيانة عامة">مشرف صيانة عامة</option>
-                <option value="مراقب عمال (فورمان)">مراقب عمال (فورمان)</option>
-                <option value="مهندس موقع (مقاولات وصيانة)">مهندس موقع (مقاولات وصيانة)</option>
-                <option value="أخرى">أخرى</option>
-            </select>
-        </div>
-        <div class="form-group"><label>نبذة عن الخبرة</label><textarea id="experience" rows="3" placeholder="اكتب نبذة مختصرة عن خبرتك السابقة في قطر أو الخارج"></textarea></div>
-        <div class="form-group"><label>السيرة الذاتية (CV)</label><input type="file" id="cvFile" accept=".pdf,.doc,.docx"></div>
-        <div class="form-group"><label>التوفر (إقامة / رخصة / سيارة)</label><input type="text" id="qatarId" placeholder="مثال: إقامة سارية قابلة لتحويل الكفالة، رخصة قيادة، توفر سيارة"></div>
-        <button type="submit" class="submit-btn" id="submitBtn">إرسال الطلب</button>
+
+        <button type="submit" class="submit-btn" id="submitBtn">إرسال الطلب الآن</button>
     </form>
 </div>
+
 <script>
     const WEB_APP_URL = 'ضع_رابط_الـ_Web_App_هنا';
+
+    function updateFileName(input) {
+        const display = document.getElementById('fileNameDisplay');
+        if (input.files.length > 0) {
+            display.textContent = "تم اختيار الملف: " + input.files[0].name;
+            display.style.color = "var(--accent)";
+            display.style.fontWeight = "700";
+        }
+    }
 
     async function submitApplication(e) {
         e.preventDefault();
@@ -112,6 +331,9 @@
             });
         }
 
+        // دمج تفاصيل الإقامة والرخصة والسيارة في خانة واحدة مرتبة لتتوافق بسلاسة مع لوحة التحكم وجدول البيانات
+        const qatarDetails = `الإقامة: ${document.getElementById('iqamaStatus').value} | الرخصة: ${document.getElementById('licenseStatus').value} | السيارة: ${document.getElementById('hasCar').value}`;
+
         const newApplicant = {
             name: document.getElementById('name').value,
             age: document.getElementById('age').value,
@@ -120,7 +342,7 @@
             phone: document.getElementById('phone').value,
             position: document.getElementById('position').value,
             experience: document.getElementById('experience').value,
-            qatarId: document.getElementById('qatarId').value,
+            qatarId: qatarDetails,
             cvData: cvData,
             cvName: cvName,
             date: new Date().toISOString()
@@ -133,15 +355,18 @@
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(newApplicant)
             });
-            alert('تم إرسال طلبك بنجاح!');
+            alert('تم إرسال طلبك بنجاح إلى شركة TIC TAC!');
             document.getElementById('jobForm').reset();
+            document.getElementById('fileNameDisplay').textContent = 'اضغط لاختيار ملف (PDF أو Word)';
+            document.getElementById('fileNameDisplay').style.color = 'var(--text-muted)';
         } catch (error) {
-            alert('حدث خطأ أثناء الإرسال.');
+            alert('حدث خطأ أثناء الإرسال، يجدر التحقق من الاتصال.');
         } finally {
             btn.disabled = false;
-            btn.textContent = 'إرسال الطلب';
+            btn.textContent = 'إرسال الطلب الآن';
         }
     }
 </script>
+
 </body>
 </html>
