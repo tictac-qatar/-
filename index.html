@@ -6,113 +6,29 @@
     <title>تقديم طلب وظيفة - TIC TAC</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
-
         :root {
-            --primary: #0f172a;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --bg-body: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --radius: 16px;
+            --primary: #0f172a; --accent: #3b82f6; --accent-hover: #2563eb;
+            --bg-body: #f1f5f9; --card-bg: #ffffff; --text-main: #334155;
+            --text-muted: #64748b; --border: #e2e8f0; --radius: 16px;
             --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04);
         }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            padding: 30px 20px;
-        }
-
-        .form-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            padding: 30px;
-        }
-
-        h2 {
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: 900;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            background: #f8fafc;
-            color: var(--text-main);
-            font-family: inherit;
-            outline: none;
-            box-sizing: border-box;
-            transition: all 0.2s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--accent);
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .submit-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            transition: background 0.2s;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover {
-            background: var(--accent-hover);
-        }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 30px 20px; }
+        .form-container { max-width: 700px; margin: 0 auto; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); border: 1.5px solid var(--border); padding: 30px; }
+        h2 { color: var(--primary); text-align: center; margin-bottom: 25px; font-weight: 900; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+        label { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); }
+        input, select, textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.95rem; background: #f8fafc; color: var(--text-main); font-family: inherit; outline: none; box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .submit-btn { background: var(--accent); color: #fff; border: none; width: 100%; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 10px; transition: background 0.2s; }
+        .submit-btn:hover { background: var(--accent-hover); }
     </style>
 </head>
 <body>
-
 <div class="form-container">
     <h2>استمارة التقديم الوظيفي - TIC TAC</h2>
     <form id="jobForm" onsubmit="submitApplication(event)">
-        <div class="form-group">
-            <label>الاسم الكامل</label>
-            <input type="text" id="name" required placeholder="أدخل اسمك الثلاثي">
-        </div>
-
-        <div class="form-group">
-            <label>العمر</label>
-            <input type="number" id="age" required placeholder="مثال: 28">
-        </div>
-
+        <div class="form-group"><label>الاسم الكامل</label><input type="text" id="name" required placeholder="أدخل اسمك الثلاثي"></div>
+        <div class="form-group"><label>العمر</label><input type="number" id="age" required placeholder="مثال: 28"></div>
         <div class="form-group">
             <label>الجنس</label>
             <select id="gender" required>
@@ -121,7 +37,6 @@
                 <option value="أنثى">أنثى</option>
             </select>
         </div>
-
         <div class="form-group">
             <label>الجنسية</label>
             <select id="nationality" required>
@@ -129,63 +44,64 @@
                 <option value="مصري">مصري</option>
                 <option value="هندي">هندي</option>
                 <option value="باكستاني">باكستاني</option>
+                <option value="بنغلاديشي">بنغلاديشي</option>
+                <option value="نيبالي">نيبالي</option>
                 <option value="سوداني">سوداني</option>
                 <option value="سوري">سوري</option>
                 <option value="أردني">أردني</option>
-                <option value="جنسية أخرى">جنسية أخرى</option>
+                <option value="فلسطيني">فلسطيني</option>
+                <option value="لبناني">لبناني</option>
+                <option value="يمني">يمني</option>
+                <option value="فلبيني">فلبيني</option>
+                <option value="سريلانكي">سريلانكي</option>
+                <option value="تونسى">تونسى</option>
+                <option value="مغربي">مغربي</option>
+                <option value="جزائري">جزائري</option>
+                <option value="أخرى">أخرى</option>
             </select>
         </div>
-
-        <div class="form-group">
-            <label>رقم التواصل (مع رمز الدولة)</label>
-            <input type="text" id="phone" required placeholder="مثال: +974xxxxxxxx">
-        </div>
-
+        <div class="form-group"><label>رقم التواصل (مع رمز الدولة)</label><input type="text" id="phone" required placeholder="مثال: +974xxxxxxxx"></div>
         <div class="form-group">
             <label>الوظيفة المطلوبة</label>
             <select id="position" required>
                 <option value="">اختر الوظيفة...</option>
-                <option value="فني كهرباء">فني كهرباء</option>
-                <option value="فني تكييف (HVAC)">فني تكييف (HVAC)</option>
+                <option value="فني كهرباء مباني وكابلات">فني كهرباء مباني وكابلات</option>
+                <option value="فني تكييف وتبريد (HVAC)">فني تكييف وتبريد (HVAC)</option>
                 <option value="فني سباكة وصحي">فني سباكة وصحي</option>
+                <option value="فني لحام وتشكيل معادن">فني لحام وتشكيل معادن</option>
+                <option value="فني نجارة وأبواب">فني نجارة وأبواب</option>
+                <option value="فني دهانات وديكور">فني دهانات وديكور</option>
+                <option value="فني جبس بورد وتزيين">فني جبس بورد وتزيين</option>
+                <option value="فني ألمنيوم وواجهات زجاجية">فني ألمنيوم وواجهات زجاجية</option>
+                <option value="فني بلاط ورخام (سيراميك)">فني بلاط ورخام (سيراميك)</option>
+                <option value="فني مباني ولياسة (طوب وبلاستر)">فني مباني ولياسة (طوب وبلاستر)</option>
+                <option value="مساعد فني / عامل عادي">مساعد فني / عامل عادي</option>
+                <option value="سائق معدات ثقيلة / رخصة قطرية">سائق معدات ثقيلة / رخصة قطرية</option>
+                <option value="سائق سيارة خفيفة / رخصة قطرية">سائق سيارة خفيفة / رخصة قطرية</option>
                 <option value="مشرف صيانة عامة">مشرف صيانة عامة</option>
-                <option value="مهندس موقع">مهندس موقع</option>
+                <option value="مراقب عمال (فورمان)">مراقب عمال (فورمان)</option>
+                <option value="مهندس موقع (مقاولات وصيانة)">مهندس موقع (مقاولات وصيانة)</option>
+                <option value="أخرى">أخرى</option>
             </select>
         </div>
-
-        <div class="form-group">
-            <label>نبذة عن الخبرة</label>
-            <textarea id="experience" rows="3" placeholder="اكتب نبذة مختصرة عن خبرتك السابقة"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>السيرة الذاتية (CV)</label>
-            <input type="file" id="cvFile" accept=".pdf,.doc,.docx">
-        </div>
-
-        <div class="form-group">
-            <label>التوفر (إقامة / رخصة / سيارة)</label>
-            <input type="text" id="qatarId" placeholder="مثال: إقامة سارية، رخصة قيادة، توفر سيارة">
-        </div>
-
+        <div class="form-group"><label>نبذة عن الخبرة</label><textarea id="experience" rows="3" placeholder="اكتب نبذة مختصرة عن خبرتك السابقة في قطر أو الخارج"></textarea></div>
+        <div class="form-group"><label>السيرة الذاتية (CV)</label><input type="file" id="cvFile" accept=".pdf,.doc,.docx"></div>
+        <div class="form-group"><label>التوفر (إقامة / رخصة / سيارة)</label><input type="text" id="qatarId" placeholder="مثال: إقامة سارية قابلة لتحويل الكفالة، رخصة قيادة، توفر سيارة"></div>
         <button type="submit" class="submit-btn" id="submitBtn">إرسال الطلب</button>
     </form>
 </div>
-
 <script>
-    const BIN_ID = '6738917facd3cb3488f54311';
-    const MASTER_KEY = '$2a$10$vNqjH1/K9sXz7m3gXvW8UeR8xQ8ZqQyqYq8xQ8ZqQyqYq8xQ8ZqQy';
+    const WEB_APP_URL = 'ضع_رابط_الـ_Web_App_هنا';
 
     async function submitApplication(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.textContent = 'جاري إرسال الطلب للسحابة...';
+        btn.textContent = 'جاري إرسال الطلب...';
 
         const fileInput = document.getElementById('cvFile');
         let cvData = '';
         let cvName = '';
-
         if (fileInput.files.length > 0) {
             const file = fileInput.files[0];
             cvName = file.name;
@@ -207,42 +123,20 @@
             qatarId: document.getElementById('qatarId').value,
             cvData: cvData,
             cvName: cvName,
-            status: '',
             date: new Date().toISOString()
         };
 
         try {
-            // 1. جلب البيانات القديمة أولاً من السحابة
-            let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                headers: { 'X-Master-Key': MASTER_KEY }
+            await fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(newApplicant)
             });
-            let data = await response.json();
-            let currentList = [];
-            if (data && data.record) {
-                currentList = Array.isArray(data.record) ? data.record : [];
-            }
-
-            // 2. إضافة الطلب الجديد للقائمة
-            currentList.unshift(newApplicant);
-
-            // 3. رفع القائمة المحدثة للسحابة
-            let updateRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': MASTER_KEY
-                },
-                body: JSON.stringify(currentList)
-            });
-
-            if (updateRes.ok) {
-                alert('تم إرسال طلبك بنجاح!');
-                document.getElementById('jobForm').reset();
-            } else {
-                throw new Error('فشل الحفظ');
-            }
+            alert('تم إرسال طلبك بنجاح!');
+            document.getElementById('jobForm').reset();
         } catch (error) {
-            alert('حدث خطأ أثناء الإرسال، يجدر المحاولة لاحقاً.');
+            alert('حدث خطأ أثناء الإرسال.');
         } finally {
             btn.disabled = false;
             btn.textContent = 'إرسال الطلب';
