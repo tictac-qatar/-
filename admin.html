@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="adminHtml">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - TIC TAC</title>
+    <title>لوحة التحكم الإدارية - TIC TAC</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
@@ -16,7 +16,7 @@
             --text-muted: #64748b;
             --border: #e2e8f0;
             --radius: 20px;
-            --shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            --shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.05);
             --transition: all 0.25s ease;
         }
 
@@ -26,7 +26,6 @@
             color: var(--text-main);
             margin: 0;
             padding: 40px 20px;
-            -webkit-font-smoothing: antialiased;
         }
 
         .admin-wrapper {
@@ -55,34 +54,6 @@
             margin: 0;
             color: var(--primary);
             font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .lang-switcher {
-            display: flex;
-            background: #f1f5f9;
-            padding: 5px;
-            border-radius: 12px;
-            gap: 6px;
-            border: 1px solid var(--border);
-        }
-
-        .lang-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: var(--transition);
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
         }
 
         .filters-container {
@@ -112,15 +83,8 @@
             font-size: 0.9rem;
             background: #fff;
             font-family: inherit;
-            color: var(--text-main);
             outline: none;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-box select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .table-container {
@@ -136,10 +100,6 @@
             white-space: nowrap;
         }
 
-        [dir="ltr"] table {
-            text-align: left;
-        }
-
         th, td {
             padding: 16px 20px;
             border-bottom: 1px solid var(--border);
@@ -152,11 +112,6 @@
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.75rem;
-            letter-spacing: 0.5px;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
         }
 
         tr:hover td {
@@ -177,7 +132,6 @@
         .phone-highlight {
             font-weight: 700;
             color: var(--accent);
-            letter-spacing: 0.5px;
         }
 
         .cv-link {
@@ -189,12 +143,6 @@
             font-size: 0.8rem;
             font-weight: 700;
             display: inline-block;
-            transition: var(--transition);
-        }
-
-        .cv-link:hover {
-            background: var(--accent);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
         .no-cv {
@@ -206,7 +154,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .status-select {
@@ -216,15 +163,11 @@
             font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
-            outline: none;
-            font-family: inherit;
-            transition: var(--transition);
         }
 
         .status-green { background-color: #ecfdf5; color: #047857; border-color: #a7f3d0; }
         .status-yellow { background-color: #fffbeb; color: #b45309; border-color: #fde68a; }
         .status-red { background-color: #fef2f2; color: #b91c1c; border-color: #fecaca; }
-        .status-default { background-color: #f8fafc; color: var(--text-main); }
 
         .btn-delete {
             background: #fef2f2;
@@ -235,12 +178,6 @@
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 700;
-            transition: var(--transition);
-        }
-
-        .btn-delete:hover {
-            background: #fee2e2;
-            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.15);
         }
 
         .no-data {
@@ -248,16 +185,6 @@
             padding: 50px;
             color: var(--text-muted);
             font-weight: 600;
-            font-size: 1rem;
-        }
-
-        @media(max-width: 1024px) {
-            .filters-container { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media(max-width: 768px) {
-            .filters-container { grid-template-columns: 1fr; }
-            .admin-wrapper { padding: 20px; }
         }
     </style>
 </head>
@@ -265,17 +192,12 @@
 
 <div class="admin-wrapper">
     <div class="admin-header">
-        <h1 id="admTitle">لوحة التحكم الإدارية - TIC TAC</h1>
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="switchAdminLang('ar')" id="aAr">عربي</button>
-            <button class="lang-btn" onclick="switchAdminLang('en')" id="aEn">English</button>
-            <button class="lang-btn" onclick="switchAdminLang('ur')" id="aUr">اردو</button>
-        </div>
+        <h1>لوحة التحكم الإدارية - TIC TAC</h1>
     </div>
 
     <div class="filters-container">
         <div class="filter-box">
-            <label id="lblFilterGender">تصفية حسب الجنس</label>
+            <label>تصفية حسب الجنس</label>
             <select id="filterGender" onchange="renderTable()">
                 <option value="">جميع الأجناس</option>
                 <option value="ذكر">ذكر</option>
@@ -283,16 +205,12 @@
             </select>
         </div>
         <div class="filter-box">
-            <label id="lblFilterNat">تصفية حسب الجنسية</label>
+            <label>تصفية حسب الجنسية</label>
             <select id="filterNat" onchange="renderTable()">
                 <option value="">جميع الجنسيات</option>
                 <option value="مصري">مصري</option>
                 <option value="هندي">هندي</option>
                 <option value="باكستاني">باكستاني</option>
-                <option value="بنجلاديشي">بنجلاديشي</option>
-                <option value="نيبالي">نيبالي</option>
-                <option value="فلبيني">فلبيني</option>
-                <option value="سريلانكي">سريلانكي</option>
                 <option value="سوداني">سوداني</option>
                 <option value="سوري">سوري</option>
                 <option value="أردني">أردني</option>
@@ -300,23 +218,18 @@
             </select>
         </div>
         <div class="filter-box">
-            <label id="lblFilterPos">تصفية حسب الوظيفة</label>
+            <label>تصفية حسب الوظيفة</label>
             <select id="filterPos" onchange="renderTable()">
                 <option value="">جميع الوظائف</option>
                 <option value="فني كهرباء">فني كهرباء</option>
                 <option value="فني تكييف (HVAC)">فني تكييف (HVAC)</option>
                 <option value="فني سباكة وصحي">فني سباكة وصحي</option>
-                <option value="فني دهانات وديكور">فني دهانات وديكور</option>
-                <option value="فني نجارة وأبواب">فني نجارة وأبواب</option>
-                <option value="فني بلاط ومظلات">فني بلاط ومظلات</option>
-                <option value="مساعد فني / عمالة عامة">مساعد فني / عمالة عامة</option>
                 <option value="مشرف صيانة عامة">مشرف صيانة عامة</option>
                 <option value="مهندس موقع">مهندس موقع</option>
-                <option value="مدير مشروع">مدير مشروع</option>
             </select>
         </div>
         <div class="filter-box">
-            <label id="lblFilterAge">تصفية حسب الفئة العمرية</label>
+            <label>تصفية حسب الفئة العمرية</label>
             <select id="filterAge" onchange="renderTable()">
                 <option value="">جميع الأعمار</option>
                 <option value="20-30">20 - 30 سنة</option>
@@ -327,107 +240,31 @@
     </div>
 
     <div class="table-container">
-        <table id="applicantsTable">
+        <table>
             <thead>
                 <tr>
-                    <th id="thName">الاسم</th>
-                    <th id="thAge">العمر</th>
-                    <th id="thGender">الجنس</th>
-                    <th id="thNat">الجنسية</th>
-                    <th id="thPhone">رقم التواصل</th>
-                    <th id="thPos">الوظيفة</th>
-                    <th id="thExp">نبذة الخبرة</th>
-                    <th id="thCv">السيرة الذاتية</th>
-                    <th id="thStatusInfo">إقامة / رخصة / سيارة</th>
-                    <th id="thActions">إجراءات المتابعة</th>
+                    <th>الاسم</th>
+                    <th>العمر</th>
+                    <th>الجنس</th>
+                    <th>الجنسية</th>
+                    <th>رقم التواصل</th>
+                    <th>الوظيفة</th>
+                    <th>نبذة الخبرة</th>
+                    <th>السيرة الذاتية</th>
+                    <th>إقامة / رخصة / سيارة</th>
+                    <th>إجراءات المتابعة</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <!-- سيتم تعبئة البيانات تلقائياً هنا -->
+                <tr><td colspan="10" class="no-data">جاري تحميل البيانات من السحابة...</td></tr>
             </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    const adminDict = {
-        ar: {
-            title: "لوحة التحكم الإدارية - TIC TAC",
-            fGender: "تصفية حسب الجنس",
-            fNat: "تصفية حسب الجنسية",
-            fPos: "تصفية حسب الوظيفة",
-            fAge: "تصفية حسب الفئة العمرية",
-            thName: "الاسم", thAge: "العمر", thGender: "الجنس", thNat: "الجنسية", thPhone: "رقم التواصل",
-            thPos: "الوظيفة", thExp: "نبذة الخبرة", thCv: "السيرة الذاتية", thStatusInfo: "إقامة / رخصة / سيارة", thActions: "إجراءات المتابعة",
-            noCv: "لا يوجد", downloadBtn: "تحميل CV",
-            optDefault: "اختر الحالة...", deleteBtn: "حذف",
-            noData: "لا توجد طلبات مسجلة حتى الآن."
-        },
-        en: {
-            title: "Admin Dashboard - TIC TAC",
-            fGender: "Filter by Gender",
-            fNat: "Filter by Nationality",
-            fPos: "Filter by Position",
-            fAge: "Filter by Age Group",
-            thName: "Name", thAge: "Age", thGender: "Gender", thNat: "Nationality", thPhone: "Contact",
-            thPos: "Position", thExp: "Experience", thCv: "CV / Resume", thStatusInfo: "Res / Lic / Car", thActions: "Actions",
-            noCv: "None", downloadBtn: "Download CV",
-            optDefault: "Status...", deleteBtn: "Delete",
-            noData: "No applications registered yet."
-        },
-        ur: {
-            title: "ایڈمن ڈیش بورڈ - TIC TAC",
-            fGender: "صنف کے لحاظ سے فلٹر کریں",
-            fNat: "قومیت کے لحاظ سے فلٹر کریں",
-            fPos: "عہدے کے لحاظ سے فلٹر کریں",
-            fAge: "عمر کے لحاظ سے فلٹر کریں",
-            thName: "نام", thAge: "عمر", thGender: "صنف", thNat: "قومیت", thPhone: "رابطہ نمبر",
-            thPos: "عہدہ", thExp: "تجربہ", thCv: "سی وی (CV)", thStatusInfo: "اقامہ / لائسنس / گاڑی", thActions: "کارروائی",
-            noCv: "کوئی نہیں", downloadBtn: "ڈاؤن لوڈ کریں",
-            noData: "ابھی تک کوئی درخواست درج نہیں ہے۔"
-        }
-    };
-
-    let currentLang = 'ar';
-
-    function switchAdminLang(lang) {
-        currentLang = lang;
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        const html = document.getElementById('adminHtml');
-        
-        if(lang === 'ar') {
-            html.setAttribute('lang', 'ar');
-            html.setAttribute('dir', 'rtl');
-            document.getElementById('aAr').classList.add('active');
-        } else if(lang === 'en') {
-            html.setAttribute('lang', 'en');
-            html.setAttribute('dir', 'ltr');
-            document.getElementById('aEn').classList.add('active');
-        } else {
-            html.setAttribute('lang', 'ur');
-            html.setAttribute('dir', 'rtl');
-            document.getElementById('aUr').classList.add('active');
-        }
-
-        const t = adminDict[lang];
-        document.getElementById('admTitle').innerText = t.title;
-        document.getElementById('lblFilterGender').innerText = t.fGender;
-        document.getElementById('lblFilterNat').innerText = t.fNat;
-        document.getElementById('lblFilterPos').innerText = t.fPos;
-        document.getElementById('lblFilterAge').innerText = t.fAge;
-        document.getElementById('thName').innerText = t.thName;
-        document.getElementById('thAge').innerText = t.thAge;
-        document.getElementById('thGender').innerText = t.thGender;
-        document.getElementById('thNat').innerText = t.thNat;
-        document.getElementById('thPhone').innerText = t.thPhone;
-        document.getElementById('thPos').innerText = t.thPos;
-        document.getElementById('thExp').innerText = t.thExp;
-        document.getElementById('thCv').innerText = t.thCv;
-        document.getElementById('thStatusInfo').innerText = t.thStatusInfo;
-        document.getElementById('thActions').innerText = t.thActions;
-
-        renderTable();
-    }
+    const BIN_ID = '6738917facd3cb3488f54311';
+    let globalApplicants = [];
 
     function getAgeGroup(age) {
         const num = parseInt(age);
@@ -437,26 +274,52 @@
         return '';
     }
 
+    async function fetchCloudData() {
+        try {
+            let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                headers: { 'X-Master-Key': '$2a$10$vNqjH1/K9sXz7m3gXvW8UeR8xQ8ZqQyqYq8xQ8ZqQyqYq8xQ8ZqQy' }
+            });
+            let data = await response.json();
+            globalApplicants = data.record || [];
+        } catch (e) {
+            globalApplicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
+        }
+        renderTable();
+    }
+
+    async function saveCloudData(applicants) {
+        globalApplicants = applicants;
+        localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+        try {
+            await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': '$2a$10$vNqjH1/K9sXz7m3gXvW8UeR8xQ8ZqQyqYq8xQ8ZqQyqYq8xQ8ZqQy'
+                },
+                body: JSON.stringify(applicants)
+            });
+        } catch (e) {
+            console.log("خطأ في التحديث السحابي");
+        }
+    }
+
     function updateStatus(index, value) {
-        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
-        if (applicants[index]) {
-            applicants[index].status = value;
-            localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
+        globalApplicants[index].status = value;
+        saveCloudData(globalApplicants);
+        renderTable();
+    }
+
+    function deleteApplicant(index) {
+        if(confirm('هل أنت متأكد من حذف هذا الطلب؟')) {
+            globalApplicants.splice(index, 1);
+            saveCloudData(globalApplicants);
             renderTable();
         }
     }
 
-    function deleteApplicant(index) {
-        let applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
-        applicants.splice(index, 1);
-        localStorage.setItem('ticTacApplicants', JSON.stringify(applicants));
-        renderTable();
-    }
-
     function renderTable() {
         const tableBody = document.getElementById('tableBody');
-        const applicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
-        
         const genderFilter = document.getElementById('filterGender').value;
         const natFilter = document.getElementById('filterNat').value;
         const posFilter = document.getElementById('filterPos').value;
@@ -464,7 +327,7 @@
 
         tableBody.innerHTML = '';
 
-        const filtered = applicants.map((app, originalIndex) => ({ app, originalIndex })).filter(({ app }) => {
+        const filtered = globalApplicants.map((app, originalIndex) => ({ app, originalIndex })).filter(({ app }) => {
             const ageGrp = getAgeGroup(app.age);
             const matchG = !genderFilter || app.gender === genderFilter;
             const matchN = !natFilter || app.nationality === natFilter;
@@ -474,19 +337,17 @@
         });
 
         if (filtered.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="10" class="no-data">${adminDict[currentLang].noData}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="10" class="no-data">لا توجد طلبات مطابقة أو مسجلة حتى الآن.</td></tr>`;
             return;
         }
 
-        const t = adminDict[currentLang];
-
         filtered.forEach(({ app, originalIndex }) => {
-            let cvCell = `<span class="no-cv">${t.noCv}</span>`;
+            let cvCell = `<span class="no-cv">لا يوجد</span>`;
             if (app.cvData) {
-                cvCell = `<a href="${app.cvData}" download="${app.cvName || 'CV'}" class="cv-link">${t.downloadBtn}</a>`;
+                cvCell = `<a href="${app.cvData}" download="${app.cvName || 'CV'}" class="cv-link">تحميل CV</a>`;
             }
 
-            let statusClass = 'status-default';
+            let statusClass = '';
             if (app.status === 'green') statusClass = 'status-green';
             else if (app.status === 'yellow') statusClass = 'status-yellow';
             else if (app.status === 'red') statusClass = 'status-red';
@@ -501,16 +362,16 @@
                 <td><span class="badge-position">${app.position}</span></td>
                 <td>${app.experience || '-'}</td>
                 <td>${cvCell}</td>
-                <td>${app.qatarId} / ${app.license} / ${app.car}</td>
+                <td>${app.qatarId || '-'}</td>
                 <td>
                     <div class="actions-cell">
                         <select class="status-select ${statusClass}" onchange="updateStatus(${originalIndex}, this.value)">
-                            <option value="" ${!app.status ? 'selected' : ''}>${t.optDefault || 'اختر الحالة...'}</option>
+                            <option value="" ${!app.status ? 'selected' : ''}>اختر الحالة...</option>
                             <option value="green" ${app.status === 'green' ? 'selected' : ''}>🟢 مقبول</option>
                             <option value="yellow" ${app.status === 'yellow' ? 'selected' : ''}>🟡 قيد المراجعة</option>
                             <option value="red" ${app.status === 'red' ? 'selected' : ''}>🔴 مرفوض</option>
                         </select>
-                        <button class="btn-delete" onclick="deleteApplicant(${originalIndex})">${t.deleteBtn || 'حذف'}</button>
+                        <button class="btn-delete" onclick="deleteApplicant(${originalIndex})">حذف</button>
                     </div>
                 </td>
             `;
@@ -518,7 +379,11 @@
         });
     }
 
-    window.onload = renderTable;
+    // جلب البيانات عند فتح الصفحة والتحديث التلقائي كل 5 ثوانٍ
+    window.onload = function() {
+        fetchCloudData();
+        setInterval(fetchCloudData, 5000);
+    };
 </script>
 </body>
 </html>
