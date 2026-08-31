@@ -4,63 +4,282 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم الإدارية - TIC TAC</title>
-    <!-- استدعاء التصميم الأصلي بالكامل -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
         :root {
             --primary: #0f172a;
-            --accent: #2563eb;
-            --bg-body: #f8fafc;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --bg-body: #f1f5f9;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
+            --text-main: #334155;
+            --text-muted: #64748b;
             --border: #e2e8f0;
-            --radius: 20px;
+            --radius: 16px;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
         }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 40px 20px; }
-        .admin-wrapper { max-width: 1550px; margin: 0 auto; background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 35px; box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.05); }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 25px; margin-bottom: 30px; }
-        .admin-header h1 { font-size: 1.5rem; margin: 0; color: var(--primary); font-weight: 800; }
-        .filters-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 30px; }
-        .filter-box label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 10px; color: #64748b; }
-        .filter-box select { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.9rem; background: #fff; font-family: inherit; }
-        .table-container { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-        table { width: 100%; border-collapse: collapse; text-align: right; white-space: nowrap; }
-        th, td { padding: 16px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-        th { background: #f8fafc; color: #64748b; font-weight: 700; font-size: 0.75rem; }
-        tr:hover td { background-color: #fafbfc; }
-        .badge-position { background: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; border: 1px solid #dbeafe; display: inline-block; }
-        .phone-highlight { font-weight: 700; color: var(--accent); }
-        .cv-link { background: var(--primary); color: #fff; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 0.8rem; font-weight: 700; display: inline-block; }
-        .no-cv { color: #64748b; font-style: italic; }
-        .actions-cell { display: flex; align-items: center; gap: 10px; }
-        .status-select { padding: 8px 14px; border-radius: 10px; border: 1.5px solid var(--border); font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px 20px;
+        }
+
+        .admin-layout {
+            max-width: 1550px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* شريط الفرز الجانبي المرتب تحت بعضه */
+        .filters-sidebar {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .filters-sidebar h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            background: #f8fafc;
+            color: var(--text-main);
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-group select:focus {
+            border-color: var(--accent);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* المحتوى الرئيسي للجدول */
+        .admin-main {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .admin-header h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .refresh-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        th, td {
+            padding: 15px 18px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        .badge-position {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            border: 1px solid #dbeafe;
+            display: inline-block;
+        }
+
+        .phone-highlight {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .cv-link {
+            background: var(--primary);
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+
+        .cv-link:hover {
+            opacity: 0.85;
+        }
+
+        .no-cv {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        .actions-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-select {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+
         .status-green { background-color: #ecfdf5; color: #047857; border-color: #a7f3d0; }
         .status-yellow { background-color: #fffbeb; color: #b45309; border-color: #fde68a; }
         .status-red { background-color: #fef2f2; color: #b91c1c; border-color: #fecaca; }
-        .btn-delete { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700; }
-        .no-data { text-align: center; padding: 50px; color: #64748b; font-weight: 600; }
+
+        .btn-delete {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+
+        .btn-delete:hover {
+            background: #fee2e2;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
-<div class="admin-wrapper">
-    <div class="admin-header">
-        <h1>لوحة التحكم الإدارية - TIC TAC</h1>
-        <!-- زر تحديث يدوي سريع لضمان رؤية الطلبات الخارجية وفورا -->
-        <button onclick="fetchCloudData()" style="background:var(--accent); color:#fff; border:none; padding:10px 18px; border-radius:10px; font-weight:700; cursor:pointer; font-family:inherit;">🔄 تحديث البيانات</button>
-    </div>
-
-    <div class="filters-container">
-        <div class="filter-box">
-            <label>تصفية حسب الجنس</label>
+<div class="admin-layout">
+    <!-- قائمة الفرز الجانبية (مرتبة تحت بعضها بشكل عصرى) -->
+    <aside class="filters-sidebar">
+        <h3>تصفية الطلبات</h3>
+        
+        <div class="filter-group">
+            <label>الجنس</label>
             <select id="filterGender" onchange="renderTable()">
                 <option value="">جميع الأجناس</option>
                 <option value="ذكر">ذكر</option>
                 <option value="أنثى">أنثى</option>
             </select>
         </div>
-        <div class="filter-box">
-            <label>تصفية حسب الجنسية</label>
+
+        <div class="filter-group">
+            <label>الجنسية</label>
             <select id="filterNat" onchange="renderTable()">
                 <option value="">جميع الجنسيات</option>
                 <option value="مصري">مصري</option>
@@ -72,8 +291,9 @@
                 <option value="جنسية أخرى">جنسية أخرى</option>
             </select>
         </div>
-        <div class="filter-box">
-            <label>تصفية حسب الوظيفة</label>
+
+        <div class="filter-group">
+            <label>الوظيفة المطلوبة</label>
             <select id="filterPos" onchange="renderTable()">
                 <option value="">جميع الوظائف</option>
                 <option value="فني كهرباء">فني كهرباء</option>
@@ -83,8 +303,9 @@
                 <option value="مهندس موقع">مهندس موقع</option>
             </select>
         </div>
-        <div class="filter-box">
-            <label>تصفية حسب الفئة العمرية</label>
+
+        <div class="filter-group">
+            <label>الفئة العمرية</label>
             <select id="filterAge" onchange="renderTable()">
                 <option value="">جميع الأعمار</option>
                 <option value="20-30">20 - 30 سنة</option>
@@ -92,29 +313,39 @@
                 <option value="41+">41 سنة فأكثر</option>
             </select>
         </div>
-    </div>
+    </aside>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>الاسم</th>
-                    <th>العمر</th>
-                    <th>الجنس</th>
-                    <th>الجنسية</th>
-                    <th>رقم التواصل</th>
-                    <th>الوظيفة</th>
-                    <th>نبذة الخبرة</th>
-                    <th>السيرة الذاتية</th>
-                    <th>إقامة / رخصة / سيارة</th>
-                    <th>إجراءات المتابعة</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <tr><td colspan="10" class="no-data">جاري جلب الطلبات من السحابة...</td></tr>
-            </tbody>
-        </table>
-    </div>
+    <!-- المحتوى والجدول الرئيسي -->
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1>لوحة التحكم الإدارية - TIC TAC</h1>
+            <button class="refresh-btn" onclick="fetchCloudData()">
+                <span>🔄 تحديث البيانات</span>
+            </button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>العمر</th>
+                        <th>الجنس</th>
+                        <th>الجنسية</th>
+                        <th>رقم التواصل</th>
+                        <th>الوظيفة</th>
+                        <th>نبذة الخبرة</th>
+                        <th>السيرة الذاتية</th>
+                        <th>إقامة / رخصة / سيارة</th>
+                        <th>إجراءات المتابعة</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr><td colspan="10" class="no-data">جاري جلب الطلبات من السحابة...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </div>
 
 <script>
@@ -129,7 +360,7 @@
         return '';
     }
 
-    // دالة جلب الطلبات (من هاتف أو منصات خارجية) لحظياً
+    // جلب الطلبات لحظياً من السحابة (سواء من هاتفك أو المنصات الخارجية)
     async function fetchCloudData() {
         try {
             let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest?t=${new Date().getTime()}`, {
@@ -237,7 +468,7 @@
         });
     }
 
-    // تشغيل الجلب التلقائي والتحديث كل 5 ثوانٍ لضمان ظهور أي طلب خارجي أو من هاتفك لحظياً
+    // التحديث التلقائي وجلب البيانات عند الفتح
     window.onload = function() {
         fetchCloudData();
         setInterval(fetchCloudData, 5000);
