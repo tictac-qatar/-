@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +53,32 @@
             top: 0; right: 0; left: 0;
             height: 4px;
             background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        }
+
+        .lang-switcher {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .lang-btn {
+            background: var(--surface-card);
+            border: 1.5px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: #1e3a8a;
+            color: #ffffff;
+            border-color: #1e3a8a;
         }
 
         .brand-header {
@@ -239,163 +265,169 @@
 <body>
 
 <div class="form-container">
+    <div class="lang-switcher">
+        <button type="button" class="lang-btn active" onclick="setLanguage('ar')">عربي</button>
+        <button type="button" class="lang-btn" onclick="setLanguage('en')">English</button>
+        <button type="button" class="lang-btn" onclick="setLanguage('ur')">اردو</button>
+    </div>
+
     <div class="brand-header">
         <h1 class="brand-logo-text">Tic Tac for building maintenance</h1>
-        <p>طلب انضمام لفريق العمل - دولة قطر</p>
+        <p id="subHeader">طلب انضمام لفريق العمل - دولة قطر</p>
     </div>
 
     <form id="jobForm" onsubmit="submitApplication(event)">
         
-        <div class="section-title">المعلومات الأساسية</div>
+        <div class="section-title" data-i18n="secBasic">المعلومات الأساسية</div>
         <div class="form-grid">
             <div class="form-group full-width">
-                <label>الاسم الكامل</label>
-                <input type="text" id="name" required placeholder="أدخل اسمك الثلاثي كما هو في الأوراق الرسمية">
+                <label data-i18n="lblName">الاسم الكامل</label>
+                <input type="text" id="name" required data-i18n-placeholder="phName" placeholder="أدخل اسمك الثلاثي كما هو في الأوراق الرسمية">
             </div>
 
             <div class="form-group">
-                <label>العمر</label>
-                <input type="number" id="age" required placeholder="مثال: 32">
+                <label data-i18n="lblAge">العمر</label>
+                <input type="number" id="age" required data-i18n-placeholder="phAge" placeholder="مثال: 32">
             </div>
 
             <div class="form-group">
-                <label>الجنس</label>
+                <label data-i18n="lblGender">الجنس</label>
                 <select id="gender" required>
-                    <option value="">اختر الجنس...</option>
-                    <option value="ذكر">ذكر</option>
-                    <option value="أنثى">أنثى</option>
+                    <option value="" data-i18n="optGenderDefault">اختر الجنس...</option>
+                    <option value="ذكر" data-i18n="optMale">ذكر</option>
+                    <option value="أنثى" data-i18n="optFemale">أنثى</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>الجنسية</label>
+                <label data-i18n="lblNationality">الجنسية</label>
                 <select id="nationality" required>
-                    <option value="">اختر الجنسية...</option>
-                    <option value="قطري">قطري</option>
-                    <option value="مصري">مصري</option>
-                    <option value="هندي">هندي</option>
-                    <option value="باكستاني">باكستاني</option>
-                    <option value="بنغلاديشي">بنغلاديشي</option>
-                    <option value="نيبالي">نيبالي</option>
-                    <option value="سوداني">سوداني</option>
-                    <option value="سوري">سوري</option>
-                    <option value="أردني">أردني</option>
-                    <option value="فلسطيني">فلسطيني</option>
-                    <option value="لبناني">لبناني</option>
-                    <option value="يمني">يمني</option>
-                    <option value="فلبيني">فلبيني</option>
-                    <option value="سريلانكي">سريلانكي</option>
-                    <option value="تونسى">تونسى</option>
-                    <option value="مغربي">مغربي</option>
-                    <option value="جزائري">جزائري</option>
-                    <option value="أخرى">أخرى</option>
+                    <option value="" data-i18n="optNatDefault">اختر الجنسية...</option>
+                    <option value="قطري">قطري / Qatari</option>
+                    <option value="مصري">مصري / Egyptian</option>
+                    <option value="هندي">هندي / Indian</option>
+                    <option value="باكستاني">باكستاني / Pakistani</option>
+                    <option value="بنغلاديشي">بنغلاديشي / Bangladeshi</option>
+                    <option value="نيبالي">نيبالي / Nepalese</option>
+                    <option value="سوداني">سوداني / Sudanese</option>
+                    <option value="سوري">سوري / Syrian</option>
+                    <option value="أردني">أردني / Jordanian</option>
+                    <option value="فلسطيني">فلسطيني / Palestinian</option>
+                    <option value="لبناني">لبناني / Lebanese</option>
+                    <option value="يمني">يمني / Yemeni</option>
+                    <option value="فلبيني">فلبيني / Filipino</option>
+                    <option value="سريلانكي">سريلانكي / Sri Lankan</option>
+                    <option value="تونسى">تونسى / Tunisian</option>
+                    <option value="مغربي">مغربي / Moroccan</option>
+                    <option value="جزائري">جزائري / Algerian</option>
+                    <option value="أخرى">أخرى / Other</option>
                 </select>
             </div>
         </div>
 
-        <div class="section-title">بيانات التواصل</div>
+        <div class="section-title" data-i18n="secContact">بيانات التواصل</div>
         <div class="form-grid">
             <div class="form-group">
-                <label>رقم الهاتف / واتساب (مع رمز الدولة)</label>
+                <label data-i18n="lblPhone">رقم الهاتف / واتساب (مع رمز الدولة)</label>
                 <input type="text" id="phone" required placeholder="+974 xxxxxxxx">
             </div>
 
             <div class="form-group">
-                <label>البريد الإلكتروني</label>
+                <label data-i18n="lblEmail">البريد الإلكتروني</label>
                 <input type="email" id="email" required placeholder="name@example.com">
             </div>
         </div>
 
-        <div class="section-title">المسمى الوظيفي والتخصصات</div>
+        <div class="section-title" data-i18n="secJob">المسمى الوظيفي والتخصصات</div>
         <div class="form-grid">
             <div class="form-group full-width">
-                <label>اختر الوظيفة المستهدفة (تشمل الإدارية، الهندسية، الفنية، والعمالية)</label>
+                <label data-i18n="lblPosition">اختر الوظيفة المستهدفة (تشمل الإدارية، الهندسية، الفنية، والعمالية)</label>
                 <select id="position" required>
-                    <option value="">اختر التخصص الوظيفي...</option>
-                    <option value="مدير مشروع (مقاولات)">مدير مشروع (مقاولات)</option>
-                    <option value="مدير إنشاءات وصيانة عامة">مدير إنشاءات وصيانة عامة</option>
-                    <option value="مهندس تخطيط ومتابعة (Planning Engineer)">مهندس تخطيط ومتابعة (Planning Engineer)</option>
-                    <option value="مهندس عقود وكميات (QS)">مهندس عقود وكميات (QS)</option>
-                    <option value="مهندس موقع تنفيذي (Civil/MEP)">مهندس موقع تنفيذي (Civil/MEP)</option>
-                    <option value="مهندس ألامن والسلامة (HSE Engineer)">مهندس الأمن والسلامة (HSE Engineer)</option>
-                    <option value="مسؤول المشتريات واللوجستيات">مسؤول المشتريات واللوجستيات</option>
-                    <option value="محاسب مالي وإداري">محاسب مالي وإداري</option>
-                    <option value="مسؤول موارد بشرية وعلاقات حكومية (مندوب)">مسؤول موارد بشرية وعلاقات حكومية (مندوب)</option>
-                    <option value="مشرف صيانة عامة (Superintendent)">مشرف صيانة عامة (Superintendent)</option>
-                    <option value="مراقب عمال (فورمان عام)">مراقب عمال (فورمان عام)</option>
-                    <option value="فني كهرباء مباني وكابلات">فني كهرباء مباني وكابلات</option>
-                    <option value="فني تكييف وتبريد (HVAC)">فني تكييف وتبريد (HVAC)</option>
-                    <option value="فني سباكة وصحي">فني سباكة وصحي</option>
-                    <option value="فني لحام وتشكيل معادن">فني لحام وتشكيل معادن</option>
-                    <option value="فني نجارة وأبواب">فني نجارة وأبواب</option>
-                    <option value="فني دهانات وديكور">فني دهانات وديكور</option>
-                    <option value="فني جبس بورد وتزيين">فني جبس بورد وتزيين</option>
-                    <option value="فني ألمنيوم وواجهات زجاجية">فني ألمنيوم وواجهات زجاجية</option>
-                    <option value="فني بلاط ورخام (سيراميك)">فني بلاط ورخام (سيراميك)</option>
-                    <option value="فني مباني ولياسة (طوب وبلاستر)">فني مباني ولياسة (طوب وبلاستر)</option>
-                    <option value="سائق معدات ثقيلة / رخصة قطرية">سائق معدات ثقيلة / رخصة قطرية</option>
-                    <option value="سائق سيارة خفيفة / رخصة قطرية">سائق سيارة خفيفة / رخصة قطرية</option>
-                    <option value="مساعد فني / عامل عادي">مساعد فني / عامل عادي</option>
-                    <option value="أخرى">أخرى</option>
+                    <option value="" data-i18n="optPosDefault">اختر التخصص الوظيفي...</option>
+                    <option value="مدير مشروع (مقاولات)">مدير مشروع (مقاولات) / Project Manager</option>
+                    <option value="مدير إنشاءات وصيانة عامة">مدير إنشاءات وصيانة عامة / Construction & Maintenance Manager</option>
+                    <option value="مهندس تخطيط ومتابعة (Planning Engineer)">مهندس تخطيط ومتابعة / Planning Engineer</option>
+                    <option value="مهندس عقود وكميات (QS)">مهندس عقود وكميات / Quantity Surveyor</option>
+                    <option value="مهندس موقع تنفيذي (Civil/MEP)">مهندس موقع تنفيذي / Site Engineer (Civil/MEP)</option>
+                    <option value="مهندس ألامن والسلامة (HSE Engineer)">مهندس الأمن والسلامة / HSE Engineer</option>
+                    <option value="مسؤول المشتريات واللوجستيات">مسؤول المشتريات واللوجستيات / Procurement & Logistics Officer</option>
+                    <option value="محاسب مالي وإداري">محاسب مالي وإداري / Financial & Administrative Accountant</option>
+                    <option value="مسؤول موارد بشرية وعلاقات حكومية (مندوب)">مسؤول موارد بشرية وعلاقات حكومية / HR & Government Relations</option>
+                    <option value="مشرف صيانة عامة (Superintendent)">مشرف صيانة عامة / General Maintenance Superintendent</option>
+                    <option value="مراقب عمال (فورمان عام)">مراقب عمال (فورمان عام) / General Foreman</option>
+                    <option value="فني كهرباء مباني وكابلات">فني كهرباء مباني وكابلات / Building Electrician</option>
+                    <option value="فني تكييف وتبريد (HVAC)">فني تكييف وتبريد / HVAC Technician</option>
+                    <option value="فني سباكة وصحي">فني سباكة وصحي / Plumbing Technician</option>
+                    <option value="فني لحام وتشكيل معادن">فني لحام وتشكيل معادن / Welder & Metal Fabricator</option>
+                    <option value="فني نجارة وأبواب">فني نجارة وأبواب / Carpenter</option>
+                    <option value="فني دهانات وديكور">فني دهانات وديكور / Painter & Decorator</option>
+                    <option value="فني جبس بورد وتزيين">فني جبس بورد وتزيين / Gypsum Technician</option>
+                    <option value="فني ألمنيوم وواجهات زجاجية">فني ألمنيوم وواجهات زجاجية / Aluminum & Glass Technician</option>
+                    <option value="فني بلاط ورخام (سيراميك)">فني بلاط ورخام / Tile & Marble Fixer</option>
+                    <option value="فني مباني ولياسة (طوب وبلاستر)">فني مباني ولياسة / Mason & Plasterer</option>
+                    <option value="سائق معدات ثقيلة / رخصة قطرية">سائق معدات ثقيلة / Heavy Equipment Driver</option>
+                    <option value="سائق سيارة خفيفة / رخصة قطرية">سائق سيارة خفيفة / Light Vehicle Driver</option>
+                    <option value="مساعد فني / عامل عادي">مساعد فني / عامل عادي / Assistant / General Labour</option>
+                    <option value="أخرى">أخرى / Other</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>حالة الإقامة في قطر</label>
+                <label data-i18n="lblIqama">حالة الإقامة في قطر</label>
                 <select id="iqamaStatus" required>
-                    <option value="">اختر حالة الإقامة...</option>
-                    <option value="إقامة قابلة للتحويل مع تصريح">إقامة قابلة للتحويل مع تصريح</option>
-                    <option value="زيارة / تأشيرة مؤقتة">زيارة / تأشيرة مؤقتة</option>
-                    <option value="خارج الدولة (تأشيرة جديدة)">خارج الدولة (تأشيرة جديدة)</option>
+                    <option value="" data-i18n="optIqamaDefault">اختر حالة الإقامة...</option>
+                    <option value="إقامة قابلة للتحويل مع تصريح" data-i18n="iqama1">إقامة قابلة للتحويل مع تصريح</option>
+                    <option value="زيارة / تأشيرة مؤقتة" data-i18n="iqama2">زيارة / تأشيرة مؤقتة</option>
+                    <option value="خارج الدولة (تأشيرة جديدة)" data-i18n="iqama3">خارج الدولة (تأشيرة جديدة)</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>رخصة القيادة</label>
+                <label data-i18n="lblLicense">رخصة القيادة</label>
                 <select id="licenseStatus" required>
-                    <option value="">اختر نوع الرخصة...</option>
-                    <option value="رخصة قيادة قطرية خفيفة سارية">رخصة قيادة قطرية خفيفة سارية</option>
-                    <option value="رخصة قيادة قطرية ثقيلة / معدات">رخصة قيادة قطرية ثقيلة / معدات</option>
-                    <option value="رخصة دولية / خليجية">رخصة دولية / خليجية</option>
-                    <option value="بدون رخصة قيادة">بدون رخصة قيادة</option>
+                    <option value="" data-i18n="optLicDefault">اختر نوع الرخصة...</option>
+                    <option value="رخصة قيادة قطرية خفيفة سارية" data-i18n="lic1">رخصة قيادة قطرية خفيفة سارية</option>
+                    <option value="رخصة قيادة قطرية ثقيلة / معدات" data-i18n="lic2">رخصة قيادة قطرية ثقيلة / معدات</option>
+                    <option value="رخصة دولية / خليجية" data-i18n="lic3">رخصة دولية / خليجية</option>
+                    <option value="بدون رخصة قيادة" data-i18n="lic4">بدون رخصة قيادة</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>توفر السيارة</label>
+                <label data-i18n="lblCar">توفر السيارة</label>
                 <select id="hasCar" required>
-                    <option value="">هل تمتلك سيارة خاصة؟</option>
-                    <option value="نعم، أمتلك سيارة خاصة">نعم، أمتلك سيارة خاصة</option>
-                    <option value="لا، لا أمتلك سيارة">لا، لا أمتلك سيارة</option>
+                    <option value="" data-i18n="optCarDefault">هل تمتلك سيارة خاصة؟</option>
+                    <option value="نعم، أمتلك سيارة خاصة" data-i18n="carYes">نعم، أمتلك سيارة خاصة</option>
+                    <option value="لا، لا أمتلك سيارة" data-i18n="carNo">لا، لا أمتلك سيارة</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>السيرة الذاتية (CV)</label>
+                <label data-i18n="lblCv">السيرة الذاتية (CV)</label>
                 <div class="file-upload-wrapper">
-                    <span class="file-upload-text" id="fileNameDisplay">اختر ملف السيرة الذاتية (PDF, DOC)</span>
+                    <span class="file-upload-text" id="fileNameDisplay" data-i18n="cvText">اختر ملف السيرة الذاتية (PDF, DOC)</span>
                     <input type="file" id="cvFile" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
                 </div>
             </div>
 
             <div class="form-group full-width">
-                <label>نبذة عن الخبرة السابقة</label>
-                <textarea id="experience" rows="3" placeholder="اكتب ملخص سريع لخبراتك السابقة في قطاع المقاولات والصيانة..."></textarea>
+                <label data-i18n="lblExp">نبذة عن الخبرة السابقة</label>
+                <textarea id="experience" rows="3" data-i18n-placeholder="phExp" placeholder="اكتب ملخص سريع لخبراتك السابقة في قطاع المقاولات والصيانة..."></textarea>
             </div>
         </div>
 
-        <button type="submit" class="submit-btn" id="submitBtn">إرسال الطلب الآن</button>
+        <button type="submit" class="submit-btn" id="submitBtn" data-i18n="btnSubmit">إرسال الطلب الآن</button>
     </form>
 
     <div class="support-footer">
-        <h3>للتواصل والدعم الفني</h3>
+        <h3 data-i18n="supportTitle">للتواصل والدعم الفني</h3>
         <div class="support-contacts">
             <div class="support-item">
-                <span>📞 الهاتف / واتساب:</span>
+                <span data-i18n="supportPhone">📞 الهاتف / واتساب:</span>
                 <a href="tel:66608077">66608077</a>
             </div>
             <div class="support-item">
-                <span>✉️ البريد الإلكتروني:</span>
+                <span data-i18n="supportEmail">✉️ البريد الإلكتروني:</span>
                 <a href="mailto:Tictac.qatar@gmail.com">Tictac.qatar@gmail.com</a>
             </div>
         </div>
@@ -405,10 +437,189 @@
 <script>
     const WEB_APP_URL = 'ضع_رابط_الـ_Web_App_هنا';
 
+    const translations = {
+        ar: {
+            dir: "rtl",
+            subHeader: "طلب انضمام لفريق العمل - دولة قطر",
+            secBasic: "المعلومات الأساسية",
+            lblName: "الاسم الكامل",
+            phName: "أدخل اسمك الثلاثي كما هو في الأوراق الرسمية",
+            lblAge: "العمر",
+            phAge: "مثال: 32",
+            lblGender: "الجنس",
+            optGenderDefault: "اختر الجنس...",
+            optMale: "ذكر",
+            optFemale: "أنثى",
+            lblNationality: "الجنسية",
+            optNatDefault: "اختر الجنسية...",
+            secContact: "بيانات التواصل",
+            lblPhone: "رقم الهاتف / واتساب (مع رمز الدولة)",
+            lblEmail: "البريد الإلكتروني",
+            secJob: "المسمى الوظيفي والتخصصات",
+            lblPosition: "اختر الوظيفة المستهدفة (تشمل الإدارية، الهندسية، الفنية، والعمالية)",
+            optPosDefault: "اختر التخصص الوظيفي...",
+            lblIqama: "حالة الإقامة في قطر",
+            optIqamaDefault: "اختر حالة الإقامة...",
+            iqama1: "إقامة قابلة للتحويل مع تصريح",
+            iqama2: "زيارة / تأشيرة مؤقتة",
+            iqama3: "خارج الدولة (تأشيرة جديدة)",
+            lblLicense: "رخصة القيادة",
+            optLicDefault: "اختر نوع الرخصة...",
+            lic1: "رخصة قيادة قطرية خفيفة سارية",
+            lic2: "رخصة قيادة قطرية ثقيلة / معدات",
+            lic3: "رخصة دولية / خليجية",
+            lic4: "بدون رخصة قيادة",
+            lblCar: "توفر السيارة",
+            optCarDefault: "هل تمتلك سيارة خاصة؟",
+            carYes: "نعم، أمتلك سيارة خاصة",
+            carNo: "لا، لا أمتلك سيارة",
+            lblCv: "السيرة الذاتية (CV)",
+            cvText: "اختر ملف السيرة الذاتية (PDF, DOC)",
+            lblExp: "نبذة عن الخبرة السابقة",
+            phExp: "اكتب ملخص سريع لخبراتك السابقة في قطاع المقاولات والصيانة...",
+            btnSubmit: "إرسال الطلب الآن",
+            supportTitle: "للتواصل والدعم الفني",
+            supportPhone: "📞 الهاتف / واتساب:",
+            supportEmail: "✉️ البريد الإلكتروني:",
+            msgSuccess: "تم إرسال طلبك بنجاح إلى شركة TIC TAC لصيانة المباني!",
+            msgError: "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.",
+            sendingText: "جاري إرسال الطلب...",
+            fileAttached: "تم إرفاق الملف: "
+        },
+        en: {
+            dir: "ltr",
+            subHeader: "Job Application - State of Qatar",
+            secBasic: "Basic Information",
+            lblName: "Full Name",
+            phName: "Enter your full name as in official documents",
+            lblAge: "Age",
+            phAge: "e.g., 32",
+            lblGender: "Gender",
+            optGenderDefault: "Select Gender...",
+            optMale: "Male",
+            optFemale: "Female",
+            lblNationality: "Nationality",
+            optNatDefault: "Select Nationality...",
+            secContact: "Contact Information",
+            lblPhone: "Phone / WhatsApp (with country code)",
+            lblEmail: "Email Address",
+            secJob: "Position & Specialization",
+            lblPosition: "Select Target Position (Administrative, Engineering, Technical, Labor)",
+            optPosDefault: "Select Specialization...",
+            lblIqama: "Residency Status in Qatar",
+            optIqamaDefault: "Select Residency Status...",
+            iqama1: "Transferable Residency with NOC",
+            iqama2: "Visit / Temporary Visa",
+            iqama3: "Outside Country (New Visa)",
+            lblLicense: "Driving License",
+            optLicDefault: "Select License Type...",
+            lic1: "Valid Qatari Light License",
+            lic2: "Valid Qatari Heavy / Equipment License",
+            lic3: "International / GCC License",
+            lic4: "No Driving License",
+            lblCar: "Car Availability",
+            optCarDefault: "Do you own a private car?",
+            carYes: "Yes, I own a private car",
+            carNo: "No, I do not own a car",
+            lblCv: "Curriculum Vitae (CV)",
+            cvText: "Select CV file (PDF, DOC)",
+            lblExp: "Previous Experience Summary",
+            phExp: "Write a quick summary of your previous experience in construction & maintenance...",
+            btnSubmit: "Submit Application Now",
+            supportTitle: "Contact & Technical Support",
+            supportPhone: "📞 Phone / WhatsApp:",
+            supportEmail: "✉️ Email:",
+            msgSuccess: "Your application has been successfully submitted to Tic Tac for Building Maintenance!",
+            msgError: "An error occurred while submitting, please try again later.",
+            sendingText: "Sending application...",
+            fileAttached: "File attached: "
+        },
+        ur: {
+            dir: "rtl",
+            subHeader: "نوکری کی درخواست - ریاست قطر",
+            secBasic: "بنیادی معلومات",
+            lblName: "पूरा نام / مکمل نام",
+            phName: "سرکاری دستاویزات کے مطابق اپنا پورا نام درج کریں",
+            lblAge: "عمر",
+            phAge: "مثال کے طور پر: 32",
+            lblGender: "صنف",
+            optGenderDefault: "صنف منتخب کریں...",
+            optMale: "مرد",
+            optFemale: "عورت",
+            lblNationality: "قومیت",
+            optNatDefault: "قومیت منتخب کریں...",
+            secContact: "رابطے کی معلومات",
+            lblPhone: "فون / واٹس ایپ نمبر (کنٹری کوڈ کے ساتھ)",
+            lblEmail: "ای میل ایڈریس",
+            secJob: "مطلوبہ عہدہ اور مہارت",
+            lblPosition: "مطلوبہ پوزیشن منتخب کریں (انتظامی، انجینئرنگ، تکنیکی، لیبر)",
+            optPosDefault: "خصوصیت منتخب کریں...",
+            lblIqama: "قطر میں اقامہ کی حیثیت",
+            optIqamaDefault: "اقامہ کی حیثیت منتخب کریں...",
+            iqama1: "قابل منتقلی اقامہ (NOC کے ساتھ)",
+            iqama2: "وزیٹ / عارضی ویزا",
+            iqama3: "مملکت سے باہر (نیا ویزا)",
+            lblLicense: "ڈرائیونگ لائسنس",
+            optLicDefault: "لائسنس کی قسم منتخب کریں...",
+            lic1: "قطری ہلکا لائسنس (کارآمد)",
+            lic2: "قطری بھاری / مشینری لائسنس",
+            lic3: "بین الاقوامی / جی سی سی لائسنس",
+            lic4: "ڈرائیونگ لائسنس نہیں ہے",
+            lblCar: "گاڑی کی دستیابی",
+            optCarDefault: "کیا آپ کے پاس ذاتی گاڑی ہے؟",
+            carYes: "ہاں، میرے پاس ذاتی گاڑی ہے",
+            carNo: "نہیں، میرے پاس گاڑی نہیں ہے",
+            lblCv: "کوائف نامہ (CV)",
+            cvText: "سی وی فائل منتخب کریں (PDF, DOC)",
+            lblExp: "سابقہ تجربہ کا خلاصہ",
+            phExp: "تعمیراتی اور مینٹیننس کے شعبے میں اپنے سابقہ تجربے کا خلاصہ لکھیں...",
+            btnSubmit: "درخواست ابھی ارسال کریں",
+            supportTitle: "رابطہ اور تکنیکی مدد",
+            supportPhone: "📞 فون / واٹس ایپ:",
+            supportEmail: "✉️ ای میل:",
+            msgSuccess: "آپ کی درخواست TIC TAC بلڈنگ مینٹیننس کو کامیابی سے بھیج دی گئی ہے!",
+            msgError: "بھیجنے میں خرابی پیش آئی، براہ کرم بعد میں دوبارہ کوشش کریں۔",
+            sendingText: "درخواست بھیجی جا رہی ہے...",
+            fileAttached: "منسلک فائل: "
+        }
+    };
+
+    let currentLang = 'ar';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+        
+        document.getElementById('htmlTag').setAttribute('lang', lang);
+        document.getElementById('htmlTag').setAttribute('dir', t.dir);
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        document.getElementById('subHeader').textContent = t.subHeader;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                el.textContent = t[key];
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (t[key]) {
+                el.placeholder = t[key];
+            }
+        });
+    }
+
     function updateFileName(input) {
         const display = document.getElementById('fileNameDisplay');
+        const t = translations[currentLang];
         if (input.files.length > 0) {
-            display.textContent = "تم إرفاق الملف: " + input.files[0].name;
+            display.textContent = t.fileAttached + input.files[0].name;
             display.style.color = "#1e3a8a";
             display.style.fontWeight = "700";
         }
@@ -416,9 +627,10 @@
 
     async function submitApplication(e) {
         e.preventDefault();
+        const t = translations[currentLang];
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.textContent = 'جاري إرسال الطلب...';
+        btn.textContent = t.sendingText;
 
         const fileInput = document.getElementById('cvFile');
         let cvData = '';
@@ -459,15 +671,15 @@
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(newApplicant)
             });
-            alert('تم إرسال طلبك بنجاح إلى شركة TIC TAC لصيانة المباني!');
+            alert(t.msgSuccess);
             document.getElementById('jobForm').reset();
-            document.getElementById('fileNameDisplay').textContent = 'اختر ملف السيرة الذاتية (PDF, DOC)';
+            document.getElementById('fileNameDisplay').textContent = t.cvText;
             document.getElementById('fileNameDisplay').style.color = 'var(--text-muted)';
         } catch (error) {
-            alert('حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.');
+            alert(t.msgError);
         } finally {
             btn.disabled = false;
-            btn.textContent = 'إرسال الطلب الآن';
+            btn.textContent = t.btnSubmit;
         }
     }
 </script>
