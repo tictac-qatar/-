@@ -56,6 +56,22 @@
             font-weight: 800;
         }
 
+        .refresh-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .refresh-btn:hover {
+            background: #1d4ed8;
+        }
+
         .filters-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -193,6 +209,7 @@
 <div class="admin-wrapper">
     <div class="admin-header">
         <h1>لوحة التحكم الإدارية - TIC TAC</h1>
+        <button class="refresh-btn" onclick="fetchCloudData()">🔄 تحديث البيانات الآن</button>
     </div>
 
     <div class="filters-container">
@@ -276,11 +293,14 @@
 
     async function fetchCloudData() {
         try {
-            let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            // إضافة رقم عشوائي لمنع المتصفح من حفظ نسخة قديمة (Cache)
+            let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest?t=${new Date().getTime()}`, {
                 headers: { 'X-Master-Key': '$2a$10$vNqjH1/K9sXz7m3gXvW8UeR8xQ8ZqQyqYq8xQ8ZqQyqYq8xQ8ZqQy' }
             });
             let data = await response.json();
-            globalApplicants = data.record || [];
+            if(data && data.record) {
+                globalApplicants = Array.isArray(data.record) ? data.record : [];
+            }
         } catch (e) {
             globalApplicants = JSON.parse(localStorage.getItem('ticTacApplicants')) || [];
         }
@@ -379,10 +399,9 @@
         });
     }
 
-    // جلب البيانات عند فتح الصفحة والتحديث التلقائي كل 5 ثوانٍ
     window.onload = function() {
         fetchCloudData();
-        setInterval(fetchCloudData, 5000);
+        setInterval(fetchCloudData, 5000); // تحديث تلقائي كل 5 ثوانٍ
     };
 </script>
 </body>
