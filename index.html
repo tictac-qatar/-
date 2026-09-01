@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الانضمام لفريق العمل - TIC TAC</title>
+    <title>Tic Tac for building maintenance</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
         
@@ -266,9 +266,9 @@
 
 <div class="form-container">
     <div class="lang-switcher">
-        <button type="button" class="lang-btn active" onclick="setLanguage('ar')">عربي</button>
-        <button type="button" class="lang-btn" onclick="setLanguage('en')">English</button>
-        <button type="button" class="lang-btn" onclick="setLanguage('ur')">اردو</button>
+        <button type="button" class="lang-btn active" onclick="setLanguage('ar', event)">عربي</button>
+        <button type="button" class="lang-btn" onclick="setLanguage('en', event)">English</button>
+        <button type="button" class="lang-btn" onclick="setLanguage('ur', event)">اردو</button>
     </div>
 
     <div class="brand-header">
@@ -538,7 +538,7 @@
             dir: "rtl",
             subHeader: "نوکری کی درخواست - ریاست قطر",
             secBasic: "بنیادی معلومات",
-            lblName: "पूरा نام / مکمل نام",
+            lblName: "पूरा नाम / مکمل نام",
             phName: "سرکاری دستاویزات کے مطابق اپنا پورا نام درج کریں",
             lblAge: "عمر",
             phAge: "مثال کے طور پر: 32",
@@ -586,7 +586,7 @@
 
     let currentLang = 'ar';
 
-    function setLanguage(lang) {
+    function setLanguage(lang, event) {
         currentLang = lang;
         const t = translations[lang];
         
@@ -596,7 +596,9 @@
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
         });
-        event.target.classList.add('active');
+        if (event && event.target) {
+            event.target.classList.add('active');
+        }
 
         document.getElementById('subHeader').textContent = t.subHeader;
 
