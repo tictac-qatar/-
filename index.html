@@ -276,7 +276,7 @@
         <p id="subHeader">طلب انضمام لفريق العمل - دولة قطر</p>
     </div>
 
-    <form id="jobForm" onsubmit="submitApplication(event)">
+    <form id="jobForm" onsubmit="submitToWhatsApp(event)">
         
         <div class="section-title" data-i18n="secBasic">المعلومات الأساسية</div>
         <div class="form-grid">
@@ -416,7 +416,7 @@
             </div>
         </div>
 
-        <button type="submit" class="submit-btn" id="submitBtn" data-i18n="btnSubmit">إرسال الطلب الآن</button>
+        <button type="submit" class="submit-btn" id="submitBtn" data-i18n="btnSubmit">إرسال الطلب عبر الواتساب</button>
     </form>
 
     <div class="support-footer">
@@ -435,8 +435,6 @@
 </div>
 
 <script>
-    const WEB_APP_URL = 'ضع_رابط_الـ_Web_App_هنا';
-
     const translations = {
         ar: {
             dir: "rtl",
@@ -477,13 +475,10 @@
             cvText: "اختر ملف السيرة الذاتية (PDF, DOC)",
             lblExp: "نبذة عن الخبرة السابقة",
             phExp: "اكتب ملخص سريع لخبراتك السابقة في قطاع المقاولات والصيانة...",
-            btnSubmit: "إرسال الطلب الآن",
+            btnSubmit: "إرسال الطلب عبر الواتساب",
             supportTitle: "للتواصل والدعم الفني",
             supportPhone: "📞 الهاتف / واتساب:",
             supportEmail: "✉️ البريد الإلكتروني:",
-            msgSuccess: "تم إرسال طلبك بنجاح إلى شركة TIC TAC لصيانة المباني!",
-            msgError: "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.",
-            sendingText: "جاري إرسال الطلب...",
             fileAttached: "تم إرفاق الملف: "
         },
         en: {
@@ -525,13 +520,10 @@
             cvText: "Select CV file (PDF, DOC)",
             lblExp: "Previous Experience Summary",
             phExp: "Write a quick summary of your previous experience in construction & maintenance...",
-            btnSubmit: "Submit Application Now",
+            btnSubmit: "Submit Application via WhatsApp",
             supportTitle: "Contact & Technical Support",
             supportPhone: "📞 Phone / WhatsApp:",
             supportEmail: "✉️ Email:",
-            msgSuccess: "Your application has been successfully submitted to Tic Tac for Building Maintenance!",
-            msgError: "An error occurred while submitting, please try again later.",
-            sendingText: "Sending application...",
             fileAttached: "File attached: "
         },
         ur: {
@@ -573,13 +565,10 @@
             cvText: "سی وی فائل منتخب کریں (PDF, DOC)",
             lblExp: "سابقہ تجربہ کا خلاصہ",
             phExp: "تعمیراتی اور مینٹیننس کے شعبے میں اپنے سابقہ تجربے کا خلاصہ لکھیں...",
-            btnSubmit: "درخواست ابھی ارسال کریں",
+            btnSubmit: "واٹس ایپ کے ذریعے درخواست بھیجیں",
             supportTitle: "رابطہ اور تکنیکی مدد",
             supportPhone: "📞 فون / واٹس ایپ:",
             supportEmail: "✉️ ای میل:",
-            msgSuccess: "آپ کی درخواست TIC TAC بلڈنگ مینٹیننس کو کامیابی سے بھیج دی گئی ہے!",
-            msgError: "بھیجنے میں خرابی پیش آئی، براہ کرم بعد میں دوبارہ کوشش کریں۔",
-            sendingText: "درخواست بھیجی جا رہی ہے...",
             fileAttached: "منسلک فائل: "
         }
     };
@@ -627,62 +616,44 @@
         }
     }
 
-    async function submitApplication(e) {
+    function submitToWhatsApp(e) {
         e.preventDefault();
-        const t = translations[currentLang];
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.textContent = t.sendingText;
 
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const gender = document.getElementById('gender').value;
+        const nationality = document.getElementById('nationality').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const position = document.getElementById('position').value;
+        const iqama = document.getElementById('iqamaStatus').value;
+        const license = document.getElementById('licenseStatus').value;
+        const car = document.getElementById('hasCar').value;
+        const experience = document.getElementById('experience').value || 'لا يوجد';
         const fileInput = document.getElementById('cvFile');
-        let cvData = '';
-        let cvName = '';
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            cvName = file.name;
-            cvData = await new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.readAsDataURL(file);
-            });
-        }
+        const cvFileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'لم يتم إرفاق ملف';
 
-        const emailVal = document.getElementById('email').value;
-        const phoneVal = document.getElementById('phone').value;
-        const contactInfo = `الهاتف: ${phoneVal} | الإيميل: ${emailVal}`;
-        const qatarDetails = `الإقامة: ${document.getElementById('iqamaStatus').value} | الرخصة: ${document.getElementById('licenseStatus').value} | السيارة: ${document.getElementById('hasCar').value}`;
+        // صياغة رسالة الواتساب بشكل مرتب ومنمق
+        let message = `📋 *طلب انضمام جديد - شركة Tic Tac*\n\n`;
+        message += `👤 *الاسم:* ${name}\n`;
+        message += `🎂 *العمر:* ${age} | *الجنس:* ${gender}\n`;
+        message += `🌍 *الجنسية:* ${nationality}\n`;
+        message += `📞 *الهاتف/واتساب:* ${phone}\n`;
+        message += `✉️ *الإيميل:* ${email}\n\n`;
+        message += `💼 *الوظيفة المطلوبة:* ${position}\n`;
+        message += `🏢 *الإقامة:* ${iqama}\n`;
+        message += `🚗 *الرخصة:* ${license} | *السيارة:* ${car}\n`;
+        message += `📄 *ملف السيرة الذاتية (CV):* ${cvFileName}\n\n`;
+        message += `📝 *الخبرة:\n${experience}`;
 
-        const newApplicant = {
-            name: document.getElementById('name').value,
-            age: document.getElementById('age').value,
-            gender: document.getElementById('gender').value,
-            nationality: document.getElementById('nationality').value,
-            phone: contactInfo, 
-            position: document.getElementById('position').value,
-            experience: document.getElementById('experience').value,
-            qatarId: qatarDetails,
-            cvData: cvData,
-            cvName: cvName,
-            date: new Date().toISOString()
-        };
+        // رقم الواتساب المستهدف الخاص بك
+        const targetNumber = "97466608077";
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodedMessage}`;
 
-        try {
-            await fetch(WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(newApplicant)
-            });
-            alert(t.msgSuccess);
-            document.getElementById('jobForm').reset();
-            document.getElementById('fileNameDisplay').textContent = t.cvText;
-            document.getElementById('fileNameDisplay').style.color = 'var(--text-muted)';
-        } catch (error) {
-            alert(t.msgError);
-        } finally {
-            btn.disabled = false;
-            btn.textContent = t.btnSubmit;
-        }
+        // فتح الواتساب مباشرة بالرسالة الجاهزة
+        window.open(whatsappUrl, '_blank');
     }
 </script>
 
