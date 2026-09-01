@@ -8,20 +8,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
         
         :root {
-            --bg-deep: #ffffff;
-            --surface: #f8fafc;
-            --surface-card: #ffffff;
-            --accent: #1e3a8a;
-            --accent-glow: rgba(30, 58, 138, 0.15);
-            --border: #e2e8f0;
-            --border-focus: #1e3a8a;
+            --bg-page: #fdfbf7;         /* خلفية بيج هادئة مستوحاة من اللوجو */
+            --surface-card: #ffffff;    /* أبيض نقي للحقول والكرت */
+            --primary-dark: #132235;    /* كحلي داكن جداً للخطوط والعناوين */
+            --accent-copper: #b86a30;   /* برتقالي نحاسي دافئ (لون السهم في اللوجو) */
+            --accent-glow: rgba(184, 106, 48, 0.12);
+            --border: #e7e2d8;          /* حدود ناعمة متناسقة مع الخلفية البيج */
+            --border-focus: #b86a30;
             --radius: 16px;
         }
 
         body {
             font-family: 'Tajawal', 'Traditional Arabic', sans-serif;
-            background-color: var(--bg-deep);
-            color: #0f172a;
+            background-color: var(--bg-page);
+            color: var(--primary-dark);
             margin: 0;
             padding: 40px 20px;
             min-height: 100vh;
@@ -34,9 +34,9 @@
         .form-container {
             width: 100%;
             max-width: 820px;
-            background: var(--surface);
+            background: var(--surface-card);
             border-radius: var(--radius);
-            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 35px -5px rgba(19, 34, 53, 0.08);
             border: 1.5px solid var(--border);
             padding: 45px;
             box-sizing: border-box;
@@ -48,8 +48,8 @@
             content: '';
             position: absolute;
             top: 0; right: 0; left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-dark), var(--accent-copper));
         }
 
         .lang-switcher {
@@ -60,7 +60,7 @@
         }
 
         .lang-btn {
-            background: var(--surface-card);
+            background: var(--bg-page);
             border: 1.5px solid var(--border);
             padding: 6px 14px;
             border-radius: 8px;
@@ -73,9 +73,9 @@
         }
 
         .lang-btn.active, .lang-btn:hover {
-            background: #1e3a8a;
+            background: var(--primary-dark);
             color: #ffffff;
-            border-color: #1e3a8a;
+            border-color: var(--primary-dark);
         }
 
         .brand-header {
@@ -84,27 +84,33 @@
         }
 
         .brand-logo-text {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 900;
-            color: #1e3a8a;
+            color: var(--primary-dark);
             letter-spacing: 1px;
             margin-bottom: 6px;
         }
 
+        .brand-logo-text span {
+            color: var(--accent-copper);
+        }
+
         .brand-header p {
-            color: #64748b;
+            color: var(--accent-copper);
             font-size: 0.95rem;
             margin: 0;
-            font-weight: 500;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .section-title {
             font-size: 1.05rem;
             font-weight: 700;
-            color: #1e3a8a;
-            border-bottom: 1.5px solid var(--border);
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--accent-copper);
             padding-bottom: 8px;
             margin: 30px 0 20px 0;
+            display: inline-block;
         }
 
         .form-grid {
@@ -126,7 +132,7 @@
         label {
             font-size: 0.88rem;
             font-weight: 700;
-            color: #0f172a;
+            color: var(--primary-dark);
         }
 
         input, select, textarea {
@@ -135,8 +141,8 @@
             border: 1.5px solid var(--border);
             border-radius: 12px;
             font-size: 0.95rem;
-            background: var(--surface-card);
-            color: #0f172a;
+            background: #ffffff;
+            color: var(--primary-dark);
             font-family: inherit;
             outline: none;
             box-sizing: border-box;
@@ -155,7 +161,7 @@
             border-radius: 12px;
             padding: 24px;
             text-align: center;
-            background: var(--surface-card);
+            background: var(--bg-page);
             cursor: pointer;
             transition: all 0.25s ease;
         }
@@ -174,7 +180,7 @@
         }
 
         .submit-btn {
-            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            background: linear-gradient(135deg, var(--primary-dark), #1d3557);
             color: #fff;
             border: none;
             width: 100%;
@@ -186,11 +192,11 @@
             font-family: inherit;
             margin-top: 35px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px -5px rgba(30, 58, 138, 0.25);
+            box-shadow: 0 10px 20px -5px rgba(19, 34, 53, 0.2);
         }
 
         .submit-btn:hover {
-            background: linear-gradient(135deg, #1e40af, #1d4ed8);
+            background: linear-gradient(135deg, var(--accent-copper), #9c5825);
             transform: translateY(-2px);
         }
 
@@ -203,7 +209,7 @@
 
         .support-footer h3 {
             font-size: 1.1rem;
-            color: #1e3a8a;
+            color: var(--primary-dark);
             margin-bottom: 12px;
             font-weight: 700;
         }
@@ -225,8 +231,9 @@
         }
 
         .support-item a {
-            color: #1e3a8a;
+            color: var(--accent-copper);
             text-decoration: none;
+            font-weight: 700;
         }
 
         @media (max-width: 768px) {
@@ -247,13 +254,12 @@
     </div>
 
     <div class="brand-header">
-        <h1 class="brand-logo-text">Tic Tac for building maintenance</h1>
+        <h1 class="brand-logo-text">Tic Tac <span>صيانة المباني</span></h1>
         <p id="subHeader">طلب انضمام لفريق العمل - دولة قطر</p>
     </div>
 
     <form id="jobForm" action="https://formsubmit.co/Tictac.qatar@gmail.com" method="POST" enctype="multipart/form-data" onsubmit="sendToWhatsApp(event)">
         
-        <!-- إعدادات تخصيص جدول الإيميل -->
         <input type="hidden" name="_subject" value="📋 طلب انضمام جديد - شركة Tic Tac">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -585,7 +591,7 @@
         const display = document.getElementById('fileNameDisplay');
         if (input.files.length > 0) {
             display.textContent = "✓ " + input.files[0].name;
-            display.style.color = "#1e3a8a";
+            display.style.color = "var(--accent-copper)";
             display.style.fontWeight = "700";
         }
     }
