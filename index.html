@@ -19,7 +19,7 @@
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Tajawal', 'Traditional Arabic', sans-serif;
             background-color: var(--bg-deep);
             color: #0f172a;
             margin: 0;
@@ -253,10 +253,12 @@
 
     <form id="jobForm" action="https://formsubmit.co/Tictac.qatar@gmail.com" method="POST" enctype="multipart/form-data" onsubmit="sendToWhatsApp(event)">
         
-        <!-- إعدادات تنظيم الإيميل الوارد -->
+        <!-- إعدادات تخصيص جدول الإيميل -->
         <input type="hidden" name="_subject" value="📋 طلب انضمام جديد - شركة Tic Tac">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_autoresponse" value="مرحباً بك، تم استلام طلب انضمامك لشركة Tic Tac بنجاح وسقوم مراجعة سيرتك الذاتية والتواصل معك قريباً.">
+        <input type="hidden" name="_properties" value="الاسم الكامل (Full Name), العمر (Age), الجنس (Gender), الجنسية (Nationality), رقم الهاتف والواتساب (Phone), البريد الإلكتروني (Email), الوظيفة المستهدفة (Position), حالة الإقامة في قطر (Iqama Status), رخصة القيادة (Driving License), توفر سيارة خاصة (Has Car), نبذة عن الخبرة (Experience)">
 
         <div class="section-title" data-i18n="secBasic">المعلومات الأساسية</div>
         <div class="form-grid">
@@ -589,7 +591,6 @@
     }
 
     function sendToWhatsApp(event) {
-        // جمع البيانات من الحقول وترتيبها بشكل جدول أنيق للواتساب
         const name = document.getElementById('fullName').value;
         const age = document.getElementById('age').value;
         const gender = document.getElementById('gender').value;
@@ -616,11 +617,9 @@
             `📝 *الخبرة:* ${exp}\n\n` +
             `_تم إرسال نسخة من الطلب إلى الإيميل._`;
 
-        // رقم الوظيفة أو رقم الأدمن الخاص بك
         const adminPhone = "97466608077";
         const encodedMessage = encodeURIComponent(whatsappMessage);
         
-        // فتح تطبيق الواتساب برسالة مرتبة لرقمك الشخصي
         window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
     }
 </script>
