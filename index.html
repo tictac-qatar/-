@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac for building maintenance</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+        /* استدعاء خط لوسيل الرسمي من مصادر خطوط الويب */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap');
         
         :root {
-            --bg-page: #fdfbf7;         /* خلفية بيج هادئة مستوحاة من اللوجو */
-            --surface-card: #ffffff;    /* أبيض نقي للحقول والكرت */
-            --primary-dark: #132235;    /* كحلي داكن جداً للخطوط والعناوين */
-            --accent-copper: #b86a30;   /* برتقالي نحاسي دافئ (لون السهم في اللوجو) */
+            --bg-page: #fdfbf7;
+            --surface-card: #ffffff;
+            --primary-dark: #132235;
+            --accent-copper: #b86a30;
             --accent-glow: rgba(184, 106, 48, 0.12);
-            --border: #e7e2d8;          /* حدود ناعمة متناسقة مع الخلفية البيج */
+            --border: #e7e2d8;
             --border-focus: #b86a30;
             --radius: 16px;
         }
 
         body {
-            font-family: 'Tajawal', 'Traditional Arabic', sans-serif;
+            /* استخدام خط لوسيل واعتماد الكايرو/التجوال كبدائل هندسية قريبة جداً لخطوط المؤسسات القطرية */
+            font-family: 'Lusail', 'Cairo', 'Tajawal', sans-serif;
             background-color: var(--bg-page);
             color: var(--primary-dark);
             margin: 0;
@@ -29,6 +31,7 @@
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
+            font-weight: 700; /* جعل الخط ثقيل وبارز في كل الصفحة */
         }
 
         .form-container {
@@ -65,7 +68,7 @@
             padding: 6px 14px;
             border-radius: 8px;
             font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: 900;
             color: #64748b;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -84,7 +87,7 @@
         }
 
         .brand-logo-text {
-            font-size: 1.9rem;
+            font-size: 2.1rem;
             font-weight: 900;
             color: var(--primary-dark);
             letter-spacing: 1px;
@@ -97,17 +100,17 @@
 
         .brand-header p {
             color: var(--accent-copper);
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin: 0;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
 
         .section-title {
-            font-size: 1.05rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 900;
             color: var(--primary-dark);
-            border-bottom: 2px solid var(--accent-copper);
+            border-bottom: 2.5px solid var(--accent-copper);
             padding-bottom: 8px;
             margin: 30px 0 20px 0;
             display: inline-block;
@@ -130,17 +133,18 @@
         }
 
         label {
-            font-size: 0.88rem;
-            font-weight: 700;
+            font-size: 0.92rem;
+            font-weight: 900;
             color: var(--primary-dark);
         }
 
         input, select, textarea {
             width: 100%;
             padding: 14px 16px;
-            border: 1.5px solid var(--border);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            font-size: 0.95rem;
+            font-size: 0.98rem;
+            font-weight: 700;
             background: #ffffff;
             color: var(--primary-dark);
             font-family: inherit;
@@ -175,8 +179,8 @@
 
         .file-upload-text {
             color: #64748b;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.92rem;
+            font-weight: 700;
         }
 
         .submit-btn {
@@ -186,8 +190,8 @@
             width: 100%;
             padding: 16px;
             border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.15rem;
+            font-weight: 900;
             cursor: pointer;
             font-family: inherit;
             margin-top: 35px;
@@ -211,7 +215,7 @@
             font-size: 1.1rem;
             color: var(--primary-dark);
             margin-bottom: 12px;
-            font-weight: 700;
+            font-weight: 900;
         }
 
         .support-contacts {
@@ -222,9 +226,9 @@
         }
 
         .support-item {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             color: #64748b;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -233,7 +237,7 @@
         .support-item a {
             color: var(--accent-copper);
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 900;
         }
 
         @media (max-width: 768px) {
@@ -260,27 +264,28 @@
 
     <form id="jobForm" action="https://formsubmit.co/Tictac.qatar@gmail.com" method="POST" enctype="multipart/form-data" onsubmit="sendToWhatsApp(event)">
         
-        <input type="hidden" name="_subject" value="📋 طلب انضمام جديد - شركة Tic Tac">
+        <input type="hidden" name="_subject" value="📋 New Job Application - Tic Tac">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_autoresponse" value="مرحباً بك، تم استلام طلب انضمامك لشركة Tic Tac بنجاح وسقوم مراجعة سيرتك الذاتية والتواصل معك قريباً.">
-        <input type="hidden" name="_properties" value="الاسم الكامل (Full Name), العمر (Age), الجنس (Gender), الجنسية (Nationality), رقم الهاتف والواتساب (Phone), البريد الإلكتروني (Email), الوظيفة المستهدفة (Position), حالة الإقامة في قطر (Iqama Status), رخصة القيادة (Driving License), توفر سيارة خاصة (Has Car), نبذة عن الخبرة (Experience)">
+        
+        <input type="hidden" name="_properties" value="Full_Name, Age, Gender, Nationality, Phone, Email, Target_Position, Iqama_Status, Driving_License, Has_Car, Experience">
 
         <div class="section-title" data-i18n="secBasic">المعلومات الأساسية</div>
         <div class="form-grid">
             <div class="form-group full-width">
                 <label data-i18n="lblName">الاسم الكامل</label>
-                <input type="text" id="fullName" name="الاسم الكامل (Full Name)" required data-i18n-placeholder="phName" placeholder="أدخل اسمك الثلاثي كما هو في الأوراق الرسمية">
+                <input type="text" id="fullName" name="Full_Name" required data-i18n-placeholder="phName" placeholder="أدخل اسمك الثلاثي كما هو في الأوراق الرسمية">
             </div>
 
             <div class="form-group">
                 <label data-i18n="lblAge">العمر</label>
-                <input type="number" id="age" name="العمر (Age)" required data-i18n-placeholder="phAge" placeholder="مثال: 32">
+                <input type="number" id="age" name="Age" required data-i18n-placeholder="phAge" placeholder="مثال: 32">
             </div>
 
             <div class="form-group">
                 <label data-i18n="lblGender">الجنس</label>
-                <select id="gender" name="الجنس (Gender)" required>
+                <select id="gender" name="Gender" required>
                     <option value="" data-i18n="optGenderDefault">اختر الجنس...</option>
                     <option value="ذكر" data-i18n="optMale">ذكر</option>
                     <option value="أنثى" data-i18n="optFemale">أنثى</option>
@@ -289,7 +294,7 @@
 
             <div class="form-group">
                 <label data-i18n="lblNationality">الجنسية</label>
-                <select id="nationality" name="الجنسية (Nationality)" required>
+                <select id="nationality" name="Nationality" required>
                     <option value="" data-i18n="optNatDefault">اختر الجنسية...</option>
                     <option value="قطري">قطري / Qatari</option>
                     <option value="مصري">مصري / Egyptian</option>
@@ -317,12 +322,12 @@
         <div class="form-grid">
             <div class="form-group">
                 <label data-i18n="lblPhone">رقم الهاتف / واتساب (مع رمز الدولة)</label>
-                <input type="text" id="phone" name="رقم الهاتف والواتساب (Phone)" required placeholder="+974 xxxxxxxx">
+                <input type="text" id="phone" name="Phone" required placeholder="+974 xxxxxxxx">
             </div>
 
             <div class="form-group">
                 <label data-i18n="lblEmail">البريد الإلكتروني</label>
-                <input type="email" id="email" name="البريد الإلكتروني (Email)" required placeholder="name@example.com">
+                <input type="email" id="email" name="Email" required placeholder="name@example.com">
             </div>
         </div>
 
@@ -330,7 +335,7 @@
         <div class="form-grid">
             <div class="form-group full-width">
                 <label data-i18n="lblPosition">اختر الوظيفة المستهدفة (تشمل الإدارية، الهندسية، الفنية، والعمالية)</label>
-                <select id="position" name="الوظيفة المستهدفة (Position)" required>
+                <select id="position" name="Target_Position" required>
                     <option value="" data-i18n="optPosDefault">اختر التخصص الوظيفي...</option>
                     <option value="مدير مشروع (مقاولات)">مدير مشروع (مقاولات) / Project Manager</option>
                     <option value="مدير إنشاءات وصيانة عامة">مدير إنشاءات وصيانة عامة / Construction & Maintenance Manager</option>
@@ -362,7 +367,7 @@
 
             <div class="form-group">
                 <label data-i18n="lblIqama">حالة الإقامة في قطر</label>
-                <select id="iqama" name="حالة الإقامة في قطر (Iqama Status)" required>
+                <select id="iqama" name="Iqama_Status" required>
                     <option value="" data-i18n="optIqamaDefault">اختر حالة الإقامة...</option>
                     <option value="إقامة قابلة للتحويل مع تصريح" data-i18n="iqama1">إقامة قابلة للتحويل مع تصريح</option>
                     <option value="زيارة / تأشيرة مؤقتة" data-i18n="iqama2">زيارة / تأشيرة مؤقتة</option>
@@ -372,7 +377,7 @@
 
             <div class="form-group">
                 <label data-i18n="lblLicense">رخصة القيادة</label>
-                <select id="license" name="رخصة القيادة (Driving License)" required>
+                <select id="license" name="Driving_License" required>
                     <option value="" data-i18n="optLicDefault">اختر نوع الرخصة...</option>
                     <option value="رخصة قيادة قطرية خفيفة سارية" data-i18n="lic1">رخصة قيادة قطرية خفيفة سارية</option>
                     <option value="رخصة قيادة قطرية ثقيلة / معدات" data-i18n="lic2">رخصة قيادة قطرية ثقيلة / معدات</option>
@@ -383,7 +388,7 @@
 
             <div class="form-group">
                 <label data-i18n="lblCar">توفر السيارة</label>
-                <select id="car" name="توفر سيارة خاصة (Has Car)" required>
+                <select id="car" name="Has_Car" required>
                     <option value="" data-i18n="optCarDefault">هل تمتلك سيارة خاصة؟</option>
                     <option value="نعم، أمتلك سيارة خاصة" data-i18n="carYes">نعم، أمتلك سيارة خاصة</option>
                     <option value="لا، لا أمتلك سيارة" data-i18n="carNo">لا، لا أمتلك سيارة</option>
@@ -400,7 +405,7 @@
 
             <div class="form-group full-width">
                 <label data-i18n="lblExp">نبذة عن الخبرة السابقة</label>
-                <textarea id="experience" name="نبذة عن الخبرة (Experience)" rows="3" data-i18n-placeholder="phExp" placeholder="اكتب ملخص سريع لخبراتك السابقة في قطاع المقاولات والصيانة..."></textarea>
+                <textarea id="experience" name="Experience" rows="3" data-i18n-placeholder="phExp" placeholder="اكتب ملخص سريع لخبراتك السابقة في قطاع المقاولات والصيانة..."></textarea>
             </div>
         </div>
 
@@ -592,7 +597,7 @@
         if (input.files.length > 0) {
             display.textContent = "✓ " + input.files[0].name;
             display.style.color = "var(--accent-copper)";
-            display.style.fontWeight = "700";
+            display.style.fontWeight = "900";
         }
     }
 
